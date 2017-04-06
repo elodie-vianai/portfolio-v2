@@ -1,0 +1,97 @@
+{% extends 'Layout/index.html.twig' %}
+
+
+
+{% block title %}
+   Amdin Portfolio
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/index.css">
+{% endblock %}
+
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+
+
+{% block body %}
+
+    <!-- SECTION ACCROCHE !-->
+    <section class="row">
+        <div class="col-lg-3">
+            <img src="../images/admin.png" alt="administration">
+        </div>
+        <div class="col-lg-9 text-center">
+            <h1>Partie administration</h1>
+            <p>
+                Bienvenue sur la partie administration ! <br>
+                C'est ici que tu peux mettre à jour ton portfolio. <BR>
+                Have fun :)
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION PROJETS !-->
+    <section class="row">
+        <h2>Mes projets</h2>
+        <div id="my_carousel" class="carousel slide" data-ride="carousel">
+            <!-- Bulles -->
+            <ol class="carousel-indicators">
+                <li data-target="#my_carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#my_carousel" data-slide-to="1"></li>
+                <li data-target="#my_carousel" data-slide-to="2"></li>
+                <li data-target="#my_carousel" data-slide-to="3"></li>
+            </ol>
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <!-- NEW PAGE -->
+                <div class="item active">
+                    <div class="carousel-page">
+                        <img src="../images/projets/Portfolio.png" class="img-responsive img-rounded" />
+                    </div>
+                    <div class="carousel-caption">Projet Porfolio</div>
+                </div>
+                <!-- NEW PAGE -->
+                <div class="item">
+                    <div class="carousel-page">
+                        <img src="../images/projets/SiteSPNS.png" class="img-responsive img-rounded"/>
+                    </div>
+                    <div class="carousel-caption">Administration du site du SPNS</div>
+                </div>
+                <!-- NEW PAGE -->
+                <div class="item">
+                    <div class="carousel-page">
+                        <img src="../images/noImage.png" class="img-responsive img-rounded"/>
+                    </div>
+                    <div class="carousel-caption">Les voyages de Petit Louis</div>
+                </div>
+                <!-- NEW PAGE -->
+                <div class="item">
+                    <div class="carousel-page">
+                        <img src="../images/projets/EnModeSport.jpg" class="img-responsive img-rounded"
+                    </div>
+                    <div class="carousel-caption">Exposition En Mode Sport</div>
+                </div>
+            </div>
+            <!-- Contrôles -->
+            <a class="left carousel-control" href="#my_carousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#my_carousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

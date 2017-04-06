@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    {% block stylesheets %} {% endblock %}
+</head>
+
+<body>
+<div class="container">
+    {% block header %} {% endblock %}
+
+    <div class="row">
+        <div class="col-lg-1">
+            <button class="btn btn-primary" onclick="goBack()">Retour</button>
+        </div>
+        <div class="col-lg-11">
+            <h1> Détail du projet</h1>
+            <h3>{% block titreProjet %} {% endblock %}</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <img src="images/projets/{%  block imageProjet %} {% endblock %}" alt="image projet" class="center-block" id="imageProjet">
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <p><span class="element">Nom du projet :</span> {% block nomProjet %}{% endblock %}</p>
+        </div>
+        <div class="col-lg-5"></div>
+        <div class="col-lg-4">
+            <p><span class="element">Année de réalisation :</span> {%  block anneeProjet %} {% endblock %}</p>
+            <br/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p><span class="element">Description du projet :</span> {% block descriptionProjet %} {% endblock %}</p>
+            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p><span class="element">Technologies utilisées pour réaliser ce projet :</span></p>
+            <br/>
+        </div>
+    </div>
+    <div class="row">
+        {% block listeTechnologies %} {% endblock %}
+    </div>
+
+
+    {% block footer %} {% endblock %}
+</div>
+<script src="/lib/jquery/jquery-3.2.0.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    function goBack() {
+        window.history.go(-1);
+    }
+</script>
+    </body>
+</html>

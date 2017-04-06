@@ -1,0 +1,21 @@
+h1, h3 {
+    text-align: center;
+}
+
+h3 {
+    padding-bottom: 5%;
+}
+
+.element {
+    font-weight: bold;
+}
+
+#imageProjet {
+    max-width: 1000px;
+    margin-bottom: 5%;
+    border: 1px solid #125688;
+}
+
+.logosTechnos {
+    max-width: 100px;S
+}

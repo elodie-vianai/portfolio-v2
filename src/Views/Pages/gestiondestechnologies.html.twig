@@ -1,0 +1,126 @@
+{% extends 'Layout/gestion.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Technologies
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/gestion.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Gestion de mes technologies</h1>
+{% endblock %}
+
+{% block cheminAjouter %}
+    /admin/gestiondestechnologies
+{% endblock %}
+
+{% block nomBoutonAjouter %}
+    Ajouter une nouvelle technologie
+{% endblock %}
+
+{% block thead %}
+    <th>Nom technologie</th>
+    <th>Logo</th>
+{% endblock %}
+
+{% block tbody %}
+    <tr>
+        <td>HTML</td>
+        <td>
+            <img src="../images/logos/logoHTML.png" class="logos" alt="Logo technologie">
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>CSS</td>
+        <td>
+            <img src="../images/logos/logoCSS.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>PHP</td>
+        <td>
+            <img src="../images/logos/logoPHP.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Bootstrap</td>
+        <td>
+            <img src="../images/logos/logoBootstrap.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>JavaScript</td>
+        <td>
+            <img src="../images/logos/logoJavascript.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Slim</td>
+        <td>
+            <img src="../images/logos/logoSlim.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Twig</td>
+        <td>
+            <img src="../images/logos/logoTwig.jpg" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

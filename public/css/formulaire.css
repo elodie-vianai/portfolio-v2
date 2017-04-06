@@ -1,0 +1,25 @@
+h1{
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+}
+
+.espaceTitre {
+    padding-bottom: 5%;
+}
+
+.consigne {
+    padding-bottom: 5%;
+    color: red;
+    font-style: italic;
+}
+
+.form-control:required {
+    background: url(../images/asterisk.png) 98% center no-repeat #fff;
+}
+
+.form-group div {
+    padding-bottom: 1%;
+}

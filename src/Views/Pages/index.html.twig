@@ -1,0 +1,150 @@
+{% extends 'Layout/index.html.twig' %}
+
+
+
+{% block title %}
+    Elodie's Portfolio
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/index.css">
+{% endblock %}
+
+
+
+{% block header %}
+    {{ include("Layout/publicHeader.html.twig") }}
+{% endblock %}
+
+
+
+{% block body %}
+    <!--<h1>Bonjour {{ name }}</h1>!-->
+<!-- SECTION ACCROCHE !-->
+    <section class="row">
+        <div class="col-lg-3">
+            <img src="../images/me.jpg" alt="me" class="img-circle">
+        </div>
+        <div class="col-lg-9 text-center">
+            <h1>Elodie Vianai, développeuse web</h1>
+            <p>
+                Bienvenue sur mon portfolio ! <br>
+                Vous allez donc apprendre à me connaître un peu. <BR>
+                Bonne lecture :)
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION A PROPOS + ATOUTS !-->
+    <section class="row ">
+        <div class="col-lg-7" id="aboutMe">
+            <h2>A propos de moi</h2>
+            <p>
+                Je m'appelle Elodie Vianai, j'ai commencé le développement web pour développer ma propre application pour archiver des documents
+                familiaux puis une autre pour gérer les inscriptions dans mon club. C'est vite devenu un plaisir et une vocation. Etant curieuse de
+                nature, j'aime expérimenter, découvrir et apprendre.
+            </p>
+        </div>
+        <div class="col-lg-5" id="mesAtouts">
+            <h2>Mes atouts :</h2>
+            <br>
+            <ul>
+                <li>Sérieuse</li>
+                <li>Organisée</li>
+                <li>Curieuse</li>
+                <li>Motivée</li>
+                <li>Esprit d'équipe</li>
+            </ul>
+        </div>
+    </section>
+
+<!-- SECTION INTERETS !-->
+    <section class="row">
+        <h2>Mes intérêts</h2>
+        <br/> <br/>
+        <div class="col-lg-2">
+            <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+            <span>Technologies</span>
+        </div>
+        <div class="col-lg-2">
+            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+            <span>Univers du web</span>
+        </div>
+         <div class="col-lg-2">
+            <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
+            <span>Sports</span>
+        </div>
+         <div class="col-lg-2">
+            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+            <span>Photographie</span>
+        </div>
+         <div class="col-lg-2">
+            <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
+            <span>Voyages</span>
+        </div>
+         <div class="col-lg-2">
+            <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+            <span>Films & séries</span>
+        </div>
+    </section>
+
+<!-- SECTION PROJETS !-->
+    <section class="row">
+        <h2>Mes projets</h2>
+        <div id="my_carousel" class="carousel slide" data-ride="carousel">
+            <!-- Bulles -->
+            <ol class="carousel-indicators">
+                <li data-target="#my_carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#my_carousel" data-slide-to="1"></li>
+                <li data-target="#my_carousel" data-slide-to="2"></li>
+                <li data-target="#my_carousel" data-slide-to="3"></li>
+            </ol>
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <!-- NEW PAGE -->
+                <div class="item active">
+                    <div class="carousel-page">
+                        <img src="../images/projets/Portfolio.png" class="img-responsive img-rounded" />
+                    </div>
+                    <div class="carousel-caption">Projet Porfolio</div>
+                </div>
+                <!-- NEW PAGE -->
+                <div class="item">
+                    <div class="carousel-page">
+                        <img src="../images/projets/SiteSPNS.png" class="img-responsive img-rounded"/>
+                    </div>
+                    <div class="carousel-caption">Administration du site du SPNS</div>
+                </div>
+                <!-- NEW PAGE -->
+                <div class="item">
+                    <div class="carousel-page">
+                        <img src="../images/noImage.png" class="img-responsive img-rounded"/>
+                    </div>
+                    <div class="carousel-caption">Les voyages de Petit Louis</div>
+                </div>
+                <!-- NEW PAGE -->
+                <div class="item">
+                    <div class="carousel-page">
+                        <img src="../images/projets/EnModeSport.jpg" class="img-responsive img-rounded"
+                    </div>
+                    <div class="carousel-caption">Exposition En Mode Sport</div>
+                </div>
+            </div>
+            <!-- Contrôles -->
+            <a class="left carousel-control" href="#my_carousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#my_carousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'Layout/formulaire.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Ajouter
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Ajouter une nouvelle technologie</h1>
+{% endblock %}
+
+{% block formulaire %}
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="nomTechno" class="control-label">Nom de la technologie</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="nomTechno" required>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="insertLogoTechno" class="control-label">Logo de la technologie</label>
+            </div>
+            <div class="col-lg-9">
+                <input type="file" class="form-control-file" id="insertLogoTechno" aria-describedby="aideInsertLogo" required>
+                <small id="aideInsertLogo" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block Boutton %}Enregistrer{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

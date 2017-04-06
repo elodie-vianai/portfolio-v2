@@ -1,0 +1,106 @@
+{% extends 'Layout/index.html.twig' %}
+
+
+{% block title %}
+    Elodie's Portfolio - formation
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/formation.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/publicHeader.html.twig") }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <h1>Ma formation</h1>
+    </div>
+    <!--<div class="row">
+        <h2>Formation scolaire</h2>
+    </div>!-->
+
+    <div class="row zones">
+        <div class="col-lg-2 logos">
+            <img src="../images/logos/logoUT2J.png" class="logosformations" alt="Logo Université Toulouse 2 Jean Jaurès">
+        </div>
+        <div class="col-lg-8 descriptions">
+            <p>Master 2 Ingénierie de l'Information Numérique, M2 I2N <br> Université Toulouse 2 Jean Jaurès <br> Toulouse, 31</p>
+        </div>
+        <div class="col-lg-2 annees">
+            <h3>2016-2017</h3>
+        </div>
+    </div>
+
+    <div class="row zones">
+        <div class="col-lg-2 logos">
+            <img src="../images/logos/logoUT2J.png" class="logosformations" alt="Logo Université Toulouse 2 Jean Jaurès">
+        </div>
+        <div class="col-lg-8 descriptions">
+            <p>Maîtrise d'Information et Documentation (mention assez bien) <br> Université Toulouse 2 Jean Jaurès <br>Toulouse, 31</p>
+        </div>
+        <div class="col-lg-2 annees">
+            <h3>2016</h3>
+        </div>
+    </div>
+
+    <div class="row zones">
+        <div class="col-lg-2 logos">
+            <img src="../images/logos/logoUT2J.png" class="logosformations" alt="Logo Université Toulouse 2 Jean Jaurès">
+        </div>
+        <div class="col-lg-8 descriptions">
+            <p>Licence professionnelle Images et Histoire (mention assez bien) <br> Université Toulouse 2 Jean Jaurès <br> Toulouse, 31</p>
+        </div>
+        <div class="col-lg-2 annees">
+            <h3>2015</h3>
+        </div>
+    </div>
+
+    <div class="row zones">
+        <div class="col-lg-2 logos">
+            <img src="../images/logos/LogoMirail.png" class="logosformations" alt="Logo Université Toulouse 2 Le Mirail">
+        </div>
+        <div class="col-lg-8 descriptions">
+            <p>Licence d'Histoire <br> Université Toulouse 2 Le Mirail <br> Toulouse, 31</p>
+        </div>
+        <div class="col-lg-2 annees">
+            <h3>2014</h3>
+        </div>
+    </div>
+
+    <div class="row zones">
+        <div class="col-lg-2 logos">
+            <img src="../images/logos/LogoMirail.png" class="logosformations" alt="Logo Université Toulouse 2 Le Mirail">
+        </div>
+        <div class="col-lg-8 descriptions">
+            <p>1e année de Licence Langues, Littérature et Civilisations Étrangères et Régionales, anglais-occitan <br> Université Toulouse 2 Le Mirail <br> Toulouse, 31</p>
+        </div>
+        <div class="col-lg-2 annees">
+            <h3>2010-2011</h3>
+        </div>
+    </div>
+
+    <div class="row zones">
+        <div class="col-lg-2 logos">
+            <img src="../images/noImage.png" class="logosformations" alt="Pas d'image">
+        </div>
+        <div class="col-lg-8 descriptions">
+            <p>Baccalauréat général, série Littéraire (option anglais renforcé) <br> Lycée Jean-Pierre Vernant <br> Pins-Justaret, 31</p>
+        </div>
+        <div class="col-lg-2 annees">
+            <h3>2010</h3>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

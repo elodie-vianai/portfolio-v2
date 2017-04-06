@@ -1,0 +1,50 @@
+{% extends 'Layout/detailProjet.html.twig' %}
+
+
+{% block title %}
+    Elodie's Portfolio - detail projet
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/detailprojet.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/publicHeader.html.twig") }}
+{% endblock %}
+
+{% block titreProjet %}Projet portfolio{% endblock %}
+
+{% block nomProjet %}Projet portfolio{% endblock %}
+
+{%  block anneeProjet %} 2017 {% endblock %}
+
+{% block descriptionProjet %} Projet réalisé dans le cadre de mon stage de fin d'études de M2, consistant à créer son propre portfolio (CV). {% endblock %}
+
+{% block imageProjet %}Portfolio.png{% endblock %}
+
+{% block listeTechnologies %}
+    <div class="col-lg-2">
+        <img src="images/logos/logoHTML.png" alt="HTML" class="logosTechnos">
+    </div>
+    <div class="col-lg-2">
+        <img src="images/logos/logoCSS.png" alt="CSS" class="logosTechnos">
+    </div>
+    <div class="col-lg-2">
+        <img src="images/logos/logoBootstrap.png" alt="Bootstrap" class="logosTechnos">
+    </div>
+    <div class="col-lg-2">
+        <img src="images/logos/logoSlim.png" alt="SlimS" class="logosTechnos">
+    </div>
+    <div class="col-lg-2">
+        <img src="images/logos/logoTwig.jpg" alt="Twig" class="logosTechnos">
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

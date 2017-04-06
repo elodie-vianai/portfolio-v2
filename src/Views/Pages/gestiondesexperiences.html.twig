@@ -1,0 +1,147 @@
+{% extends 'Layout/gestion.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Expériences
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/gestion.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Gestion de mes expériences</h1>
+{% endblock %}
+
+{% block cheminAjouter %}
+    /admin/gestiondesexperiences
+{% endblock %}
+
+{% block nomBoutonAjouter %}
+    Ajouter une nouvelle expérience
+{% endblock %}
+
+{% block thead %}
+    <th>Date de début</th>
+    <th>Date de fin</th>
+    <th>Type de contrat</th>
+    <th>Poste occupé</th>
+    <th>Entreprise</th>
+    <th>Lieu</th>
+    <th>Logo</th>
+    <th>Liste des projets</th>
+{% endblock %}
+
+{% block tbody %}
+    <tr>
+        <td>04/2017</td>
+        <td>09/2017</td>
+        <td>Stage</td>
+        <td>Développeuse web stagiaire</td>
+        <td>Web-Atrio</td>
+        <td>Blagnac (31)</td>
+        <td>
+            <img src="../images/logos/logo.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <ul>
+                <li>Projet Portfolio</li>
+            </ul>
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>08/2016</td>
+        <td>...</td>
+        <td>Bénévolat</td>
+        <td>Webmaster & community manager</td>
+        <td>Saverdun Pyrénées Natation Sauvetage</td>
+        <td>Saverdun (09)</td>
+        <td>
+            <img src="../images/logos/logoSPNS.jpg" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <ul>
+                <li>Supports de communication</li>
+                <li>SI du Saverdun Pyrénées Natation Sauvetage</li>
+            </ul>
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>10/2013</td>
+        <td>01/2017</td>
+        <td>CDI</td>
+        <td>Employée polyvalente de restauration</td>
+        <td>Flunch</td>
+        <td>Portet-sur-Garonne (31)</td>
+        <td>
+            <img src="../images/logos/logoFlunch.jpg" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <ul></ul>
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>02/2015</td>
+        <td>06/2015</td>
+        <td>Stage</td>
+        <td>Documentaliste stagiaire</td>
+        <td>Musée National du Sport</td>
+        <td>Nice (06)</td>
+        <td>
+            <img src="../images/logos/logoMNS.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <ul>
+                <li>Exposition "En Mode Sport</li>
+            </ul>
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

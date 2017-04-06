@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        {% block stylesheets %} {% endblock %}
+    </head>
+
+    <body>
+        <div class="container">
+
+            {% block header %} {% endblock %}
+
+            <div class="row">
+                {% block titrePage %} {% endblock %}
+            </div>
+
+        <!-- BOUTON POUR AJOUTER UNE NOUVELLE EXPÉRIENCE !-->
+            <div class="row">
+                <a href="{% block cheminAjouter %}{% endblock %}/ajouter" class="btn btn-success ajouterUneNouvelleEntite">{% block nomBoutonAjouter %} {% endblock %}</a>
+                <p><br></p>
+            </div>
+
+        <!-- TABLEAU DES EXPÉRIENCES DANS LA BDD !-->
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        {% block thead %} {% endblock %}
+                        <th colspan="3">Édition</th>
+                    </thead>
+                    <tbody>
+                        {% block tbody %} {% endblock %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% block footer %} {% endblock %}
+        </div>
+        <script src="/lib/jquery/jquery-3.2.0.min.js"></script>
+        <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+h1 {
+    text-align: center;
+    padding-bottom: 5%;
+}
+
+h2 {
+    padding-bottom: 5%;
+}
+
+.zones {
+    padding-bottom: 3%;
+}
+
+.logos {
+    text-align: center;
+    width: 100px;
+}
+
+.annees {
+
+}
+
+.card {
+    width: 320px;
+    height: 450px;
+    margin: 1%; padding: 1%;
+    vertical-align: middle;
+}
+
+.thumbnail {
+    width: 250px;
+    height: 250px;
+}
+
+.card img {
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.card-text {
+    height: 60px;
+}

@@ -1,0 +1,132 @@
+{% extends 'Layout/gestion.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Formations
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/gestion.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Gestion de mes formations</h1>
+{% endblock %}
+
+{% block cheminAjouter %}
+    /admin/gestiondesformations
+{% endblock %}
+
+{% block nomBoutonAjouter %}
+    Ajouter une nouvelle formation
+{% endblock %}
+
+{% block thead %}
+    <th>Date de début</th>
+    <th>Date de fin</th>
+    <th>Type</th>
+    <th>Nom de la formation</th>
+    <th>Mention</th>
+    <th>Nom de l'établissement</th>
+    <th>Ville</th>
+    <th>Logo établissement</th>
+{% endblock %}
+
+{% block tbody %}
+    <tr>
+        <td>2016</td>
+        <td>en cours</td>
+        <td>Diplôme</td>
+        <td>Master 2 Ingénierie de l'Information Numérique, M2 I2N </td>
+        <td></td>
+        <td>Université Toulouse 2 Jean Jaurès</td>
+        <td>Toulouse (31)</td>
+        <td>
+            <img src="../images/logos/logoUT2J.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesformations/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>2015</td>
+        <td>2016</td>
+        <td>Diplôme</td>
+        <td>Maîtrise d'Information et Documentation</td>
+        <td>Assez Bien</td>
+        <td>Université Toulouse 2 Jean Jaurès</td>
+        <td>Toulouse (31)</td>
+        <td>
+            <img src="../images/logos/logoUT2J.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesformations/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>2014</td>
+        <td>2015</td>
+        <td>Diplôme</td>
+        <td>Licence professionnelle Images et Histoire</td>
+        <td>Assez Bien</td>
+        <td>Université Toulouse 2 Jean Jaurès</td>
+        <td>Toulouse (31)</td>
+        <td>
+            <img src="../images/logos/logoUT2J.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesformations/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+    <tr>
+        <td>2011</td>
+        <td>2014</td>
+        <td>Diplôme</td>
+        <td>Licence d'Histoire</td>
+        <td></td>
+        <td>Université Toulouse 2 Le Mirail</td>
+        <td>Toulouse (31)</td>
+        <td>
+            <img src="../images/logos/logoMirail.png" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <a class="btn" href="lecture.php">Voir</a>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesformations/modifier">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+        </td>
+    </tr>
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

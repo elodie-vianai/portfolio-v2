@@ -1,0 +1,26 @@
+h1 {
+    text-align: center;
+}
+
+img {
+    vertical-align: middle;
+    max-width: 100px;
+    height: auto;
+}
+
+th {
+    text-align: center;
+}
+
+td ul {
+    padding: 6%;
+}
+
+.descriptionProjet {
+    text-align: justify;
+}
+
+.listeTechnos {
+    list-style-type: none;
+    padding-left: 0;
+}
