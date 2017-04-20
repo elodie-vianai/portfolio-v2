@@ -27,17 +27,17 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <label for="dateDebut" class="control-label">Date de début de l'expérience</label>
+                <label for="dateDebut" class="control-label">Date de début de la formation</label>
             </div>
             <div class="col-lg-2">
-                <input type="date" class="form-control" id="dateDebut" required>
+                <input type="date" name="begin_at" class="form-control" id="dateDebut" required>
             </div>
             <div class="col-lg-2"></div>
             <div class="col-lg-3">
-                <label for="dateFin" class="control-label">Date de fin de l'expérience</label>
+                <label for="dateFin" class="control-label">Date de fin de la formation</label>
             </div>
             <div class="col-lg-2">
-                <input type="date" class="form-control" id="dateFin">
+                <input type="date" name="end_at" class="form-control" id="dateFin">
             </div>
             <div class="col-lg-2"></div>
         </div>
@@ -49,22 +49,22 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <label for="TypeFormation" class="control-label">Type de formation</label>
+                <label for="type" class="control-label">Type de formation</label>
             </div>
             <div class="col-lg-2">
-                <select class="form-control" name="contrats" required>
+                <select class="form-control" name="type" id="type" required>
                     <option value="\"></option>
-                    <option value="CDD">Certification</option>
-                    <option value="CDI">Diplôme</option>
-                    <option value="CTT">Formation</option>
+                    <option value="Certification">Certification</option>
+                    <option value="Diplôme">Diplôme</option>
+                    <option value="Formation">Formation</option>
                 </select>
             </div>
             <div class="col-lg-2"></div>
             <div class="col-lg-2">
-                <label for="mentions" class="control-label">Mention</label>
+                <label for="mention" class="control-label">Mention</label>
             </div>
             <div class="col-lg-3">
-                <select class="form-control" name="mentions">
+                <select class="form-control" name="mention" id="mention">
                     <option value="\"></option>
                     <option value="TB">Très Bien</option>
                     <option value="B">Bien</option>
@@ -83,7 +83,7 @@
                 <label for="etablissement" class="control-label">Nom de l'établissement / organisme</label>
             </div>
             <div class="col-lg-9">
-                <input type="text" class="form-control" placeholder="Nom de l'établissement ou de l'organisme" id="etablissement" required>
+                <input type="text" class="form-control" name="etablissement" placeholder="Nom de l'établissement ou de l'organisme" id="etablissement" required>
             </div>
         </div>
         <div class="row">
@@ -91,7 +91,7 @@
                 <label for="ville" class="control-label">Ville</label>
             </div>
             <div class="col-lg-9">
-                <input type="text" class="form-control" placeholder="Toulouse, Paris..." id="ville" required>
+                <input type="text" name="ville" class="form-control" placeholder="Toulouse, Paris..." id="ville" required>
             </div>
         </div>
         <div class="row">
@@ -99,7 +99,7 @@
                 <label for="dep" class="control-label">Département</label>
             </div>
             <div class="col-lg-6">
-                <select class="form-control" name="dep" required>
+                <select class="form-control" name="dep" id="dep" required>
                     <option value="/"></option>
                     <option value="01">&#40;01&#41; Ain </option>
                     <option value="02">&#40;02&#41; Aisne </option>
@@ -211,7 +211,7 @@
                 <label for="insertLogoEntreprise" class="control-label">Logo de l'établissement / organisme</label>
             </div>
             <div class="col-lg-9">
-                <input type="file" class="form-control-file" id="insertLogoEntreprise" aria-describedby="aideInsertImage">
+                <input type="file" name="logo" class="form-control-file" id="insertLogoEntreprise" aria-describedby="aideInsertImage">
                 <small id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
             </div>
         </div>
