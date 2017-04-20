@@ -1,0 +1,73 @@
+{% extends 'Layout/gestion.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Projets
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/CRUD.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Gestion de mes projets</h1>
+{% endblock %}
+
+{% block cheminAjouter %}
+    /admin/gestiondesprojets
+{% endblock %}
+
+{% block nomBoutonAjouter %}
+    Ajouter un nouveau projet
+{% endblock %}
+
+{% block thead %}
+    <th>Année de réalisation</th>
+    <th>Nom du projet</th>
+    <th>Description du projet</th>
+    <th>Image du projet</th>
+    <th>Liste des technologies</th>
+{% endblock %}
+
+{% block tbody %}
+    {% for projet in projets %}
+        <tr>
+            <td>{{ projet.year }}</td>
+            <td>{{ projet.name }}</td>
+            <td class="descriptionProjet">{{ projet.description }}</td>
+            <td>
+                <img src="/images/projets/{{ projet.image_path }}" class="logos" alt="photo du projet">
+            </td>
+            <td>
+                <ul class="listeTechnos">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>Bootstrap</li>
+                    <li>Slim</li>
+                    <li>Twig</li>
+                </ul>
+            </td>
+            <td>
+                <a class="btn btn-default" href="gestiondesprojets/detail_projet?id=1">Voir</a>
+            </td>
+            <td>
+                <a class="btn btn-success" href="/admin/gestiondesprojets/modifier">Modifier</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}
