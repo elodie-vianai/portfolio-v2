@@ -1,0 +1,68 @@
+{% extends 'Layout/gestion.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Formations
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/CRUD.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Gestion de mes formations</h1>
+{% endblock %}
+
+{% block cheminAjouter %}
+    /admin/gestiondesformations
+{% endblock %}
+
+{% block nomBoutonAjouter %}
+    Ajouter une nouvelle formation
+{% endblock %}
+
+{% block thead %}
+    <th>Date de début</th>
+    <th>Date de fin</th>
+    <th>Type</th>
+    <th>Nom de la formation</th>
+    <th>Mention</th>
+    <th>Nom de l'établissement</th>
+    <th>Ville</th>
+    <th>Logo établissement</th>
+{% endblock %}
+
+{% block tbody %}
+    {% for formation in formations %}
+        <tr>
+            <td>{{ formation.begin_at }}</td>
+            <td>{{ formation.end_at }}</td>
+            <td>{{ formation.type }}</td>
+            <td>{{ formation.name }}</td>
+            <td>{{ formation.mention }}</td>
+            <td>{{ formation.etablissement }}</td>
+            <td>{{ formation.ville }} ({{ formation.dep }})</td>
+            <td>
+                <img src="/images/{{ formation.logo }}" class="logos" alt="Logo établissement">
+            </td>
+            <td>
+                <a class="btn btn-success" href="/admin/gestiondesformations/modifier">Modifier</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}
