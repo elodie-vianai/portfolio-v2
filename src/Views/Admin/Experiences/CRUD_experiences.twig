@@ -9,7 +9,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/gestion.css">
+    <link rel="stylesheet" href="/css/CRUD.css">
 {% endblock %}
 
 
@@ -41,15 +41,16 @@
 {% endblock %}
 
 {% block tbody %}
+    {% for experience in experiences %}
     <tr>
-        <td>04/2017</td>
-        <td>09/2017</td>
-        <td>Stage</td>
-        <td>Développeuse web stagiaire</td>
-        <td>Web-Atrio</td>
-        <td>Blagnac (31)</td>
+        <td>{{ experience.begin_at }}</td>
+        <td>{{ experience.end_at }}</td>
+        <td>{{ experience.contrat }}</td>
+        <td>{{ experience.name }}</td>
+        <td>{{ experience.entreprise }}</td>
+        <td>{{ experience.ville }} ({{ experience.dep }})</td>
         <td>
-            <img src="../images/logos/logo.png" class="logos" alt="Logo entreprise">
+            <img src="/images/{{ experience.logo }}" class="logos" alt="Logo entreprise">
         </td>
         <td>
             <ul>
@@ -57,7 +58,7 @@
             </ul>
         </td>
         <td>
-            <a class="btn" href="lecture.php">Voir</a>
+            <a class="btn" href="voir.php">Voir</a>
         </td>
         <td>
             <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier">Modifier</a>
@@ -66,7 +67,8 @@
             <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
         </td>
     </tr>
-    <tr>
+    {% endfor %}
+    <!--<tr>
         <td>08/2016</td>
         <td>...</td>
         <td>Bénévolat</td>
@@ -74,7 +76,7 @@
         <td>Saverdun Pyrénées Natation Sauvetage</td>
         <td>Saverdun (09)</td>
         <td>
-            <img src="../images/logos/logoSPNS.jpg" class="logos" alt="Logo entreprise">
+            <img src="/images/logos/logoSPNS.jpg" class="logos" alt="Logo entreprise">
         </td>
         <td>
             <ul>
@@ -100,7 +102,7 @@
         <td>Flunch</td>
         <td>Portet-sur-Garonne (31)</td>
         <td>
-            <img src="../images/logos/logoFlunch.jpg" class="logos" alt="Logo entreprise">
+            <img src="/images/logos/logoFlunch.jpg" class="logos" alt="Logo entreprise">
         </td>
         <td>
             <ul></ul>
@@ -123,7 +125,7 @@
         <td>Musée National du Sport</td>
         <td>Nice (06)</td>
         <td>
-            <img src="../images/logos/logoMNS.png" class="logos" alt="Logo entreprise">
+            <img src="/images/logos/logoMNS.png" class="logos" alt="Logo entreprise">
         </td>
         <td>
             <ul>
@@ -139,7 +141,7 @@
         <td>
             <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
         </td>
-    </tr>
+    </tr>!->
 {% endblock %}
 
 {% block footer %}
