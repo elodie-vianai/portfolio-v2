@@ -17,33 +17,26 @@
     {{ include("Layout/publicHeader.html.twig") }}
 {% endblock %}
 
-{% block titreProjet %}Projet portfolio{% endblock %}
+{% for projet in projet %}
+    {% block titreProjet %}{{ projet.name }}{% endblock %}
 
-{% block nomProjet %}Projet portfolio{% endblock %}
+    {% block nomProjet %}{{ projet.name }}{% endblock %}
 
-{%  block anneeProjet %} 2017 {% endblock %}
+    {%  block anneeProjet %}{{ projet.year }}{% endblock %}
 
-{% block descriptionProjet %} Projet réalisé dans le cadre de mon stage de fin d'études de M2, consistant à créer son propre portfolio (CV). {% endblock %}
+    {% block descriptionProjet %}{{ projet.description }}{% endblock %}
 
-{% block imageProjet %}Portfolio.png{% endblock %}
+    {% block imageProjet %}{{ projet.image_path }}{% endblock %}
 
-{% block listeTechnologies %}
-    <div class="col-lg-2">
-        <img src="images/logos/logoHTML.png" alt="HTML" class="logosTechnos">
-    </div>
-    <div class="col-lg-2">
-        <img src="images/logos/logoCSS.png" alt="CSS" class="logosTechnos">
-    </div>
-    <div class="col-lg-2">
-        <img src="images/logos/logoBootstrap.png" alt="Bootstrap" class="logosTechnos">
-    </div>
-    <div class="col-lg-2">
-        <img src="images/logos/logoSlim.png" alt="SlimS" class="logosTechnos">
-    </div>
-    <div class="col-lg-2">
-        <img src="images/logos/logoTwig.jpg" alt="Twig" class="logosTechnos">
-    </div>
-{% endblock %}
+
+    {% block listeTechnologies %}
+        {% for technology in technologies %}
+        <div class="col-lg-2">
+            <img src="images/logos/{{ technology.image_path }}" alt="{{ technology.name }}" class="logosTechnos">
+        </div>
+        {% endfor %}
+    {% endblock %}
+{% endfor %}
 
 {% block footer %}
     {{ include("Layout/footer.html.twig") }}

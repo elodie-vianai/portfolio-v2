@@ -26,7 +26,7 @@
 <!-- SECTION ACCROCHE !-->
     <section class="row">
         <div class="col-lg-3">
-            <img src="../images/me.jpg" alt="me" class="img-circle">
+            <img src="/images/Me.jpg" alt="me" class="img-circle">
         </div>
         <div class="col-lg-9 text-center">
             <h1>Elodie Vianai, développeuse web</h1>
@@ -102,36 +102,20 @@
                 <li data-target="#my_carousel" data-slide-to="2"></li>
                 <li data-target="#my_carousel" data-slide-to="3"></li>
             </ol>
+
             <!-- Slides -->
             <div class="carousel-inner">
-                <!-- NEW PAGE -->
-                <div class="item active">
-                    <div class="carousel-page">
-                        <img src="../images/projets/Portfolio.png" class="img-responsive img-rounded" />
+                {% for projet in projets %}
+                    <!-- NEW PAGE -->
+                    <div class="item active">
+                        <a href="/detailprojet?id={{ projet.id }}">
+                            <div class="carousel-page">
+                                <img src="/images/{{ projet.image_path }}" class="img-responsive img-rounded"/>
+                            </div>
+                            <div class="carousel-caption">{{ projet.name }}</div>
+                        </a>
                     </div>
-                    <div class="carousel-caption">Projet Porfolio</div>
-                </div>
-                <!-- NEW PAGE -->
-                <div class="item">
-                    <div class="carousel-page">
-                        <img src="../images/projets/SiteSPNS.png" class="img-responsive img-rounded"/>
-                    </div>
-                    <div class="carousel-caption">Administration du site du SPNS</div>
-                </div>
-                <!-- NEW PAGE -->
-                <div class="item">
-                    <div class="carousel-page">
-                        <img src="../images/noImage.png" class="img-responsive img-rounded"/>
-                    </div>
-                    <div class="carousel-caption">Les voyages de Petit Louis</div>
-                </div>
-                <!-- NEW PAGE -->
-                <div class="item">
-                    <div class="carousel-page">
-                        <img src="../images/projets/EnModeSport.jpg" class="img-responsive img-rounded"
-                    </div>
-                    <div class="carousel-caption">Exposition En Mode Sport</div>
-                </div>
+                {% endfor %}
             </div>
             <!-- Contrôles -->
             <a class="left carousel-control" href="#my_carousel" data-slide="prev">
