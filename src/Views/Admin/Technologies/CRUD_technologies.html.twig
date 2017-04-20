@@ -1,0 +1,48 @@
+{% extends 'Layout/gestion.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/CRUD.css">
+{% endblock %}
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Gestion de mes technologies</h1>
+{% endblock %}
+
+{% block cheminAjouter %}
+    /admin/gestiondestechnologies
+{% endblock %}
+
+{% block nomBoutonAjouter %}
+    Ajouter une nouvelle technologie
+{% endblock %}
+
+{% block thead %}
+    <th>Nom technologie</th>
+    <th>Logo</th>
+{% endblock %}
+
+{% block tbody %}
+    {% for technology in technologies %}
+        <tr>
+            <td>{{ technology.name }}</td>
+            <td>
+                <img src="/images/logos/{{ technology.image_path }}" class="logosTechno" alt="Logo technologie">
+            </td>
+            <td>
+                <a class="btn btn-success" href="/admin/gestiondestechnologies/modifier?id={{ technology.id }}">Modifier</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="/admin/gestiondestechnologies/supprimer?id={{ technology.id }}">Supprimer</a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}
