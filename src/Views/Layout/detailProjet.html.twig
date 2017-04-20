@@ -20,21 +20,24 @@
         <div class="col-lg-1">
             <button class="btn btn-primary" onclick="goBack()">Retour</button>
         </div>
-        <div class="col-lg-11">
+        <div class="col-lg-1">
+            {% block modifier %} {% endblock %}
+        </div>
+        <div class="col-lg-10">
             <h1> Détail du projet</h1>
             <h3>{% block titreProjet %} {% endblock %}</h3>
         </div>
     </div>
 
     <div class="row">
-        <img src="images/projets/{%  block imageProjet %} {% endblock %}" alt="image projet" class="center-block" id="imageProjet">
+        <img src="/images/{%  block imageProjet %} {% endblock %}" alt="screenshot projet" class="center-block" id="imageProjet">
     </div>
 
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <p><span class="element">Nom du projet :</span> {% block nomProjet %}{% endblock %}</p>
         </div>
-        <div class="col-lg-5"></div>
+        <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <p><span class="element">Année de réalisation :</span> {%  block anneeProjet %} {% endblock %}</p>
             <br/>
