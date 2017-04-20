@@ -33,7 +33,7 @@
                 <p>Tous les champs marqués d'un * sont obligatoires.</p>
             </div>
 
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="post" action="{% block formAction %}{% endblock %}">
                 {% block formulaire %} {% endblock %}
                 <div class="form-group">
                     <div class="col-lg-offset-6 col-lg-6">
