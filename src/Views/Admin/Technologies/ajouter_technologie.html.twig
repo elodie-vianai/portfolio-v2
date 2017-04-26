@@ -20,7 +20,7 @@
     <h1>Ajouter une nouvelle technologie</h1>
 {% endblock %}
 
-{% block formAction %} ../src/Controller/Admin/CRUDTechnoController.php{% endblock %}
+{% block formAction %}/admin/gestiondestechnologies{% endblock %}
 
 {% block formulaire %}
     <div class="form-group">
@@ -29,7 +29,7 @@
                 <label for="nameTechno" class="control-label">Nom de la technologie</label>
             </div>
             <div class="col-lg-6">
-                <input type="text" class="form-control" id="nameTechno" required>
+                <input type="text" name="nameTechno" class="form-control" id="nameTechno" required>
             </div>
             <div class="col-lg-3"></div>
         </div>
@@ -38,7 +38,7 @@
                 <label for="image_path" class="control-label">Logo de la technologie</label>
             </div>
             <div class="col-lg-9">
-                <input type="file" class="form-control-file" id="image_path" aria-describedby="aideInsertLogo" required>
+                <input type="file" name="image_path" class="form-control-file" id="image_path" aria-describedby="aideInsertLogo" required>
                 <small id="aideInsertLogo" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
             </div>
         </div>
