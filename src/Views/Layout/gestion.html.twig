@@ -23,7 +23,7 @@
 
         <!-- BOUTON POUR AJOUTER UNE NOUVELLE EXPÉRIENCE !-->
             <div class="row">
-                <a href="{% block cheminAjouter %}{% endblock %}/ajouter" class="btn btn-success ajouterUneNouvelleEntite">{% block nomBoutonAjouter %} {% endblock %}</a>
+                {% block boutonAjouter %}{% endblock %}
                 <p><br></p>
             </div>
 

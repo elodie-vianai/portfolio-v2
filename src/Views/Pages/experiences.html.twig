@@ -14,7 +14,11 @@
 
 
 {% block header %}
-    {{ include("Layout/publicHeader.html.twig") }}
+    {% if 'user' in session.roles %}
+        {% include ('Layout/publicheaderConnected.html.twig') %}
+    {% else %}
+        {% include ('Layout/publicheader.html.twig') %}
+    {% endif %}
 {% endblock %}
 
 
@@ -50,7 +54,7 @@
                     <td>{{ experience.contrat }}</td>
                     <td>{{ experience.entreprise }}</td>
                     <td>{{ experience.ville }}</td>
-                    <td>{{ experience.dep }}</td>
+                    <td>{{ experience.code }}</td>
                     <td><img src="/images/{{ experience.logo }}" class="logos" alt="logo de l'entreprise"></td>
                 </tr>
             {% endfor %}
@@ -77,7 +81,12 @@
             <div class="card-block">
                 <h4 class="card-title">{{ projet.name }}</h4>
                 <p class="card-text">{{ projet.description }}</p>
-                <a href="/detailprojet?id={{ projet.id }}" class="btn btn-primary">Plus de détails</a>
+                <a {% if 'user' in session.roles %}
+                        href="/user/{{ session.id }}/detailprojet?id={{ projet.id }}"
+                    {% else %}
+                        href="/detailprojet?id={{ projet.id }}"
+                    {% endif %}
+                        class="btn btn-primary">Plus de détails</a>
             </div>
         </div>
         {% endfor %}

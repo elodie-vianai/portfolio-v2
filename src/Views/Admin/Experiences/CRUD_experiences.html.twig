@@ -1,0 +1,75 @@
+{% extends 'Layout/gestion.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Expériences
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/CRUD.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Gestion de mes expériences</h1>
+{% endblock %}
+
+{% block boutonAjouter %}
+    <a href="/admin/gestiondesexperiences/ajouter" class="btn btn-success ajouterUneNouvelleEntite">
+        Ajouter une nouvelle expérience
+    </a>
+{% endblock %}
+
+{% block thead %}
+    <th>Date de début</th>
+    <th>Date de fin</th>
+    <th>Type de contrat</th>
+    <th>Poste occupé</th>
+    <th>Entreprise</th>
+    <th>Lieu</th>
+    <th>Logo</th>
+    <th>Liste des projets</th>
+{% endblock %}
+
+{% block tbody %}
+    {% if tabError.error in tabError %}
+        <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+    {% endif %}
+    {% for experience in experiences %}
+    <tr>
+        <td>{{ experience.begin_at }}</td>
+        <td>{{ experience.end_at }}</td>
+        <td>{{ experience.contrat }}</td>
+        <td>{{ experience.name }}</td>
+        <td>{{ experience.entreprise }}</td>
+        <td>{{ experience.ville }} ({{ experience.code }})</td>
+        <td>
+            <img src="/images/{{ experience.logo }}" class="logos" alt="Logo entreprise">
+        </td>
+        <td>
+            <ul>
+                {% for projet in experience.projets %}
+                    <li>- {{projet.name }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier?id={{ experience.id }}">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="/admin/gestiondesexperiences/supprimer/{{ experience.id }}">Supprimer</a>
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

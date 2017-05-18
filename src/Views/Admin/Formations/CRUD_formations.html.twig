@@ -21,12 +21,10 @@
     <h1>Gestion de mes formations</h1>
 {% endblock %}
 
-{% block cheminAjouter %}
-    /admin/gestiondesformations
-{% endblock %}
-
-{% block nomBoutonAjouter %}
-    Ajouter une nouvelle formation
+{% block boutonAjouter %}
+    <a href="/admin/gestiondesformations/ajouter" class="btn btn-success ajouterUneNouvelleEntite">
+        Ajouter une nouvelle formation
+    </a>
 {% endblock %}
 
 {% block thead %}
@@ -41,6 +39,9 @@
 {% endblock %}
 
 {% block tbody %}
+    {% if tabError.error in tabError %}
+        <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+    {% endif %}
     {% for formation in formations %}
         <tr>
             <td>{{ formation.begin_at }}</td>
@@ -49,7 +50,7 @@
             <td>{{ formation.name }}</td>
             <td>{{ formation.mention }}</td>
             <td>{{ formation.etablissement }}</td>
-            <td>{{ formation.ville }} ({{ formation.dep }})</td>
+            <td>{{ formation.ville }} ({{ formation.code }})</td>
             <td>
                 <img src="/images/{{ formation.logo }}" class="logos" alt="Logo établissement">
             </td>
@@ -57,7 +58,7 @@
                 <a class="btn btn-success" href="/admin/gestiondesformations/modifier?id={{ formation.id }}">Modifier</a>
             </td>
             <td>
-                <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+                <a class="btn btn-danger" href="/admin/gestiondesformations/supprimer/{{ formation.id }}">Supprimer</a>
             </td>
         </tr>
     {% endfor %}

@@ -1,0 +1,68 @@
+{% extends 'Layout/formulaire.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Modifier
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Modifier l'utilisateur</h1>
+    <h4>{{ user.username }}</h4>
+{% endblock %}
+
+{% block action %}/admin/gestiondestechnologies{% endblock %}
+
+{% block formulaire %}
+<div class="form-group">
+    <div class="row">
+        <div class="col-lg-3">
+            <label for="username" class="control-label">Nom d'utilisateur</label>
+        </div>
+        <div class="col-lg-6">
+            <input type="text" class="form-control" name="username" id="username" value="{{ user.username }}" required>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <label for="email" class="control-label">adresse mail</label>
+        </div>
+        <div class="col-lg-9">
+            <input type="email" class="form-control" name="email" id="email" value="{{ user.email }}" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <label for="password" class="control-label">mot de passe</label>
+        </div>
+        <div class="col-lg-9">
+            <input type="password" class="form-control" name="password" id="password" value="{{ user.password }}" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <label for="roles" class="control-label">rôle sur le site</label>
+        </div>
+        <div class="col-lg-9">
+            <input type="text" class="form-control" name="roles" id="email" value="{{ user.roles }}" disabled>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block Boutton %}Enregistrer{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

@@ -1,6 +1,12 @@
 {
     "require": {
         "slim/slim": "^3.0",
-        "slim/twig-view": "^2.2"
+        "slim/twig-view": "^2.2",
+        "jwilsson/spotify-web-api-php": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Portfolio\\": "src"
+        }
     }
 }

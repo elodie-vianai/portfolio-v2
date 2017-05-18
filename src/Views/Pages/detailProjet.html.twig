@@ -14,7 +14,11 @@
 
 
 {% block header %}
-    {{ include("Layout/publicHeader.html.twig") }}
+    {% if 'user' in session.roles %}
+        {% include ('Layout/publicheaderConnected.html.twig') %}
+    {% else %}
+        {% include ('Layout/publicheader.html.twig') %}
+    {% endif %}
 {% endblock %}
 
 {% for projet in projet %}
@@ -32,7 +36,7 @@
     {% block listeTechnologies %}
         {% for technology in technologies %}
         <div class="col-lg-2">
-            <img src="images/logos/{{ technology.image_path }}" alt="{{ technology.name }}" class="logosTechnos">
+            <img src="/images/logos/{{ technology.image_path }}" alt="{{ technology.name }}" class="logosTechnos">
         </div>
         {% endfor %}
     {% endblock %}

@@ -116,10 +116,10 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <label for="insertLogoEntreprise" class="control-label">Logo de l'entreprise</label>
+                <label for="logo" class="control-label">Logo de l'entreprise</label>
             </div>
             <div class="col-lg-9">
-                <input type="file" class="form-control-file" id="logo" name="logo" aria-describedby="aideInsertImage" value="$_FILES['logoEntreprise]['{{ experience.image_path }}']">
+                <input type="file" class="form-control-file" id="logo" name="logo" aria-describedby="aideInsertImage" value="$_FILES['logo]['{{ experience.image_path }}']">
                 <small id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
             </div>
         </div>
@@ -135,9 +135,9 @@
                 <label for="projets">Projets réalisés </label>
             </div>
             <div class="col-lg-6">
-                <select multiple class="form-control" id="projets" aria-describedby="aideAjout">
-                    {% for projets in projets %}
-                        <option value="{{ projets.id }}">{{ projets.name }}</option>
+                <select multiple class="form-control" id="projets" name="projets[]" aria-describedby="aideAjout">
+                    {% for projet in Allprojects %}
+                        <option {% if projet.id in projectsExperience %}selected="selected"{% endif %} value="{{ projet.id }}">{{ projet.name }}</option>
                     {% endfor %}
                 </select>
                 <small id="aideAjout" class="form-text text-muted">Pour sélectionner plusieurs projets, maintenez la touche CTRL enfoncée</small>
@@ -157,7 +157,6 @@
     <script>
         var contrat = "{{ experience.contrat }}";
         var dep_id = "{{ experience.dep_id }}";
-        var projets = "{{ projet.id }}";
     </script>
     <script type="text/javascript" src="/js/modifier_experience.js"></script>
 {% endblock %}

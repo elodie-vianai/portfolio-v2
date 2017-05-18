@@ -1,0 +1,56 @@
+{% extends 'Layout/index.html.twig' %}
+
+
+{% block title %}
+    Amdin Portfolio - supprimer
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/formulaire.css">
+{% endblock %}
+
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+
+
+{% block body %}
+        <h1 class="espaceTitre">Supprimer {% block name %}{% endblock %}</h1>
+        <form class="form-horizontal" action="{% block action %}{% endblock %}" method="post">
+            <input type="hidden" name="id" value="{%  block value_id %}{% endblock %}"/>
+            <div class="alert alert-danger">
+                <p class="demandesuppression">Voulez-vous supprimer {% block element %}{% endblock %} ?</p>
+            </div>
+            <div class="row form-actions">
+                    <div class="col-lg-4"></div>
+                     <div class="col-lg-2">
+                        <button type="submit" class="btn btn-danger supprimer">Supprimer</button>
+                     </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <a class="btn btn-warning" onclick="goBack()">Annuler</a>
+                    </div>
+                <div class="col-lg-3"></div>
+            </div>
+            <p>
+
+        </form>
+    <script>
+        function goBack() {
+            window.history.go(-1);
+        }
+    </script>
+{% endblock %}
+
+
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

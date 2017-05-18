@@ -21,6 +21,8 @@
     <h4>Projet Portfolio</h4>
 {% endblock %}
 
+{% block formaction %}/admin/gestiondesprojets{% endblock %}
+
 {% block formulaire %}
     <div class="form-group">
         <div class="row">
@@ -28,25 +30,25 @@
         </div>
         <div class="row">
             <div class="col-lg-2">
-                <label for="nomProjet" class="control-label">Nom du projet</label>
+                <label for="name" class="control-label">Nom du projet</label>
             </div>
             <div class="col-lg-4">
-                <input type="text" class="form-control" id="nomProjet" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ projet.name }}" required>
             </div>
             <div class="col-lg-1"></div>
             <div class="col-lg-3">
-                <label for="dateRealisation" class="control-label">Date réalisation du projet</label>
+                <label for="year" class="control-label">Date réalisation du projet</label>
             </div>
             <div class="col-lg-2">
-                <input type="date" class="form-control" id="dateRealisation">
+                <input type="number" class="form-control" id="year" name="year" min="2010" value="{{ projet.year }}">
             </div>
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <label for="insertImageProjet" class="control-label">Screenshot du projet</label>
+                <label for="image_path" class="control-label">Screenshot du projet</label>
             </div>
             <div class="col-lg-9">
-                <input type="file" class="form-control-file" id="insertImageProjet" aria-describedby="aideInsertImage">
+                <input type="file" class="form-control-file" id="image_path" name="image_path" aria-describedby="aideInsertImage" value="{{ projet.image_path }}">
                 <small id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
             </div>
         </div>
@@ -58,10 +60,10 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <label for="descriptionProjet" class="control-label">Description du projet</label>
+                <label for="description" class="control-label">Description du projet</label>
             </div>
             <div class="col-lg-9">
-                <textarea class="form-control" rows="5" placeholder="Tapez ici votre description." id="descriptionProjet"></textarea>
+                <textarea class="form-control" rows="5" placeholder="Tapez ici votre description." id="description" name="description">{{ projet.description }}</textarea>
             </div>
         </div>
     </div>
@@ -75,14 +77,10 @@
                 <label for="technologies">Technologies utilisées</label>
             </div>
             <div class="col-lg-6">
-                <select multiple class="form-control" id="technologies" aria-describedby="aideAjout">
-                    <option>HTML</option>
-                    <option>CSS</option>
-                    <option>JavaScript</option>
-                    <option>PHP</option>
-                    <option>Bootstrap</option>
-                    <option>Slim</option>
-                    <option>Twig</option>
+                <select multiple class="form-control" id="technologies" name="technologies[]" aria-describedby="aideAjout">
+                    {% for technologie in Alltechnologies %}
+                        <option {% if technologie.id in technologiesProject %}selected="selected"{% endif %} value="{{ technologie.id }}">{{ technologie.name }}</option>
+                    {% endfor %}
                 </select>
                 <small id="aideAjout" class="form-text text-muted">Pour sélectionner plusieurs technologies, maintenez la touche CTRL enfoncée</small>
             </div>

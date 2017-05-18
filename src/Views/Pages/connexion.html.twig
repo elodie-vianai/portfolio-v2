@@ -1,11 +1,5 @@
 {% extends 'Layout/index.html.twig' %}
 
-{% block session %}<?php
-                        session_sart();
-                        $_SESSION['id'] = $session_id;
-                    ?>
-%}{% endblock %}
-
 {% block title %}
     Elodie's Portfolio - connexion
 {% endblock %}
@@ -32,7 +26,7 @@
         <p>Tous les champs marqués d'un * sont obligatoires.</p>
     </div>
 
-    <form class="form-horizontal" id="formulaire" method="post" action="/admin">
+    <form class="form-horizontal" id="formulaire" method="post" action="/connecting">
         <div class="form-group">
             <div class="col-lg-2"> </div>
             <div class="col-lg-2">

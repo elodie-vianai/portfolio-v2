@@ -1,0 +1,143 @@
+{% extends 'Layout/formulaire.html.twig' %}
+
+
+{% block title %}
+    Admin Portfolio - Modifier
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+{% block titrePage %}
+    <h1>Modifier la formation</h1>
+    <h4>{{ formation.name }}</h4>
+{% endblock %}
+
+{% block formaction %}/admin/gestiondesformations{% endblock %}
+
+{% block formulaire %}
+    <div class="form-group">
+        <div class="row">
+            <h3>Dates</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="begin_at" class="control-label">Date de début de l'expérience</label>
+            </div>
+            <div class="col-lg-2">
+                <input type="date" class="form-control" id="begin_at" name="begin_at" value="{{ formation.begin_at }}" required>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-3">
+                <label for="end_at" class="control-label">Date de fin de l'expérience</label>
+            </div>
+            <div class="col-lg-2">
+                <input type="date" class="form-control" value="{{ formation.end_at }}" id="end_at" name="end_at">
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <h3>Informations sur la formation</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="name" class="control-label">Nom de la formation</label>
+            </div>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" placeholder="Intitulé de la formation (Baccalauréat général..)" name="name" id="name" value="{{ formation.name }}" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="type" class="control-label">Type de formation</label>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" name="type" id="type" required>
+                    <option value="\"></option>
+                    <option value="Certification">Certification</option>
+                    <option value="Diplôme">Diplôme</option>
+                    <option value="Formation">Formation</option>
+                </select>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <label for="mention" class="control-label">Mention</label>
+            </div>
+            <div class="col-lg-3">
+                <select class="form-control" name="mention" id="mention">
+                    <option value="P">Passable</option>
+                    <option value="TB">Très Bien</option>
+                    <option value="B">Bien</option>
+                    <option value="AB">Assez Bien</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <h3>Etablissement / Organisme de formation</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="etablissement" class="control-label">Nom de l'établissement / organisme</label>
+            </div>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" placeholder="Nom de l'établissement ou de l'organisme" id="etablissement" name="etablissement" value="{{ formation.etablissement }}" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="ville" class="control-label">Ville</label>
+            </div>
+            <div class="col-lg-9">
+                <input type="text" class="form-control" placeholder="Toulouse, Paris..." id="ville" name="ville" value="{{ formation.ville }}" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="dep_id" class="control-label">Département</label>
+            </div>
+            <div class="col-lg-6">
+                <select class="form-control" name="dep_id" id="dep_id" required>
+                    {% for departement in departements %}
+                        <option value="{{ departement.id_dep }}">({{ departement.code }}) {{ departement.departement }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="logo" class="control-label">Logo de l'établissement / organisme</label>
+            </div>
+            <div class="col-lg-9">
+                <input type="file" class="form-control-file" id="logo" name="logo" aria-describedby="aideInsertImage">
+                <small id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block Boutton %}Modifier{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}
+
+{% block js %}
+    <script>var type = "{{ formation.type }}"</script>
+    <script>var mention = "{{ formation.mention }}"</script>
+    <script>var dep_id = "{{ formation.dep_id }}"</script>
+    <script type="text/javascript" src="/js/modifier_formation.js"></script>
+{% endblock %}

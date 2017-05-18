@@ -1,148 +1,152 @@
 <?php
-// 1) CHARGEMENT DE L'AUTOLOADER DE PHP
-    require '../vendor/autoload.php';
+#region /******************************* 1) CHARGEMENT DE L'AUTOLOADER DE PHP *******************************************/
+require '../vendor/autoload.php';
+#endregion
 
-// 2) APPEL DES STANDARD PHP POUR LA MESSAGERIE HTTP
-    use \Psr\Http\Message\ServerRequestInterface as Request;
+
+#region /******************************* 2)APPEL DES STANDARD PHP POUR LA MESSAGERIE HTTP *******************************/
+use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-
-// 3) SETTING POUR BIEN AFFICHER LES ERREURS
-    $configuration = [
-        'settings' => [
-            'displayErrorDetails' => true,
-        ],
-    ];
-    $c = new \Slim\Container($configuration);
-
-// 4) INITIALISATION DE L'APPLICATION
-    $app = new \Slim\App($c);
-
-// APPEL $src->get() EST LE PREMIER ITINÉRAIRE, ici on obtient le conteneur
-    $container = $app->getContainer();
-    $container['view'] = // Register component on container
-        // création des vues PHP (Views)
-    $container['view'] = function ($container) {
-        $view = new \Slim\Views\Twig('../src/Views', [
-            'cache' => false
-        ]);
-
-// INSTANCIER ET AJOUTER UNE EXTENSION SPÉCIFIQUE Slim, ici modifie l'url
-        $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
-        $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
-
-// INDIQUE QUE LA CONFIGURATION EST TERMINÉE ET QU'ON PEUT PASSER A L'ÉVENEMENT PRINCIPAL
-        return $view;
-    };
-
-// AJOUT DES ROUTES (chemin/url), apparaît dans l'ordre dans lequel c'est décrit mais le plus spécifique en premier
-        /*
-            - get() = la route est uniquement disponible pour une requête GET
-            - $request contient toutes les informations sur la demande entrante (en-têtes, variables...)
-            - $response = permet de transformer la sortie en réponse HTTP
-        */
-    $app->get('/', function (Request $request, Response $response) {
-        /*Définit le chemin de notre application :
-            - $this fait référence à $src,
-            - view aux Vues PHP,
-            - render nécessite 3 arguments : la $response à utiliser, le fichier modèle (répertoire) et les données que nous devons lui transmettre
-            - le chemin et nom du fichier qui est dans le dossier "Pages"
-        */
-        return $this->view->render($response, 'Pages/index.html.twig');
-
-        return $response;
-    });
+use Psr\Container\ContainerInterface;
+#endregion
 
 
-// PARTIE PUBLIQUE
-    $app->get('/experiences', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/experiences.html.twig');
-        return $response;
-    });
-
-    $app->get('/formation', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/formation.html.twig');
-        return $response;
-    });
-
-    $app->get('/detailprojet', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/detailProjet.html.twig');
-        return $response;
-    });
-
-    $app->get('/inscription', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/inscription.html.twig');
-        return $response;
-    });
-
-    $app->get('/connexion', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/connexion.html.twig');
-        return $response;
-    });
+#region /******************************* 3) SETTING POUR BIEN AFFICHER LES ERREURS **************************************/
+$configuration = [
+    'settings' => [
+        'displayErrorDetails' => true,
+    ],
+];
+$c = new \Slim\Container($configuration);
+#endregion
 
 
+#region /******************************* 4) INITIALISATION DE L'APPLICATION *********************************************/
 
-// PARTIE ADMINISTRATION
+session_start();
 
-    $app->get('/admin', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/admin.html.twig');
-        return $response;
-    });
+$app = new \Slim\App($c);
 
-    // Gestion des expériences
-    $app->get('/admin/gestiondesexperiences', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesexperiences.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondesexperiences/ajouter', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesexperiences_ajouter.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondesexperiences/modifier', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesexperiences_modifier.html.twig');
-        return $response;
-    });
+$container = $app->getContainer();                          // Appel $src->get() est le premier itinéraire, ici on obtient le conteneur
 
-    // Gestion des formations
-    $app->get('/admin/gestiondesformations', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesformations.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondesformations/ajouter', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesformations_ajouter.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondesformations/modifier', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesformations_modifier.html.twig');
-        return $response;
-    });
+$container['view'] = function ($container) {                // création des vues PHP (Views)
+    $view = new \Slim\Views\Twig('../src/Views', [
+        'cache' => false
+    ]);
+    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');  // Instancier et ajouter une extension spécifique Slim, ici modifie l'url
+    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+    $view->getEnvironment()->addGlobal('session', $_SESSION);
+    return $view;       // Indique que la configuration est terminée et qu'on peut passer à l'évènement principal
+};
+#endregion
 
-    // Gestion des projets
-    $app->get('/admin/gestiondesprojets', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesprojets.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondesprojets/ajouter', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesprojets_ajouter.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondesprojets/modifier', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondesprojets_modifier.html.twig');
-        return $response;
-    });
 
-    // Gestion des technologies
-    $app->get('/admin/gestiondestechnologies', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondestechnologies.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondestechnologies/ajouter', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondestechnologies_ajouter.html.twig');
-        return $response;
-    });
-    $app->get('/admin/gestiondestechnologies/modifier', function (Request $request, Response $response) {
-        return $this->view->render($response, 'Pages/gestiondestechnologies_modifier.html.twig');
-        return $response;
-    });
+#region /******************************* 5) AJOUT DES ROUTES ************************************************************/
+$app->get('/', 'Portfolio\Controller\PagesController:indexAction');
 
-// SIGNIFIE QU'IL FAUT LANCER L'APPLICATION
-    $app->run();
+
+#region --------- PARTIE PUBLIQUE ---------
+$app->get('/experiences', 'Portfolio\Controller\PagesController:experiencesAction');
+$app->get('/formation', 'Portfolio\Controller\PagesController:formationAction');
+$app->get('/detailprojet', 'Portfolio\Controller\PagesController:detailProjetAction');
+$app->get('/inscription', 'Portfolio\Controller\PagesController:inscriptionPage');
+$app->post('/connexion', 'Portfolio\Controller\PagesController:inscriptionAction');
+$app->get('/connexion', 'Portfolio\Controller\PagesController:connexionPage');
+$app->get('/spotify', 'Portfolio\Controller\PagesController:spotifyPage');
+$app->post('/connecting', 'Portfolio\Controller\PagesController:connexionAction');
+#endregion
+
+
+#region --------- PARTIE PUBLIQUE CONNECTÉE ---------
+$app->group('/user', function () {
+    $this->get('/{id}', 'Portfolio\Controller\PagesController:indexAction');
+    $this->get('/{id}/experiences', 'Portfolio\Controller\PagesController:experiencesAction');
+    $this->get('/{id}/formation', 'Portfolio\Controller\PagesController:formationAction');
+    $this->get('/{id}/detailprojet', 'Portfolio\Controller\PagesController:detailProjetAction');
+    // Afficher les informations de son compte utilisateur
+    $this->get('/{id}/moncompte', 'Portfolio\Controller\PagesController:monCompteAction');
+    // Modifier les informations du compte utilisateur
+    $this->map(['get', 'post'], '/{id}/moncompte/modifier', 'Portfolio\Controller\PagesController:modifierUtilisateurAction');
+    // Supprimer un utilisateur
+    $this->get('/{id}/supprimer', 'Portfolio\Controller\PagesController:supprimerUtilisateurAction');
+    $this->get('/{id}/playlist/{idPlaylist}', 'Portfolio\Controller\PagesController:playlistAction');
+    $this->get('/{id}/playlist/{idPlaylist}/{idTrack}', 'Portfolio\Controller\PagesController:TrackAction');
+});
+#endregion
+
+
+#region --------- PARTIE ADMINSITRATION ---------
+$app->group('/admin', function () {
+    $this->get('', 'Portfolio\Controller\PagesController:adminAction');
+    $this->get('/playlist/{idPlaylist}', 'Portfolio\Controller\PagesController:playlistAction');
+    $this->get('/playlist/{idPlaylist}/{idTrack}', 'Portfolio\Controller\PagesController:TrackAction');
+
+    #region --> Gestion des expériences
+        //CRUD
+    $this->get('/gestiondesexperiences', 'Portfolio\Controller\PagesController:CRUDExperiences');
+        // Ajouter une nouvelle expérience
+    $this->get('/gestiondesexperiences/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutExperience');
+    $this->post('/gestiondesexperiences', 'Portfolio\Controller\PagesController:ajouterExperienceAction');
+        // Modifier une expérience
+    $this->map(['get', 'post'], '/gestiondesexperiences/modifier', 'Portfolio\Controller\PagesController:modifierExperienceAction');
+        // Supprimer une expérience
+    $this->get('/gestiondesexperiences/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerExperienceAction');
+    #endregion
+
+    #region --> Gestion des formations
+        //CRUD
+    $this->get('/gestiondesformations', 'Portfolio\Controller\PagesController:CRUDFormations');
+        // Ajouter une nouvelle formation
+    $this->get('/gestiondesformations/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutFormation');
+    $this->post('/gestiondesformations', 'Portfolio\Controller\PagesController:ajouterFormationAction');
+        // Modifier une formation
+    $this->map(['get', 'post'], '/gestiondesformations/modifier', 'Portfolio\Controller\PagesController:modifierFormationAction');
+        // Supprimer une formation
+    $this->get('/gestiondesformations/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerFormationAction');
+    #endregion
+
+    #region --> Gestion des projets
+        //CRUD
+    $this->get('/gestiondesprojets', 'Portfolio\Controller\PagesController:CRUDProjets');
+        // Détail projet
+    $this->get('/gestiondesprojets/detail_projet', 'Portfolio\Controller\PagesController:AdmindetailProjet');
+        // Ajouter un nouveau projet
+    $this->get('/gestiondesprojets/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutProjet');
+    $this->post('/gestiondesprojets', 'Portfolio\Controller\PagesController:ajouterProjetAction');
+        // Modifier un projet
+    $this->map(['get', 'post'], '/gestiondesprojets/modifier', 'Portfolio\Controller\PagesController:modifierProjetAction');
+        // Supprimer un projet
+    $this->get('/gestiondesprojets/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerProjetAction');
+#endregion
+
+    #region --> Gestion des technologies
+        //CRUD
+    $this->get('/gestiondestechnologies', 'Portfolio\Controller\PagesController:CRUDTechnologies');
+        // Ajouter une nouvelle technologie
+    $this->get('/gestiondestechnologies/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutTechnologie');
+    $this->post('/gestiondestechnologies', 'Portfolio\Controller\PagesController:ajouterTechnologieAction');
+        // Modifier une technologie
+    $this->map(['get', 'post'], '/gestiondestechnologies/modifier', 'Portfolio\Controller\PagesController:modifierTechnologieAction');
+        // Supprimer une technologie
+    $this->get('/gestiondestechnologies/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerTechnologieAction');
+    #endregion
+
+    #region --> Gestion des utilisateurs
+    //CRUD
+    $this->get('/gestiondesutilisateurs', 'Portfolio\Controller\PagesController:CRUDUtilisateurs');
+    // Modifier un utilisateur
+    $this->map(['get', 'post'], '/gestiondesutilisateurs/modifier', 'Portfolio\Controller\PagesController:modifierUtilisateurAdminAction');
+    // Supprimer un utilisateur
+    $this->get('/gestiondesutilisateurs/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerUtilisateurAdminAction');
+    #endregion
+});
+#endregion
+
+$app->get('/disconnect', 'Portfolio\Controller\PagesController:deconnexionAction');
+
+#endregion
+
+
+#region /******************************* 6) LANCEMENT DE L'APPLICATION **************************************************/
+$app->run();
+#endregion

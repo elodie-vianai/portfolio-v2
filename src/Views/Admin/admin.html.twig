@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="/css/index.css">
 {% endblock %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="/js/api_spotify.js"></script>
+{% endblock %}
+
 
 
 {% block header %}
@@ -22,7 +26,6 @@
 
 
 {% block body %}
-
     <!-- SECTION ACCROCHE !-->
     <section class="row">
         <div class="col-lg-3">
@@ -30,11 +33,11 @@
         </div>
         <div class="col-lg-9 text-center">
             <h1>Partie administration</h1>
-            <p>
-                Bienvenue sur la partie administration ! <br>
-                C'est ici que tu peux mettre à jour ton portfolio. <BR>
-                Have fun :)
-            </p>
+            <br>
+            <blockquote class="blockquote">
+                <span id="citation"><em>"Le fossé séparant théorie et pratique est moins large en théorie qu’il ne l’est en pratique."</em></span>
+                <footer class="blockquote-footer">auteur inconnu</footer>
+            </blockquote>
         </div>
     </section>
 
@@ -53,7 +56,7 @@
             <div class="carousel-inner">
                 {% for projet in projets %}
                     <!-- NEW PAGE -->
-                    <div class="item active">
+                    <div class="item {% if projet.last in projet %}active{% endif %}">
                         <a href="/admin/gestiondesprojets/detail_projet?id={{ projet.id }}">
                             <div class="carousel-page">
                                 <img src="/images/{{ projet.image_path }}" class="img-responsive img-rounded"/>
@@ -70,6 +73,103 @@
             <a class="right carousel-control" href="#my_carousel" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
+        </div>
+    </section>
+
+
+    <!-- SECTION MUSIQUE !-->
+    <section class="row">
+        <h2>Mes playlists</h2>
+        <div id="player" class="row apiSpotify">
+            <div class="row playerview">
+                <div class="row topgroup">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-7 titlebox">
+                        <a href="#/home">Aperçu de mes playlists partagées</a>
+                    </div>
+                </div>
+                <div class="row midgroup">
+                    <div class="menuview">
+                        <div class="list scrollable">
+                            <b><a href="#/me">PLAYLISTS</a></b>
+                            <ul class="list-unstyled menuitems">
+                               {% for playlist in playlists %}
+                                <li value="{{ playlist.idPlaylist }}">
+                                    <a class="playlist-link" href="#" data-id="{{ playlist.idPlaylist }}">
+                                       {{playlist.namePlaylist}}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="preview">
+                            <div class="img-responsive img-thumbail" id="albumImg"><!-- CF. api_spotify.js !--></div>
+                            <div class="track" id="track">
+                                <b id="trackName"></b>
+                                <br>
+                                <a class="artiste" id="trackArtist"><!-- CF. api_spotify.js !--></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mainview table-responsive">
+                        <div class="titrePlaylist">
+                            <h3 id="titrePlaylist"><!-- CF. api_spotify.js !--></h3>
+                        </div>
+                        <table id="listTracks" class="table table-condensed table-hover">
+                            <tr>
+                                <th>Liste des playlists</th>
+                            </tr>
+                            {% for playlist in playlists %}
+                                <tr>
+                                    <td>
+                                        <a class="playlist-link" href="#" data-id="{{ playlist.idPlaylist }}">
+                                            {{playlist.namePlaylist}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="row bottomgroup">
+                    <audio id="audioPlayer"></audio>
+                    <div class="col-lg-2 leftcontrols">
+                        <div class="prevbutton">
+                            <a class="prevlink"><img src="/images/btn-prev.png" /></a>
+                        </div>
+                        <div class="playbutton" >
+                            <div id="playbtn">
+                                <a class="control">
+                                    <img src="/images/btn-play.png" />
+                                </a>
+                            </div>
+                            <div id="pausebtn">
+                                <a class="control">
+                                    <img src="/images/btn-pause.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="nextbutton">
+                            <a class="nextlink"><img src="/images/btn-next.png" /></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 volume">
+                    </div>
+                    <div class="col-lg-8 seekcontrols">
+                        <div id="currentTime"></div>
+                        <div class="progress">
+                            <div id="bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                <div id="nowBar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-1 rightcontrols">
+                        <span id="duration"><!-- CF. api_spotify.js !--></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

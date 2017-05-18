@@ -1,0 +1,18 @@
+h1 {
+    text-align: center;
+    padding: 5%;
+}
+
+.element {
+    padding: 3%;
+}
+
+.labels {
+    text-align: left;
+}
+
+footer {
+    position: fixed;
+    width: 1140px;
+    bottom: 10px;
+}

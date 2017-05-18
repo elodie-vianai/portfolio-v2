@@ -14,7 +14,11 @@
 
 
 {% block header %}
-    {{ include("Layout/publicHeader.html.twig") }}
+    {% if 'user' in session.roles %}
+        {% include ('Layout/publicheaderConnected.html.twig') %}
+    {% else %}
+        {% include ('Layout/publicheader.html.twig') %}
+    {% endif %}
 {% endblock %}
 
 
@@ -22,10 +26,6 @@
     <div class="row">
         <h1>Ma formation</h1>
     </div>
-    <!--<div class="row">
-        <h2>Formation scolaire</h2>
-    </div>!-->
-
     {% for formation in formations %}
         <div class="row zones">
             <div class="col-lg-2 logos">
@@ -33,7 +33,7 @@
             </div>
             <div class="col-lg-8 descriptions">
                 <p>
-                    <strong>{{ formation.name }}</strong> {{ formation.mentionV }}<br>
+                    <strong>{{ formation.name }}</strong> {{ formation.mention }}<br>
                     {{ formation.etablissement }}<br>
                     {{ formation.ville }}, {{ formation.dep }}
                 </p>

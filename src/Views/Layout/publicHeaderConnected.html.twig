@@ -1,0 +1,28 @@
+{% block header %}
+    <header class="page-header">
+        <div class="row">
+            <div class="col-lg-3" id="logo">
+                <a href="/">
+                    <img src="/images/logos/logo.png" alt="logo WA" id="WALogo"/>
+                </a>
+            </div>
+            <div class="nav nav-tabs" class="col-lg-9" id="menuPublic">
+                <ul class="nav navbar-nav">
+                    <li><a href="/user/{{ session.id }}">Accueil</a></li>
+                    <li ><a href="/user/{{ session.id }}/experiences">Expériences</a></li>
+                    <li><a href="/user/{{ session.id }}/formation">Formation</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <p>
+                        <strong>
+                            Bonjour,
+                            <a href="/user/{{ session.id }}/moncompte" id="myusername">{{ session.username }}</a>
+                        </strong>
+                        <br>
+                        <a href="/disconnect">Déconnexion</a>
+                    </p>
+                </ul>
+            </div>
+        </div>
+    </header>
+{% endblock %}

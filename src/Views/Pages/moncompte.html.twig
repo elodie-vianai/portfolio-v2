@@ -1,0 +1,59 @@
+{% extends 'Layout/index.html.twig' %}
+
+
+{% block title %}
+    Elodie's Portfolio - mon compte
+{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/moncompte.css">
+{% endblock %}
+
+
+{% block header %}
+    {% include ('Layout/publicheaderConnected.html.twig') %}
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <h1>Mon compte</h1>
+    </div>
+    <div class="row element">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3 labels">
+            <label for="username" class="control-label">Nom d'utilisateur</label>
+        </div>
+        <div class="col-lg-3">
+            <span>{{ user.username }}</span>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <div class="row element">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3  labels">
+            <label for="email" class="control-label droite">adresse mail</label>
+        </div>
+        <div class="col-lg-3">
+            <span>{{ user.email }}</span>
+        </div>
+    </div>
+    <div class="row element"></div>
+    <div class="row element" id="zoneboutons">
+        <div class="col-lg-3 boutons"></div>
+        <div class="col-lg-3 boutons">
+            <a class="btn btn-success" href="/user/{{ user.id }}/moncompte/modifier?id={{ user.id }}">Modifier</a>
+        </div>
+        <div class="col-lg-3 boutons">
+            <a class="btn btn-danger" href="/user/{{ user.id }}/supprimer">Supprimer</a>
+        </div>
+        <div class="col-lg-3 boutons"></div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

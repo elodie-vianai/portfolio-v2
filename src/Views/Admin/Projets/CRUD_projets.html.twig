@@ -21,12 +21,10 @@
     <h1>Gestion de mes projets</h1>
 {% endblock %}
 
-{% block cheminAjouter %}
-    /admin/gestiondesprojets
-{% endblock %}
-
-{% block nomBoutonAjouter %}
-    Ajouter un nouveau projet
+{% block boutonAjouter %}
+    <a href="/admin/gestiondesprojets/ajouter" class="btn btn-success ajouterUneNouvelleEntite">
+        Ajouter un nouveau projet
+    </a>
 {% endblock %}
 
 {% block thead %}
@@ -38,6 +36,9 @@
 {% endblock %}
 
 {% block tbody %}
+    {% if tabError.error in tabError %}
+        <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+    {% endif %}
     {% for projet in projets %}
         <tr>
             <td>{{ projet.year }}</td>
@@ -48,21 +49,19 @@
             </td>
             <td>
                 <ul class="listeTechnos">
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>Bootstrap</li>
-                    <li>Slim</li>
-                    <li>Twig</li>
+                    {% for technologie in projet.technologies %}
+                        <li>- {{technologie.name }}</li>
+                    {% endfor %}
                 </ul>
             </td>
             <td>
-                <a class="btn btn-default" href="gestiondesprojets/detail_projet?id=1">Voir</a>
+                <a class="btn btn-default" href="gestiondesprojets/detail_projet?id={{ projet.id }}">Voir</a>
             </td>
             <td>
-                <a class="btn btn-success" href="/admin/gestiondesprojets/modifier">Modifier</a>
+                <a class="btn btn-success" href="/admin/gestiondesprojets/modifier?id={{ projet.id }}">Modifier</a>
             </td>
             <td>
-                <a class="btn btn-danger" href="supprimer.php">Supprimer</a>
+                <a class="btn btn-danger" href="/admin/gestiondesprojets/supprimer/{{ projet.id }}">Supprimer</a>
             </td>
         </tr>
     {% endfor %}

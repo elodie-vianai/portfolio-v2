@@ -1,0 +1,48 @@
+{% extends 'Layout/detailProjet.html.twig' %}
+
+
+{% block title %}
+    Elodie's Portfolio - detail projet
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/detailprojet.css">
+{% endblock %}
+
+
+{% block header %}
+    {{ include("Layout/adminHeader.html.twig") }}
+{% endblock %}
+
+
+{% for projet in projet %}
+
+    {% block modifier %}<a class="btn btn-success" href="/admin/gestiondesprojets/modifier?id={{ projet.id }}">Modifier</a>{% endblock %}
+
+    {% block titreProjet %}{{ projet.name}}{% endblock %}
+
+    {% block nomProjet %}{{ projet.name}}{% endblock %}
+
+    {%  block anneeProjet %}{{ projet.year}}{% endblock %}
+
+    {% block descriptionProjet %}{{ projet.description}}{% endblock %}
+
+    {% block imageProjet %}{{ projet.image_path }}{% endblock %}
+{% endfor %}
+
+
+{% block listeTechnologies %}
+    {% for technologie in technologies %}
+        <div class="col-lg-2">
+            <img src="/images/logos/{{ technologie.image_path }}" alt="{{ technologie.name }}" class="logosTechnos">
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

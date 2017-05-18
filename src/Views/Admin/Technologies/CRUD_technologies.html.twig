@@ -1,5 +1,9 @@
 {% extends 'Layout/gestion.html.twig' %}
 
+{% block title %}
+    Admin Portfolio - Technologies
+{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/CRUD.css">
@@ -13,12 +17,10 @@
     <h1>Gestion de mes technologies</h1>
 {% endblock %}
 
-{% block cheminAjouter %}
-    /admin/gestiondestechnologies
-{% endblock %}
-
-{% block nomBoutonAjouter %}
-    Ajouter une nouvelle technologie
+{% block boutonAjouter %}
+    <a href="/admin/gestiondestechnologies/ajouter" class="btn btn-success ajouterUneNouvelleEntite">
+        Ajouter une nouvelle technologie
+    </a>
 {% endblock %}
 
 {% block thead %}
@@ -27,6 +29,9 @@
 {% endblock %}
 
 {% block tbody %}
+    {% if tabError.error in tabError %}
+        <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+    {% endif %}
     {% for technology in technologies %}
         <tr>
             <td>{{ technology.name }}</td>

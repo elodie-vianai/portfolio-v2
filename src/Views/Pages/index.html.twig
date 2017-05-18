@@ -1,6 +1,10 @@
 {% extends 'Layout/index.html.twig' %}
 
 
+{% block session %}
+    session_start();
+{% endblock %}
+
 
 {% block title %}
     Elodie's Portfolio
@@ -13,16 +17,23 @@
     <link rel="stylesheet" href="/css/index.css">
 {% endblock %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="/js/api_spotify.js"></script>
+{% endblock %}
+
 
 
 {% block header %}
-    {{ include("Layout/publicHeader.html.twig") }}
+        {% if 'user' in session.roles %}
+            {% include ('Layout/publicheaderConnected.html.twig') %}
+        {% else %}
+            {% include ('Layout/publicheader.html.twig') %}
+        {% endif %}
 {% endblock %}
 
 
 
 {% block body %}
-    <!--<h1>Bonjour {{ name }}</h1>!-->
 <!-- SECTION ACCROCHE !-->
     <section class="row">
         <div class="col-lg-3">
@@ -30,11 +41,22 @@
         </div>
         <div class="col-lg-9 text-center">
             <h1>Elodie Vianai, développeuse web</h1>
-            <p>
-                Bienvenue sur mon portfolio ! <br>
-                Vous allez donc apprendre à me connaître un peu. <BR>
-                Bonne lecture :)
-            </p>
+            <br>
+            <blockquote class="blockquote">
+                <span id="citation">
+                    <em>
+                        {% if 'user' in session.roles %}
+                            Bonjour et bienvenue sur mon Portfolio !
+                            <br>
+                            Vous pouvez maintenant écouter un aperçu des musiques que j'écoute quand je travaille.</em>
+                </span>
+                <footer class="blockquote-footer">Elodie</footer>
+                        {% else %}
+                            "Assurez-vous d’apprendre quelque chose de nouveau chaque jour."</em>
+                </span>
+                <footer class="blockquote-footer">Anders M. Andersen</footer>
+                        {% endif %}
+            </blockquote>
         </div>
     </section>
 
@@ -43,9 +65,9 @@
         <div class="col-lg-7" id="aboutMe">
             <h2>A propos de moi</h2>
             <p>
-                Je m'appelle Elodie Vianai, j'ai commencé le développement web pour développer ma propre application pour archiver des documents
-                familiaux puis une autre pour gérer les inscriptions dans mon club. C'est vite devenu un plaisir et une vocation. Etant curieuse de
-                nature, j'aime expérimenter, découvrir et apprendre.
+                Je m'appelle Elodie Vianai, j'ai commencé le développement web en 2015 en développant une petite application
+                servant à archiver des documents familiaux sur l'aéropostale. Puis une application test destiner à la gestion
+                des adhérents de mon club de natation. C'est vite devenu un plaisir et une vocation. Etant curieuse de                 nature, j'aime expérimenter, découvrir et apprendre.
             </p>
         </div>
         <div class="col-lg-5" id="mesAtouts">
@@ -107,8 +129,12 @@
             <div class="carousel-inner">
                 {% for projet in projets %}
                     <!-- NEW PAGE -->
-                    <div class="item active">
-                        <a href="/detailprojet?id={{ projet.id }}">
+                    <div class="item {% if projet.last in projet %}active{% endif %}">
+                        <a {% if 'user' in session.roles %}
+                                href="/user/{{ session.id }}/detailprojet?id={{ projet.id }}"
+                            {% else %}
+                                href="/detailprojet?id={{ projet.id }}"
+                            {% endif %}>
                             <div class="carousel-page">
                                 <img src="/images/{{ projet.image_path }}" class="img-responsive img-rounded"/>
                             </div>
@@ -126,9 +152,109 @@
             </a>
         </div>
     </section>
+
+    <!-- SECTION MUSIQUE !-->
+    {% if 'user' in session.roles %}
+        <section class="row">
+            <h2>Mes playlists</h2>
+            <div id="player" class="row apiSpotify">
+                <div class="row playerview">
+                    <div class="row topgroup">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-7 titlebox">
+                            <a href="#/home">Aperçu de mes playlists</a>
+                        </div>
+                    </div>
+                    <div class="row midgroup">
+                        <div class="menuview">
+                            <div class="list scrollable">
+                                <b><a href="#/me">PLAYLISTS</a></b>
+                                <ul class="list-unstyled menuitems">
+                                    {% for playlist in playlists %}
+                                        <li value="{{ playlist.idPlaylist }}">
+                                            <a class="playlist-link" href="#" data-id="{{ playlist.idPlaylist }}">
+                                                {{playlist.namePlaylist}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="preview">
+                                <div class="img-responsive img-thumbail" id="albumImg"><!-- CF. api_spotify.js !--></div>
+                                <div class="track" id="track">
+                                    <b id="trackName"></b>
+                                    <br>
+                                    <a class="artiste" id="trackArtist"><!-- CF. api_spotify.js !--></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mainview table-responsive">
+                            <div class="titrePlaylist">
+                                <h3 id="titrePlaylist"><!-- CF. api_spotify.js !--></h3>
+                            </div>
+                            <table id="listTracks" class="table table-condensed table-hover">
+                                <tr>
+                                    <th>Liste des playlists</th>
+                                </tr>
+                                {% for playlist in playlists %}
+                                    <tr>
+                                        <td>
+                                            <a class="playlist-link" href="#" data-id="{{ playlist.idPlaylist }}">
+                                                {{playlist.namePlaylist}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row bottomgroup">
+                        <audio id="audioPlayer"></audio>
+                        <div class="col-lg-2 leftcontrols">
+                            <div class="prevbutton">
+                                <a class="prevlink"><img src="/images/btn-prev.png" /></a>
+                            </div>
+                            <div class="playbutton" >
+                                <div id="playbtn">
+                                    <a class="control">
+                                        <img src="/images/btn-play.png" />
+                                    </a>
+                                </div>
+                                <div id="pausebtn">
+                                    <a class="control">
+                                        <img src="/images/btn-pause.png" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="nextbutton">
+                                <a class="nextlink"><img src="/images/btn-next.png" /></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 volume">
+                        </div>
+                        <div class="col-lg-8 seekcontrols">
+                            <div id="currentTime"></div>
+                            <div class="progress">
+                                <div id="bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                    <div id="nowBar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 rightcontrols">
+                            <span id="duration"><!-- CF. api_spotify.js !--></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}
 
 
 {% block footer %}
     {{ include("Layout/footer.html.twig") }}
 {% endblock %}
+
+
