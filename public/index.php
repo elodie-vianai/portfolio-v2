@@ -53,7 +53,10 @@ $app->get('/inscription', 'Portfolio\Controller\PagesController:inscriptionPage'
 $app->post('/connexion', 'Portfolio\Controller\PagesController:inscriptionAction');
 $app->get('/connexion', 'Portfolio\Controller\PagesController:connexionPage');
 $app->get('/spotify', 'Portfolio\Controller\PagesController:spotifyPage');
+$app->get('/instagram', 'Portfolio\Controller\PagesController:InstagramPage');
 $app->post('/connecting', 'Portfolio\Controller\PagesController:connexionAction');
+//$app->get('/contact', 'Portfolio\Controller\PagesController:contactPage');
+$app->map(['get', 'post'], '/contact', 'Portfolio\Controller\PagesController:contactAction');
 #endregion
 
 

@@ -18,6 +18,9 @@
 
 
 {% block body %}
+    {% if tabError.error in tabError %}
+        <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+    {% endif %}
     <div class="row">
         <h1>Connexion</h1>
     </div>

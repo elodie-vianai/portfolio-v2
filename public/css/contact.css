@@ -1,0 +1,49 @@
+/****************************************** GÉNÉRALITÉS *****************************************************************/
+h1 {
+    text-align: center;
+    padding-bottom: 5%;
+}
+
+.spacebetween {
+    border-left: 5px solid #eee;
+/* border-left: 1px dotted #125688;*/
+ height: 150px;
+}
+
+
+/****************************************** CONTACTER MON ENTREPRISE ACTUELLE *******************************************/
+address strong {
+    color : #125688;
+}
+address .adresse {
+    color: grey;
+}
+
+.espace {
+    height: 15px;
+}
+
+
+/****************************************** JE SUIS AUSSI SUR CES RÉSEAUX SOCIAUX ***************************************/
+.rs .pseudo {
+    color: grey;
+    font-size: small;
+}
+
+
+/****************************************** FORMULAIRE ******************************************************************/
+.form-control:required {
+    background: url(../images/asterisk.png) 98% center no-repeat #fff;
+}
+
+div .formulaire {
+    padding-top: 2%;
+    text-align: center;
+    /*border-top: 5px solid #eee;*/
+    border-top: 1px dotted #125688;
+}
+
+#formObligatoire {
+    color: red;
+    padding: 1%;
+}

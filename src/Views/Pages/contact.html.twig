@@ -1,0 +1,154 @@
+{% extends 'Layout/index.html.twig' %}
+
+
+{% block title %}
+    Elodie's Portfolio - contact
+{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/contact.css">
+{% endblock %}
+
+
+{% block header %}
+    {% if 'user' in session.roles %}
+        {% include ('Layout/publicheaderConnected.html.twig') %}
+    {% elseif 'admin' in session.roles %}
+        {% include ('Layout/adminHeader.html.twig') %}
+    {% else %}
+        {% include ('Layout/publicheader.html.twig') %}
+    {% endif %}
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <h1>Me contacter</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="row">
+                <h4>Contacter mon entreprise actuelle</h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <address>
+                    <div class="row"><strong>Web Atrio</strong></div>
+                    <div class="col-lg-1"></div>
+                    <div class=" row adresse">2 rue Marcel Doret</div>
+                    <div class="col-lg-1"></div>
+                    <div class="row adresse">Burolines 2</div>
+                    <div class="col-lg-1"></div>
+                    <div class="row adresse">31700 Blagnac</div>
+                    <div class="row espace"><div class="col-lg-1"></div></div>
+                    <div class="col-lg-1"></div>
+                    <div class="row adresse">06.81.77.39.99</div>
+                </address>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-1 spacebetween"> </div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+            <div class="row">
+                <h4>Je suis aussi sur ces réseaux sociaux</h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-3 rs">
+                    <a href="https://twitter.com/elodiev31" target="_blank">
+                        <img src="../../images/logos/TwitterLogo">
+                    </a>
+                    <br>
+                    <span class="nomRS">Twitter</span>
+                    <br>
+                    <span class="pseudo"><em>@elodiev31</em></span>
+                </div>
+                <div class="col-lg-3 rs">
+                    <a href="https://fr.linkedin.com/in/elodie-vianai" target="_blank">
+                        <img src="../../images/logos/LinkedinLogo">
+                    </a>
+                    <br>
+                    <span class="nomRS">Linkedin</span>
+                    <br>
+                    <span class="pseudo"><em>elodie-vianai</em></span>
+                </div>
+                <div class="col-lg-3 rs">
+                    <a href="http://fr.viadeo.com/fr/profile/elodie.vianai" target="_blank">
+                        <img src="../../images/logos/ViadeoLogo">
+                    </a>
+                    <br>
+                    <span class="nomRS">Viadeo</span>
+                    <br>
+                    <span class="pseudo"><em>elodie.vianai</em></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row formulaire">
+        <h4>Me contacter directement par formulaire</h4>
+        {% if tabError.error in tabError %}
+            <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+        {% endif %}
+        <div class="row">
+            <p id="formObligatoire">Tous les champs marqués d'un * sont obligatoires.</p>
+        </div>
+
+        <form class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded" action="/contact">
+            <div class="form-group">
+                <div class="col-lg-2">
+                    <label for="nom" class="control-label">Nom</label>
+                </div>
+                <div class="col-lg-4">
+                    <input type="text" name="nom" placeholder="Nom" class="form-control" disabled>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">
+                    <label for="prenom" class="control-label">Prénom</label>
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" name="prenom" placeholder="Prénom" class="form-control" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2">
+                    <label for="mail" class="control-label">Email</label>
+                </div>
+                <div class="col-lg-4">
+                    <input type="email" name="email" placeholder="Email" class="form-control" disabled>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">
+                    <label for="phone" class="control-label">Téléphone</label>
+                </div>
+                <div class="col-lg-3">
+                    <input type="tel" name="phone" placeholder="Numéro de téléphone" class="form-control" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label for="msg" class="control-label">Votre message</label>
+                    </div>
+                    <div class="col-lg-10">
+                        <textarea class="form-control" name="message" rows="10" placeholder="Tapez ici votre message" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-offset-4 col-lg-4 col-lg-offset-4">
+                        <button type="submit" class="btn btn-primary" name="envoyer" value="envoyer">Envoyer</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ include("Layout/footer.html.twig") }}
+{% endblock %}

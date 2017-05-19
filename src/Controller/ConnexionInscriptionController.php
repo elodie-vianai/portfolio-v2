@@ -8,6 +8,7 @@
 
 namespace Portfolio\Controller;
 
+use GuzzleHttp\Client;
 use Portfolio\Models\UsersModel;
 use SpotifyWebAPI\Session;
 use SpotifyWebAPI\SpotifyWebAPI;
@@ -74,7 +75,6 @@ class ConnexionInscriptionController
             header('Location: ' . $session->getAuthorizeUrl($options));
             die;
         }
-        return $session;
     }
 #endregion
 
@@ -88,28 +88,34 @@ class ConnexionInscriptionController
     public function gestionConnexion($username, $mdp)
     {
         if (!isset($username)) {
-            $messageErreur = 'Erreur : veuillez rentrer un nom d\'utilisateur !';
-            return $messageErreur;
+            $msgError = 'Erreur : veuillez rentrer un nom d\'utilisateur !';
+            return $msgError;
         } elseif (!isset($mdp)) {
-            $messageErreur = 'Erreur : veuillez rentrer un mot de passe !';
-            return $messageErreur;
+            $msgError = 'Erreur : veuillez rentrer un mot de passe !';
+            return $msgError;
         } else {
             $user = $this->user->getUser($username, $mdp);
-            if ($user['roles'] == 'admin') {
-                $_SESSION['id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['roles'] = $user['roles'];
-                $_SESSION['chemin'] = '/admin';
-                $this->connexionApiSpotify();
-                return $user;
+            if ($user == true){
+                if ($user['roles'] == 'admin') {
+                    $_SESSION['id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['roles'] = $user['roles'];
+                    $_SESSION['chemin'] = '/admin';
+                    $this->connexionApiSpotify();
+                    return $user;
+                } else {
+                    $_SESSION['id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['roles'] = 'user';
+                    $_SESSION['header'] = 'Layout/publicHeaderConnected.html.twig';
+                    $_SESSION['chemin'] = '/' . $_SESSION['id'];
+                    $this->connexionApiSpotify();
+                    return $user;
+                }
             } else {
-                $_SESSION['id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['roles'] = 'user';
-                $_SESSION['header'] = 'Layout/publicHeaderConnected.html.twig';
-                $_SESSION['chemin'] = '/' . $_SESSION['id'];
-                $this->connexionApiSpotify();
-                return $user;
+                unset($user);
+                $msgError = 'Erreur : dans les identifiants !';
+                return $msgError;
             }
         }
     }

@@ -19,6 +19,7 @@ use Slim\Http\Request as Request;
 use Slim\Http\Response as Response;
 use SpotifyWebAPI\Session;
 use SpotifyWebAPI\SpotifyWebAPI;
+use MetzWeb\Instagram\Instagram;
 
 
 class PagesController
@@ -141,6 +142,50 @@ class PagesController
 #endregion
 
 
+#region /*******************************  PARTIE PUBLIQUE : contact *****************************************************/
+    public function contactAction(Request $request, Response $response)
+    {
+        /*$HTTP_POST_VARS = $request->getParsedBody();
+        if (!empty($_POST)) {
+            if ((empty($_POST['nom'])) OR (empty($_POST['prenom'])) OR (empty($_POST['email'])) OR (empty($_POST['message']))) {
+                $tabError = [];
+                if (empty($_POST['nom'])) {
+                    $tabError['error'] = 'Erreur : vous n\'avez pas renseigné votre nom !';
+                }
+                if (empty($_POST['prenom'])) {
+                    $tabError['error'] = 'Erreur : vous n\'avez pas renseigné votre prénom !';
+                }
+                if (empty($_POST['email'])) {
+                    $tabError['error'] = 'Erreur : vous n\'avez pas renseigné votre email !';
+                }
+                if (empty($_POST['message'])) {
+                    $tabError['error'] = 'Erreur : vous n\'avez pas rien écrit dans la zone de texte !';
+                }
+                var_dump($tabError);die;
+            } else {
+                $nom = $HTTP_POST_VARS['nom'];
+                $prenom = $HTTP_POST_VARS['prenom'];
+                $email = $HTTP_POST_VARS['email'];
+                $telephone = $HTTP_POST_VARS['phone'];
+                $message_content = str_replace("\n.", "\n..", $HTTP_POST_VARS['message']);
+                $subject = 'Un message vous est envoyé depuis Portfolio';
+                $to = 'elodie.vianai@gmail.com';
+                $headers = 'MIME-Version: 1.0'."\r\n";
+                $headers .= 'Content-type: text/plain; charset=iso-8859-1'."\r\n";
+                $headers .= 'De la part de : '.htmlspecialchars($prenom).' '.
+                    htmlspecialchars($nom).' ('.htmlspecialchars($telephone).') <'.htmlspecialchars($email).'>';
+                if (mail($to, $subject, $message_content, $headers)){
+                    var_dump('le mail est parti !');die;
+                } else {
+                    var_dump('erreur'); die;
+                }
+            }
+        }*/
+        return $this->container->get('view')->render($response, 'Pages/contact.html.twig');
+    }
+#endregion
+
+
 #region /*******************************  PARTIE PUBLIQUE : connexion ***************************************************/
     public function connexionPage(Request $request, Response $response)
     {
@@ -155,14 +200,20 @@ class PagesController
 
         $projetsController = new ProjectsController();
         $projetsController->formatageProjets();
-        if ($user['roles'] == 'admin') {
-            $username = $user['username'];
-            return $response->withRedirect('/admin');
+
+        if (is_array($user)) {
+            if ($user['roles'] == 'admin') {
+                $username = $user['username'];
+                return $response->withRedirect('/admin');
+            } else {
+                $username = $user['username'];
+                $header = $_SESSION['roles'];
+                $args['id'] = $_SESSION['id'];
+                return $response->withRedirect('/user/' . $args['id']);
+            }
         } else {
-            $username = $user['username'];
-            $header = $_SESSION['roles'];
-            $args['id'] = $_SESSION['id'];
-            return $response->withRedirect('/user/' . $args['id']);
+            $_SESSION['error'] = $user;
+            return $response->withRedirect('/connexion');
         }
     }
 #endregion
@@ -225,7 +276,6 @@ class PagesController
 #region /*******************************  PARTIE PUBLIQUE : déconnexion ***************************************************/
     public function deconnexionAction(Request $request, Response $response)
     {
-        var_dump($_SESSION);
         session_destroy();
         return $response->withRedirect('/');
     }
@@ -918,4 +968,5 @@ class PagesController
     }
     #endregion
 #endregion
+
 }
