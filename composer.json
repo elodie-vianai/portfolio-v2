@@ -2,9 +2,8 @@
     "require": {
         "slim/slim": "^3.0",
         "slim/twig-view": "^2.2",
-        "jwilsson/spotify-web-api-php": "^1.10",
-        "cosenary/instagram": "^2.3",
-        "guzzlehttp/guzzle": "~5.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "jwilsson/spotify-web-api-php": "^1.10"
     },
     "autoload": {
         "psr-4": {

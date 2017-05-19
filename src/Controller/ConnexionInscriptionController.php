@@ -8,7 +8,6 @@
 
 namespace Portfolio\Controller;
 
-use GuzzleHttp\Client;
 use Portfolio\Models\UsersModel;
 use SpotifyWebAPI\Session;
 use SpotifyWebAPI\SpotifyWebAPI;
