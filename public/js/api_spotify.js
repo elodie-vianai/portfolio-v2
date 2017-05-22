@@ -39,7 +39,7 @@ $(document).ready(function () {
        });
    });
 
-    /******************************* GET AND DISPLAY INFO OF A TRACK (name, artist, album) **********************************/
+    /******************************* GET AND DISPLAY INFO OF A TRACK (name, artist, album) ******************************/
     $('.track-link').on('click');
 
     var getTrack = function (e) {
@@ -76,7 +76,7 @@ $(document).ready(function () {
         });
     };
 
-    /******************************* DISPLAY OR HIDE PLAY/PAUSE BUTTON ******************************************************/
+    /******************************* DISPLAY OR HIDE PLAY/PAUSE BUTTON **************************************************/
     $('.control').on('click');
 
     var play = function (e) {
@@ -138,7 +138,7 @@ $(document).ready(function () {
         });
     });
 
-    /******************************* BUTTON PREVIOUS ************************************************************************/
+    /******************************* BUTTON PREVIOUS ********************************************************************/
     $('.prevlink').on('click', function (e) {
         e.preventDefault();
         var idPlaylist = document.getElementById('titrePlaylist').getAttribute('data-idplaylist');
@@ -182,7 +182,7 @@ $(document).ready(function () {
         });
     });
 
-    /******************************* TIMER ************************************************************************/
+    /******************************* TIMER ******************************************************************************/
     $('#audioPlayer').on('timeupdate', function () {
         var player = document.querySelector('#audioPlayer');
         var duration = player.duration.toFixed(2);     // récupération de la durée totale du morceau
@@ -203,4 +203,12 @@ $(document).ready(function () {
         }
         document.querySelector('#duration').textContent = duration;
     });
+
+    /******************************* CONTROL OF SOUND *******************************************************************/
+    /*$('#vol').on('change', function (e) {
+        console.log('toto');
+        e.preventDefault();
+        var player = document.querySelector('#audioPlayer');
+    });*/
+
 });
