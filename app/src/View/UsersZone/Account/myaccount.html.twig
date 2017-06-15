@@ -1,0 +1,40 @@
+{% extends 'Layout/index.html.twig' %}
+
+{% block title %}
+    Elodie's Portfolio - mon compte
+{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/userPages.css">
+{% endblock %}
+
+{% block header %}
+    {% include ('UsersZone/Headers/userHeader.html.twig') %}
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <h1 class="h1 text-center">Mon compte</h1>
+    </div>
+    <div class="row justify-content-center padding-3">
+        <label for="username" class="col-3 font-weight-bold">Nom d'utilisateur</label>
+        <div class="col-3">
+            <span>{{ user.username }}</span>
+        </div>
+    </div>
+    <div class="row justify-content-center padding-3">
+        <label for="email" class="col-3 font-weight-bold">Adresse mail</label>
+        <div class="col-3">
+            <span>{{ user.email }}</span>
+        </div>
+    </div>
+    <div class="row justify-content-center padding-3">
+        <div class="col-3 boutons">
+            <a class="btn btn-success" href="/user/moncompte/modifier">Modifier mes informations</a>
+        </div>
+        <div class="col-3 boutons">
+            <a class="btn btn-danger" href="/user/supprimer">Supprimer mon compte</a>
+        </div>
+    </div>
+{% endblock %}

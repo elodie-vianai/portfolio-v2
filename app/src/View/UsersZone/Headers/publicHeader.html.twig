@@ -1,0 +1,36 @@
+{% block header %}
+    <header  id="header">
+        <div class="row">
+            <div class="col-3" id="logo">
+                <a href="/" style="padding-top: 2%;">
+                    <img src="/img/logos/logo.png" alt="logo WA" id="WALogo"/>
+                </a>
+            </div>
+            <div class="col">
+                <nav class="navbar navbar-toggleable-md" id="menuPublic">
+                    <div class="navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link">Accueil<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/experiences" class="nav-link">Expériences</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/formation" class="nav-link">Formation</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item active">
+                                <a href='/inscription' class="nav-link">Inscription</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href='/connexion' class="nav-link">Connexion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+{% endblock %}

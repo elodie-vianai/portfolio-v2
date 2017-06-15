@@ -1,0 +1,20 @@
+{% extends 'Layout/index.html.twig' %}
+
+
+{% block header %}
+    {% include ('AdminZone/adminHeader.html.twig') %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% block titrePage %}{% endblock %}
+    </div>
+
+<!-- BOUTON POUR AJOUTER UNE NOUVELLE ENTRÉE !-->
+    <div class="row">
+        {% block boutonAjouter %}<!-- nom du bouton!-->{% endblock %}
+
+<!-- TABLEAU !-->
+        {% block table %} {% endblock %}
+    </div>
+{% endblock %}

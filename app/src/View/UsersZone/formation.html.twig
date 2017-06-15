@@ -1,0 +1,46 @@
+{% extends 'Layout/index.html.twig' %}
+
+{% block title %}
+    Elodie's Portfolio - formation
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/publicPages.css">
+{% endblock %}
+
+{% block header %}
+    {% if 'user' in user.roles %}
+        {% include ('UsersZone/Headers/userHeader.html.twig') %}
+    {% else %}
+        {% include ('UsersZone/Headers/publicHeader.html.twig') %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <h1 class="h1 text-center">Ma formation</h1>
+    </div>
+
+    {% for formation in formations %}
+        <div class="row padding-bottom-3">
+            <div class="col-2">
+                <img src="/img/{{ formation.image_path }}" class="logos" alt="Logo de l'établissement">
+            </div>
+            <div class="col-8">
+                <p>
+                    <strong>{{ formation.name }}</strong>
+                    {% if formation.mention != 'P' %}(mention {{ formation.mention }}) {% endif %}
+                    <br>
+                    {{ formation.etablissement }}
+                    <br>
+                    {{ formation.ville }}, {{ formation.dep }}
+                </p>
+            </div>
+            <div class="col-2">
+                <h3 class="text-right">{{ formation.date }}</h3>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

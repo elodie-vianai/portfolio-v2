@@ -1,0 +1,143 @@
+{% extends 'AdminZone/form.html.twig' %}
+
+{% block title %}
+    Admin Portfolio - {% if formation.update == true %}Modifier {% else %} Ajouter {% endif %} une formation
+{% endblock %}
+
+{% block page_title %}
+    {% if formation.update == true %}
+        <h1 class="h1 text-center">Modifier une formation</h1>
+    {% else %}
+        <h1 class="h1 text-center padding-bottom-3">Ajouter une nouvelle formation</h1>
+    {% endif %}
+{% endblock %}
+
+{% block page_subtitle %}
+    {% if formation.update == true %}
+        <div class="row justify-content-center padding-bottom-3">
+            <h4 class="text-center subtitle">{{ formation.name }}</h4>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block formulaire %}
+<form class="paddin-bottom-5" id="formulaire" method="post" action="{{ formation.update == true ? '/admin/gestiondesformations/modifier/' ~ formation.id : '/admin/gestiondesformations/ajouter' }}">
+    <div class="form-group padding-bottom-3">
+        <div class="row form-group backgroundWA">
+            <h3>Dates</h3>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="begin_at" class="font-weight-bold">Date de début de la formation</label>
+            </div>
+            <div class="col">
+                <input type="date" name="begin_at" class="form-control" id="begin_at" required {% if formation.update == true %}value="{{ formation.begin_at }}"{% endif %}>
+            </div>
+            <div class="col"></div>
+            <div class="col-3">
+                <label for="end_at" class="font-weight-bold">Date de fin de la formation</label>
+            </div>
+            <div class="col">
+                <input type="date" name="end_at" class="form-control" id="end_at" {% if formation.update == true %} value="{{ formation.end_at }}"{% endif %}>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group padding-bottom-3">
+        <div class="row form-group backgroundWA">
+            <h3>Type de formation</h3>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="name" class="font-weight-bold">Nom de la formation</label>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Intitulé de la formation (Baccalauréat général..)" name="name" id="name" required {% if formation.update == true %}value="{{ formation.name }}"{% endif %}>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="type" class="font-weight-bold">Type de formation</label>
+            </div>
+            <div class="col">
+                <select class="form-control" name="type" id="type" required>
+                    <option value="\"></option>
+                    <option value="Certification" {% if formation.type == 'Certification' %} selected {% endif %}>Certification</option>
+                    <option value="Diplôme" {% if formation.type == 'Diplôme' %} selected {% endif %}>Diplôme</option>
+                    <option value="Formation" {% if formation.type == 'Formation' %} selected {% endif %}>Formation</option>
+                </select>
+            </div>
+            <div class="col"></div>
+            <div class="col-2">
+                <label for="mention" class="font-weight-bold">Mention</label>
+            </div>
+            <div class="col">
+                <select class="form-control" name="mention" id="mention">
+                    <option value="P" {% if formation.mention == 'P' %} selected {% endif %}></option>
+                    <option value="TB" {% if formation.mention == 'TB' %} selected {% endif %}>Très Bien</option>
+                    <option value="B" {% if formation.mention == 'B' %} selected {% endif %}>Bien</option>
+                    <option value="AB" {% if formation.mention == 'AB' %} selected {% endif %}>Assez Bien</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group padding-bottom-3">
+        <div class="row form-group backgroundWA">
+            <h3>Etablissement / Organisme de formation</h3>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="etablissement" class="font-weight-bold">Nom de l'établissement / organisme</label>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="etablissement" placeholder="Nom de l'établissement ou de l'organisme" id="etablissement" required {% if formation.update == true %} value="{{ formation.etablissement }}"{% endif %}>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="ville" class="font-weight-bold">Ville</label>
+            </div>
+            <div class="col">
+                <input type="text" name="ville" class="form-control" placeholder="Toulouse, Paris..." id="ville" required {% if formation.update == true %} value="{{ formation.ville }}"{% endif %}>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="dep_id" class="font-weight-bold">Département</label>
+            </div>
+            <div class="col">
+                <select class="form-control" name="dep_id" id="dep_id" required>
+                    {% for departement in departements %}
+                        <option value="{{ departement.id_dep }}" {% if formation.dep_id == departement.id_dep %}selected{% endif %}>({{ departement.code }}) {{ departement.departement }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="image_path" class="font-weight-bold">Logo de l'établissement / organisme</label>
+            </div>
+            <div class="col">
+                <input type="file" name="image_path" class="form-control-file" id="image_path" aria-describedby="aideInsertImage">
+                <small id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
+            </div>
+            {% if formation.update == true %}
+                <div class="col invisible">
+                    <label for="id" class="font-weight-bold">Identifiant de la technologie</label>
+                    <input type="text" name="id" class="col form-control" id="id" value="{{ formation.id }}">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center form-group padding-bottom-5">
+        <button type="submit" class="btn backgroundWA">
+            {% if formation.update == true %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+        </button>
+    </div>
+</form>
+{% endblock %}

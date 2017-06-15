@@ -1,0 +1,38 @@
+{% block header %}
+    <header  id="header">
+        <div class="row">
+            <div class="col-3" id="logo">
+                <a href="/user">
+                    <img src="/img/logos/logo.png" alt="logo WA" id="WALogo"/>
+                </a>
+            </div>
+            <div class="col">
+                <nav class="navbar navbar-toggleable-md" id="menuConnected">
+                    <div class="navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a href="/user" class="nav-link">Accueil<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/user/experiences" class="nav-link">Expériences</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/user/formation" class="nav-link">Formation</a>
+                            </li>
+                        </ul>
+                        <div class="navbar-nav">
+                            <p class="justify-content-center">
+                                <strong>
+                                    Bonjour,
+                                    <a href="/user/moncompte" id="myusername">{{ user.username }}</a>
+                                </strong>
+                                <br>
+                                <a href="/disconnect">Déconnexion</a>
+                            </p>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+{% endblock %}

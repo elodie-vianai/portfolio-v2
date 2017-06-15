@@ -1,0 +1,60 @@
+{% extends 'AdminZone/CRUD.html.twig' %}
+
+{% block title %}
+    Admin Portfolio - Formations
+{% endblock %}
+
+{% block body %}
+    {% block titrePage %}<h1 class="h1 text-center">Gestion des formations</h1>{% endblock %}
+
+    {% block boutonAjouter %}
+        <a href="/admin/gestiondesformations/ajouter" class="btn btn-success margin-bottom-3" id="add-button">
+            Ajouter une nouvelle formation
+        </a>
+    {% endblock %}
+
+    {% block table %}
+        <table class="table table-bordered margin-bottom-5 table_crud">
+            <thead class="table-info">
+            <tr>
+                <th class="align-middle text-center">Date de début</th>
+                <th class="align-middle text-center">Date de fin</th>
+                <th class="align-middle text-center">Type</th>
+                <th class="align-middle text-center">Nom</th>
+                <th class="align-middle text-center">Mention</th>
+                <th class="align-middle text-center">Etablissement</th>
+                <th class="align-middle text-center">Ville</th>
+                <th class="align-middle text-center">Logo</th>
+                <th class="align-middle text-center" colspan="2">Édition</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if tabError.error in tabError %}
+                <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+            {% endif %}
+            {% for formation in formations %}
+                <tr>
+                    <td  class="align-middle">{{ formation.crud_begin_at }}</td>
+                    <td  class="align-middle" id="td-end_at">
+                        {{ formation.crud_end_at }}
+                    </td>
+                    <td  class="align-middle">{{ formation.type }}</td>
+                    <td  class="align-middle">{{ formation.name }}</td>
+                    <td  class="align-middle">{{ formation.mention }}</td>
+                    <td  class="align-middle">{{ formation.etablissement }}</td>
+                    <td  class="align-middle">{{ formation.ville }} ({{ formation.code }})</td>
+                    <td  class="align-middle">
+                        <img src="/img/{{ formation.image_path }}" class="logos_crud" alt="Logo établissement">
+                    </td>
+                    <td class="align-middle" id="td-edition">
+                        <a class="btn btn-success" href="/admin/gestiondesformations/modifier/{{ formation.id }}">Modifier</a>
+                    </td>
+                    <td class="align-middle" id="td-edition">
+                        <a class="btn btn-danger" href="/admin/gestiondesformations/supprimer/{{ formation.id }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+{% endblock %}

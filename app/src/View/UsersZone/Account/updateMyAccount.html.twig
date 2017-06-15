@@ -1,0 +1,76 @@
+{% extends 'Layout/index.html.twig' %}
+
+{% block title %}
+    Elodie's Portfolio - modifier mon compte
+{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/userPages.css">
+{% endblock %}
+
+{% block header %}
+    {% include ('UsersZone/Headers/userHeader.html.twig') %}
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center padding-top-3 padding-bottom-3">
+        <div class="col-1">
+            <button class="btn btn-danger" id="goBack">Annuler</button>
+        </div>
+        <div class="col-11">
+            <h1 class="h1 text-center">Modifier l'utilisateur</h1>
+            <h4 class="text-center">{{ user.username }}</h4>
+        </div>
+    </div>
+
+    <div class="row consigne">
+        <p>Tous les champs marqués d'un * sont obligatoires.</p>
+    </div>
+
+    <form class="paddin-bottom-5" id="formulaire" method="post" action="/user/moncompte/modifier">
+        <div class="form-group padding-bottom-3">
+            <div class="row form-group">
+                <div class="col-3">
+                    <label for="username" class="font-weight-bold">Nom d'utilisateur</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="username" id="username" value="{{ user.username }}" required>
+                </div>
+            </div>
+            <div class="row justify-content-center form-group">
+                <div class="col-3">
+                    <label for="email" class="font-weight-bold">adresse mail</label>
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" name="email" id="email" value="{{ user.email }}" required>
+                </div>
+            </div>
+            <div class="row justify-content-center form-group">
+                <div class="col-3">
+                    <label for="password" class="font-weight-bold">mot de passe</label>
+                </div>
+                <div class="col-9">
+                    <input type="password" class="form-control" name="password" id="password" value="{{ user.password }}" required>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center form-group invisible">
+            <div class="col-3">
+                <label for="id" class="font-weight-bold">mot de passe</label>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" name="id" id="id" value="{{ user.id }}">
+            </div>
+            <div class="col-3">
+                <label for="roles" class="font-weight-bold">Rôle</label>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" name="roles" id="roles" value="{{ user.roles }}">
+            </div>
+        </div>
+        <div class="row justify-content-center form-group padding-bottom-5">
+            <button type="submit" class="btn backgroundWA">Enregistrer</button>
+        </div>
+    </form>
+{% endblock %}

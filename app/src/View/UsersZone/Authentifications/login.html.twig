@@ -1,0 +1,50 @@
+{% extends 'Layout/index.html.twig' %}
+
+{% block title %}
+    Elodie's Portfolio - connexion
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/publicPages.css">
+{% endblock %}
+
+{% block header %}
+    {% include 'UsersZone/Headers/publicHeader.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% if tabError.error in tabError %}
+        <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+    {% endif %}
+    <div class="row justify-content-center padding-top-3 padding-bottom-3">
+        <h1 class="h1 text-center">Connexion</h1>
+    </div>
+
+    <div class="row">
+        <p class="consigne">Tous les champs marqués d'un * sont obligatoires.</p>
+    </div>
+
+    <form class="paddin-bottom-5" id="formulaire" method="post" action="/connecting">
+        <div class="row justify-content-center form-group">
+            <div class="col-3">
+                <label for="username" class="font-weight-bold">Nom d'utilisateur</label>
+            </div>
+            <div class="col-6">
+                <input type="text" name="username" id="username" placeholder="Nom d'utilisateur" class="form-control" required>
+            </div>
+        </div>
+        <div class="row justify-content-center form-group">
+            <div class="col-3">
+                <label for="mdp" class="font-weight-bold">Mot de passe</label>
+            </div>
+            <div class="col-6">
+                <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe" required>
+            </div>
+        </div>
+        <div class="row justify-content-center form-group padding-top-3 padding-bottom-5">
+            <button id="submit" type="submit" class="btn backgroundWA">Valider</button>
+        </div>
+    </form>
+{% endblock %}

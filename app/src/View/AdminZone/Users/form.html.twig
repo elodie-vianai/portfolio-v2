@@ -1,0 +1,63 @@
+{% extends 'AdminZone/form.html.twig' %}
+
+{% block page_title %}
+    <h1 class="h1 text-center">Modifier un utilisateur</h1>
+{% endblock %}
+
+{% block title %}
+    Admin Portfolio - Modifier un utilisateur
+{% endblock %}
+
+{% block page_subtitle %}
+    <div class="row justify-content-center padding-bottom-3">
+        <h4 class="text-center subtitle">{{ user.username }}</h4>
+    </div>
+{% endblock %}
+
+{% block formulaire %}
+  <form class="paddin-bottom-5" id="formulaire" method="post" action={{ '/admin/gestiondesutilisateurs/modifier/'~ user.id}}>
+        <div class="form-group padding-bottom-3">
+            <div class="row form-group">
+                <div class="col-3">
+                    <label for="username" class="font-weight-bold">Nom d'utilisateur</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" class="form-control" name="username" id="username" value="{{ user.username }}" required>
+                </div>
+            </div>
+            <div class="row justify-content-center form-group">
+                <div class="col-3">
+                    <label for="email" class="font-weight-bold">adresse mail</label>
+                </div>
+                <div class="col-9">
+                    <input type="email" class="form-control" name="email" id="email" value="{{ user.email }}" required>
+                </div>
+            </div>
+            <div class="row justify-content-center form-group">
+                <div class="col-3">
+                    <label for="password" class="font-weight-bold">mot de passe</label>
+                </div>
+                <div class="col-9">
+                    <input type="password" class="form-control" name="password" id="password" value="{{ user.password }}" required>
+                </div>
+            </div>
+            <div class="row justify-content-center form-group">
+                <div class="col-3">
+                    <label for="roles" class="font-weight-bold">Rôle</label>
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" name="roles" id="roles" value="{{ user.roles }}">
+                </div>
+                <div class="col invisible">
+                    <label for="id" class="font-weight-bold"></label>
+                </div>
+                <div class="col invisible">
+                    <input type="text" class="form-control" name="id" id="id" value="{{ user.id }}">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center form-group padding-bottom-5">
+            <button type="submit" class="btn backgroundWA">Enregistrer</button>
+        </div>
+    </form>
+{% endblock %}

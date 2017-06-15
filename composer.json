@@ -1,0 +1,22 @@
+{
+    "name": "elodie-vianai/portfolio-v2",
+    "description": "version 2 du portfolio",
+    "authors": [
+        {
+            "name": "Elodie Vianai",
+            "email": "elodie.vianai@web-atrio.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "3",
+        "twig/twig": "~2.0",
+        "twbs/bootstrap": "v4.0.0-alpha.5",
+        "slim/twig-view": "2.2",
+        "jwilsson/spotify-web-api-php": "^1.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Portfolio\\": "app/src"
+        }
+    }
+}

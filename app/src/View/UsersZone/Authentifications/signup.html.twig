@@ -1,0 +1,71 @@
+{% extends 'Layout/index.html.twig' %}
+
+{% block title %}
+    Elodie's Portfolio - inscription
+{% endblock %}
+
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/publicPages.css">
+{% endblock %}
+
+{% block header %}
+    {% include 'UsersZone/Headers/publicHeader.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% if tabError.error in tabError %}
+        <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+    {% endif %}
+    <div class="row justify-content-center padding-top-3 padding-bottom-3">
+        <div class="col-1 align-middle">
+            <button class="btn btn-danger" id="goBack">Annuler</button>
+        </div>
+        <div class="col-11">
+            <h1 class="h1 text-center">Inscription</h1>
+        </div>
+    </div>
+
+    <div class="row consigne">
+        <p>Tous les champs marqués d'un * sont obligatoires.</p>
+    </div>
+
+    <form class="zones" method="post" action="/inscription">
+        <div class="row justify-content-center form-group">
+            <div class="col-3">
+                <label for="identifiant" class="font-weight-bold">Nom d'utilisateur</label>
+            </div>
+            <div class="col-7">
+                <input type="text" name="username" placeholder="Nom d'utilisateur" class="form-control" required="required">
+            </div>
+        </div>
+        <div class="row justify-content-center form-group">
+            <div class="col-3">
+                <label for="mdp" class="font-weight-bold">Mot de passe</label>
+            </div>
+            <div class="col-7">
+                <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe" required>
+            </div>
+        </div>
+        <div class="row justify-content-center form-group">
+            <div class="col-3">
+                <label for="mdpConfirmation" class="font-weight-bold">Confirmation du mot de passe</label>
+            </div>
+            <div class="col-7">
+                <input type="password" name="mdpC" class="form-control" id="mdp" placeholder="Mot de passe" required>
+            </div>
+        </div>
+        <div class="row justify-content-center form-group">
+            <div class="col-3">
+                <label for="mail" class=" font-weight-bold">Email</label>
+            </div>
+            <div class="col-7">
+                <input type="email" name="email" placeholder="Email" class="form-control" required>
+            </div>
+        </div>
+        <div class="row justify-content-center form-group padding-top-3 padding-bottom-5">
+            <button type="submit" class="btn backgroundWA">S'enregistrer</button>
+        </div>
+    </form>
+{% endblock %}

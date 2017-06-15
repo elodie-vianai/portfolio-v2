@@ -1,0 +1,103 @@
+{% extends 'AdminZone/form.html.twig' %}
+
+{% block title %}
+    Admin Portfolio - {% if project.update == true %}Modifier {% else %} Ajouter {% endif %} un projet
+{% endblock %}
+
+{% block page_title %}
+    {% if project.update == true %}
+        <h1 class="h1 text-center">Modifier un projet</h1>
+    {% else %}
+        <h1 class="h1 text-center padding-bottom-3">Ajouter un nouveau projet</h1>
+    {% endif %}
+{% endblock %}
+
+{% block page_subtitle %}
+    {% if project.update == true %}
+        <div class="row justify-content-center padding-bottom-3">
+            <h4 class="text-center subtitle">{{ project.name }}</h4>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block formulaire %}
+    <form class="paddin-bottom-5" id="formulaire" method="post" action="{{ project.update == true ? '/admin/gestiondesprojets/modifier/' ~ project.id : '/admin/gestiondesprojets/ajouter' }}">
+        <div class="form-group padding-bottom-3">
+            <div class="row form-group backgroundWA">
+                <h3>Présentation du projet</h3>
+            </div>
+            <div class="row form-group">
+                <div class="col-2">
+                    <label for="name" class="font-weight-bold">Nom du projet</label>
+                </div>
+                <div class="col-4">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Nom du projet" required {% if project.update == true %}value="{{ project.name }}"{% endif %}>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <label for="year" class="font-weight-bold">Date réalisation du projet</label>
+                </div>
+                <div class="col-2">
+                    <input type="number" name="year" class="form-control" id="year" min="2010" placeholder="2010" required {% if project.update == true %}value="{{ project.year }}"{% endif %}>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label for="image_path" class="font-weight-bold">Screenshot du projet</label>
+                </div>
+                <div class="col-9">
+                    <input type="file" name="image_path" class="form-control-file" id="image_path" aria-describedby="aideInsertImage">
+                    <p id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group padding-bottom-3">
+            <div class="row form-group backgroundWA">
+                <h3>Description du projet</h3>
+            </div>
+            <div class="row form-group">
+                <div class="col-3">
+                    <label for="description" class="font-weight-bold">Description du projet</label>
+                </div>
+                <div class="col">
+                    <textarea name="description" class="form-control" rows="5" placeholder="Tapez ici votre description." id="description">{% if project.update == true %} {{ project.description }} {% endif %}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group padding-bottom-3">
+            <div class="row form-group backgroundWA">
+                <h3>Technologies utilisées pour ce projet</h3>
+            </div>
+            <div class="row form-group">
+                <div class="col-3">
+                    <label for="technologies" class="font-weight-bold">Technologies utilisées</label>
+                </div>
+                <div class="col-7">
+                    <select multiple name="technologies[]" class="form-control" id="technologies" aria-describedby="aideAjout">
+                        {% for technology in technologies %}
+                            <option value="{{ technology.id }}" {% for techno in project.technologies %}{% if technology.id == techno.id %} selected {% endif %}{% endfor %}>{{ technology.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <p id="aideAjout" class="form-text text-muted">Pour sélectionner plusieurs technologies, maintenez la touche CTRL enfoncée</p>
+                </div>
+                {% if project.update == true %}
+                    <div class="col invisible">
+                        <label for="id"></label>
+                        <input type="text" name="id" class="col form-control" id="id" value="{{ project.id }}">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row justify-content-center form-group padding-bottom-5">
+            <button type="submit" class="btn backgroundWA">
+                {% if project.update == true %}
+                    Modifier
+                {% else %}
+                    Ajouter
+                {% endif %}
+            </button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'AdminZone/form.html.twig' %}
+
+{% block title %}
+    Admin Portfolio - {% if experience.update == true %}Modifier {% else %} Ajouter {% endif %} une expérience
+{% endblock %}
+
+{% block page_title %}
+    {% if experience.update == true %}
+        <h1 class="h1 text-center">Modifier une expérience</h1>
+    {% else %}
+        <h1 class="h1 text-center padding-bottom-3">Ajouter une nouvelle experience</h1>
+    {% endif %}
+{% endblock %}
+
+{% block page_subtitle %}
+    {% if experience.update == true %}
+        <div class="row justify-content-center padding-bottom-3">
+            <h4 class="text-center subtitle">{{ experience.name }}</h4>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block formulaire %}
+<form class="paddin-bottom-5" id="formulaire" method="post" action="{{ experience.update == true ? '/admin/gestiondesexperiences/modifier/' ~ experience.id : '/admin/gestiondesexperiences/ajouter' }}">
+    <div class="form-group padding-bottom-3">
+        <div class="row form-group backgroundWA">
+            <h3>Dates</h3>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="begin_at" class="font-weight-bold">Date de début de l'expérience</label>
+            </div>
+            <div class="col-2">
+                <input type="date" name="begin_at" class="form-control" id="begin_at" required {% if experience.update == true %}value="{{ experience.begin_at }}"{% endif %}>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-3">
+                <label for="end_at" class="font-weight-bold">Date de fin de l'expérience</label>
+            </div>
+            <div class="col-2">
+                <input type="date" name="end_at" class="form-control" id="end_at" {% if experience.update == true %}value="{{ experience.end_at }}"{% endif %}>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+    <div class="form-group padding-bottom-3">
+        <div class="row form-group backgroundWA">
+            <h3>Contrat</h3>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="contrat" class="font-weight-bold">Type de contrat</label>
+            </div>
+            <div class="col-2">
+                <select name="contrat" class="form-control" id="contrat" required>
+                    <option value="\"></option>
+                    <optgroup label="">
+                        <option value="CDD" {% if experience.contrat == 'CDD' %} selected {% endif %}>CDD</option>
+                        <option value="CDI" {% if experience.contrat == 'CDI' %} selected {% endif %}>CDI</option>
+                        <option value="CTT" {% if experience.contrat == 'CTT' %} selected {% endif %}>CTT (Contrat de travail temporaire ou Intérim)</option>
+                        <option value="CUI" {% if experience.contrat == 'CUI' %} selected {% endif %}>CUI (Contrat unique d'insertion)</option>
+                        <option value="CAE" {% if experience.contrat == 'CAE' %} selected {% endif %}>CUI (Cotnrat d'accompagnement dans l'emploi)</option>
+                        <option value="CIE" {% if experience.contrat == 'CIE' %} selected {% endif %}>CIE (Contrat initiative emploi)</option>
+                    </optgroup>
+                    <optgroup label="Alternance">
+                        <option value="Capprentissage" {% if experience.contrat == 'Capprentissage' %} selected {% endif %}>Contrat d'apprentissage</option>
+                        <option value="Cprofessionnalisation" {% if experience.contrat == 'Cprofessionnalisation' %} selected {% endif %}>Contrat de professionnalisation</option>
+                    </optgroup>
+                    <optgroup label="Stage">
+                        <option value="Stage" {% if experience.contrat == 'Stage' %} selected {% endif %}>Stage</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-2">
+                <label for="name" class="font-weight-bold">Titre du poste occupé</label>
+            </div>
+            <div class="col-3">
+                <input type="text" name="name" class="form-control"  placeholder="Titre du poste" id="name" required {% if experience.update == true %}value="{{ experience.name }}"{% endif %}>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group padding-bottom-3">
+        <div class="row form-group backgroundWA">
+            <h3>Entreprise / Administration</h3>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="entreprise" class="font-weight-bold">Nom de l'entreprise</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="entreprise" class="form-control" placeholder="Nom de l'entreprise" id="entreprise" required {% if experience.update == true %}value="{{ experience.entreprise }}"{% endif %}>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="ville" class="font-weight-bold">Ville</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="ville" class="form-control" placeholder="Toulouse, Paris..." id="ville" required {% if experience.update == true %}value="{{ experience.ville }}"{% endif %}>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="dep_id" class="font-weight-bold">Département</label>
+            </div>
+            <div class="col-6">
+                <select name="dep_id" class="form-control"  id="dep_id" required>
+                    {% for departement in departements %}
+                        <option value="{{ departement.id_dep }}" {% if experience.dep_id == departement.id_dep %}selected{% endif %}>({{ departement.code }}) {{ departement.departement }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="image_path" class="font-weight-bold">Logo de l'entreprise</label>
+            </div>
+            <div class="col-lg-9">
+                <input type="file" class="form-control-file" id="image_path" name="image_path" aria-describedby="aideInsertImage">
+                <small id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group padding-bottom-3">
+        <div class="row form-group backgroundWA">
+            <h3>Projets réalisés lors de l'expérience</h3>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="projets" class="font-weight-bold">Projets réalisés </label>
+            </div>
+            <div class="col-6">
+                <select multiple name="projects[]" class="form-control" id="projets" aria-describedby="aideAjout">
+                    {% for project in projects %}
+                        <option value="{{ project.id }}" {% for projectExp in experience.projects %}{% if project.id == projectExp.id %} selected {% endif %}{% endfor %}>{{ project.name }}</option>
+                    {% endfor %}
+                </select>
+                <small id="aideAjout" class="form-text text-muted">Pour sélectionner plusieurs projets, maintenez la touche CTRL enfoncée</small>
+            </div>
+            {% if experience.update == true %}
+                <div class="col invisible">
+                    <label for="id"></label>
+                    <input type="text" name="id" class="col form-control" id="id" value="{{ experience.id }}">
+                </div>
+            {% endif %}
+        </div>
+    <div class="row justify-content-center form-group padding-bottom-5">
+        <button type="submit" class="btn backgroundWA">
+            {% if experience.update == true %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+        </button>
+    </div>
+</form>
+{% endblock %}

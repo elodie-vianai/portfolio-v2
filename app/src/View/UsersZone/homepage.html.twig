@@ -1,0 +1,264 @@
+{% extends 'Layout/index.html.twig' %}
+
+{% block session %}
+    session_start();
+{% endblock %}
+
+
+{% block title %}
+    Elodie's Portfolio
+{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/apiSpotify.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="/js/api_spotify.js"></script>
+{% endblock %}
+
+{% block header %}
+    {% if 'user' in user.roles %}
+        {% include ('UsersZone/Headers/userHeader.html.twig') %}
+    {% else %}
+        {% include ('UsersZone/Headers/publicHeader.html.twig') %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<!-- SECTION ACCROCHE !-->
+    <section class="row">
+        <div class="col-3 justify-content-center">
+            <img src="/img/Me.jpg" alt="me" class="rounded-circle">
+        </div>
+        <div class="col-9 text-center">
+            <h1 class="h1">Elodie Vianai, développeuse web</h1>
+            <br>
+            {% if 'user' in user.roles %}
+                <blockquote class="blockquote">
+                    <span id="citation">
+                        <em>
+                            Bonjour et bienvenue sur mon Portfolio !
+                            <br>
+                            Vous pouvez maintenant écouter un aperçu des musiques que j'écoute quand je travaille.
+                        </em>
+                    </span>
+                    <footer class="blockquote-footer">Elodie</footer>
+                </blockquote>
+            {% else %}
+                <blockquote class="blockquote">
+                    <span id="citation">
+                        <em>
+                            "Assurez-vous d’apprendre quelque chose de nouveau chaque jour."
+                        </em>
+                    </span>
+                    <footer class="blockquote-footer">Anders M. Andersen</footer>
+                </blockquote>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- SECTION A PROPOS + ATOUTS !-->
+    <section class="row">
+        <div class="col-7 text-justify" id="aboutMe">
+            <h2 class="h2 padding-bottom-3">A propos de moi</h2>
+            <p>
+                Je m'appelle Elodie Vianai, j'ai commencé le développement web en 2015 en développant une petite application
+                servant à archiver des documents familiaux sur l'aéropostale. Puis une application test destiner à la gestion
+                des adhérents de mon club de natation. C'est vite devenu un plaisir et une vocation. Etant curieuse de                 nature, j'aime expérimenter, découvrir et apprendre.
+            </p>
+        </div>
+        <div class="col-5 text-justify" id="mesAtouts">
+            <h2 class="h2">Mes atouts :</h2>
+            <br>
+            <ul>
+                <li>Sérieuse</li>
+                <li>Organisée</li>
+                <li>Curieuse</li>
+                <li>Motivée</li>
+                <li>Esprit d'équipe</li>
+            </ul>
+        </div>
+    </section>
+
+<!-- SECTION INTERETS !-->
+    <section>
+        <h2 class="h2 padding-bottom-3">Mes intérêts</h2>
+        <div class="row justify-content-center">
+            <div class="col-2">
+                <i class="fa fa-laptop" aria-hidden="true"></i>
+                <span>Technologies</span>
+            </div>
+            <div class="col-2">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <span>Univers du web</span>
+            </div>
+             <div class="col-2">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <span>Sports</span>
+            </div>
+             <div class="col-2">
+                <i class="fa fa-camera-retro" aria-hidden="true"></i>
+                <span>Photographie</span>
+            </div>
+             <div class="col-2">
+                <i class="fa fa-plane" aria-hidden="true"></i>
+                <span>Voyages</span>
+            </div>
+             <div class="col-2">
+                <i class="fa fa-film" aria-hidden="true"></i>
+                <span>Films & séries</span>
+            </div>
+        </div>
+    </section>
+
+<!-- SECTION PROJETS !-->
+    <section id="section-carousel" class="padding-bottom-5">
+        <h2 class="h2 padding-bottom-3">Mes projets</h2>
+        <div class="row">
+            <div id="my-carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#my-carousel" data-slide-to="1"></li>
+                    <li data-target="#my-carousel" data-slide-to="2"></li>
+                    <li data-target="#my-carousel" data-slide-to="3"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    {% for project in projects %}
+                        <div class="carousel-item {% if project.last in project %}active{% endif %}">
+                            {% if 'user' in user.roles %}
+                                <a href="/user/projet/{{ project.id }}" class="carrousel-link">
+                                    <img class="d-block carousel-images" src="/img{{ project.image_path }}">
+                                    <div class="carousel-caption d-none d-block">{{ project.name }}</div>
+                                </a>
+                            {% else %}
+                                <a href="/projet/{{ project.id }}" class="carrousel-link">
+                                    <img class="d-block carousel-images" src="/img{{ project.image_path }}">
+                                    <div class="carousel-caption d-none d-block">{{ project.name }}</div>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#my-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon carousel-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#my-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon carousel-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION MUSIQUE !-->
+    {% if 'user' in user.roles %}
+        <section id="section-spotify" class="padding-bottom-5">
+            <h2 class="h2 padding-bottom-3">Mes playlists</h2>
+
+            <div id="player" class="apiSpotify">
+                    <div class="row topgroup">
+                        <div class="col text-center">
+                            <a href="#/home" class=" font-weight-bold playlist-link">Aperçu de mes playlists</a>
+                        </div>
+                    </div>
+                    <div class="row midgroup">
+                        <div class="menuview">
+                            <div class="list scrollable">
+                                <b><a href="#/me">PLAYLISTS</a></b>
+                                <ul class="list-unstyled menuitems">
+                                    {% for playlist in playlists %}
+                                        <li value="{{ playlist.idPlaylist }}">
+                                            <a class="playlist-link" href="#" data-id="{{ playlist.idPlaylist }}">
+                                                {{playlist.namePlaylist}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="preview">
+                                <div class="img-responsive img-thumbail" id="albumImg"><!-- CF. api_spotify.js !--></div>
+                                <div class="track" id="track">
+                                    <b id="trackName"></b>
+                                    <br>
+                                    <a class="artiste" id="trackArtist"><!-- CF. api_spotify.js !--></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mainview table-responsive">
+                            <div class="titrePlaylist">
+                                <h3 id="titrePlaylist"><!-- CF. api_spotify.js !--></h3>
+                            </div>
+                            <table id="listTracks" class="table table-condensed table-hover">
+                                <tr>
+                                    <th>Liste des playlists</th>
+                                </tr>
+                                {% for playlist in playlists %}
+                                    <tr>
+                                        <td>
+                                            <a class="playlist-link" href="#" data-id="{{ playlist.idPlaylist }}">
+                                                {{playlist.namePlaylist}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row bottomgroup">
+                        <audio id="audioPlayer"></audio>
+                        <div class="col-lg-2 leftcontrols">
+                            <div class="prevbutton">
+                                <a class="prevlink"><img src="/img/btn-prev.png" /></a>
+                            </div>
+                            <div class="playbutton" >
+                                <div id="playbtn">
+                                    <a class="control">
+                                        <img src="/img/btn-play.png" />
+                                    </a>
+                                </div>
+                                <div id="pausebtn">
+                                    <a class="control">
+                                        <img src="/img/btn-pause.png" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="nextbutton">
+                                <a class="nextlink"><img src="/img/btn-next.png" /></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 volume">
+                            <!--<input type="range">!-->
+                            <!--<div class="controlVol">
+                                <a class="vol" id="stick0" data-value="0"></a>
+                                <a class="vol" id="stick03" data-value="0.3"></a>
+                                <a class="vol" id="stick05" data-value="0.5"></a>
+                                <a class="vol" id="stick07" data-value="0.7"></a>
+                                <a class="vol" id="stick1" data-value="1"></a>
+                            </div>!-->
+                        </div>
+                        <div class="col-lg-8 seekcontrols">
+                            <div id="currentTime"></div>
+                            <div class="progress">
+                                <div id="bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                    <div id="nowBar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 rightcontrols">
+                            <span id="duration"><!-- CF. api_spotify.js !--></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+

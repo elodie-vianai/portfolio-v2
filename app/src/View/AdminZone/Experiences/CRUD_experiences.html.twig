@@ -1,0 +1,64 @@
+{% extends 'AdminZone/CRUD.html.twig' %}
+
+{% block title %}
+    Admin Portfolio - Expériences
+{% endblock %}
+
+{% block body %}
+    {% block titrePage %}<h1 class="h1 text-center">Gestion des expériences</h1>{% endblock %}
+
+    {% block boutonAjouter %}
+        <a href="/admin/gestiondesexperiences/ajouter" class="btn btn-success margin-bottom-3" id="add-button">
+            Ajouter une nouvelle expérience
+        </a>
+    {% endblock %}
+
+    {% block table %}
+        <table class="table table-bordered margin-bottom-5 table_crud">
+            <thead class="table-info">
+            <tr>
+                <th class="align-middle text-center">Date de début</th>
+                <th class="align-middle text-center">Date de fin</th>
+                <th class="align-middle text-center">Contrat</th>
+                <th class="align-middle text-center">Poste</th>
+                <th class="align-middle text-center">Entreprise</th>
+                <th class="align-middle text-center">Lieu</th>
+                <th class="align-middle text-center">Logo</th>
+                <th class="align-middle text-center">Projets associés</th>
+                <th class="align-middle text-center" colspan="2">Édition</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if tabError.error in tabError %}
+                <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+            {% endif %}
+            {% for experience in experiences %}
+                <tr>
+                    <td  class="align-middle">{{ experience.begin_at }}</td>
+                    <td  class="align-middle" id="td-end_at">{{ experience.end_at }}</td>
+                    <td  class="align-middle">{{ experience.contrat }}</td>
+                    <td  class="align-middle">{{ experience.name }}</td>
+                    <td  class="align-middle">{{ experience.entreprise }}</td>
+                    <td  class="align-middle">{{ experience.ville }} ({{ experience.code }})</td>
+                    <td  class="align-middle">
+                        <img src="/img/{{ experience.image_path }}" class="logos_crud" alt="Logo entreprise">
+                    </td>
+                    <td  class="align-middle">
+                        <ul class="lists_crud">
+                            {% for projet in experience.projets %}
+                                <li>- {{projet.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td class="align-middle" id="td-edition">
+                        <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier/{{ experience.id }}">Modifier</a>
+                    </td>
+                    <td class="align-middle" id="td-edition">
+                        <a class="btn btn-danger" href="/admin/gestiondesexperiences/supprimer/{{ experience.id }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+{% endblock %}

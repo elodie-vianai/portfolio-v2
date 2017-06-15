@@ -1,0 +1,40 @@
+{% extends 'AdminZone/CRUD.html.twig' %}
+
+{% block title %}
+    Admin Portfolio - Utilisateurs
+{% endblock %}
+
+{% block body %}
+    {% block titrePage %}<h1 class="h1 text-center">Gestion des utilisateurs</h1>{% endblock %}
+
+    {% block boutonAjouter %}{% endblock %}
+
+    {% block table %}
+        <table class="table table-bordered">
+            <thead class="table-info">
+                <tr>
+                    <th class="text-center">Nom d'utilisateur</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Rôle</th>
+                    <th class="text-center">Édition</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if tabError.error in tabError %}
+                <script type="text/javascript">window.alert ("{{ tabError.error }}");</script>
+            {% endif %}
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles }}</td>
+                    <td class="text-center">
+                        <a class="btn btn-danger" href="/admin/gestiondesutilisateurs/supprimer/{{ user.id }}">Supprimer</a>
+                        <a class="btn btn-success" href="/admin/gestiondesutilisateurs/modifier/{{ user.id }}">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+{% endblock %}

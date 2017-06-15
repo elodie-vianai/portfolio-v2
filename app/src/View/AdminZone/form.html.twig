@@ -1,0 +1,26 @@
+{% extends 'Layout/index.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block header %}
+    {% include ('AdminZone/adminHeader.html.twig') %}
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-start padding-top-3">
+        <button class="btn btn-danger" id="goBack">Annuler</button>
+    </div>
+    <div class="row justify-content-center">
+        {% block page_title %}<!-- titre de la page ("Ajouter...") !-->{% endblock %}
+    </div>
+
+    {% block page_subtitle %}<!-- sous-titre de la page (nom de l'élément) !-->{% endblock %}
+
+    <div class="row consigne">
+        <p>Tous les champs marqués d'un * sont obligatoires.</p>
+    </div>
+
+    {% block formulaire %}<!-- formulaire complet !-->{% endblock %}
+{% endblock %}
