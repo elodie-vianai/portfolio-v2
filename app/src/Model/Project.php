@@ -131,12 +131,12 @@ class Project extends Model
             if((isset($params['technologies'])) AND (!empty($params['technologies']))) {
                $project =$this->getLastProject();
                foreach ($params['technologies'] as $item) {
-                   $sql = 'INSERT INTO project_has_technology (project_id, technology_id)
-                      VALUES (:project_id, :technology_id)';
+                   $sql = 'INSERT INTO project_has_technology (project_id, skill_id)
+                      VALUES (:project_id, :skill_id)';
                    $query = $this->db->prepare($sql);
                    $query->execute([
                        ':project_id' => $project['id'],
-                       ':technology_id' => $item
+                       ':skill_id' => $item
                    ]);
                }
            }
@@ -182,7 +182,7 @@ class Project extends Model
 
         if (empty($results)) {
             foreach ($params['technologies'] as $technology) {
-                $sql = 'INSERT INTO project_has_technology (project_id, technology_id)
+                $sql = 'INSERT INTO project_has_technology (project_id, skill_id)
                   VALUES (:project_id, :technology_id)';
                 $query = $this->db->prepare($sql);
                 $query->execute([
@@ -194,16 +194,16 @@ class Project extends Model
         else {
             foreach ($results as $result) {
                 $sql = 'DELETE FROM project_has_technology
-                  WHERE project_id = :project_id AND technology_id = :technology_id';
+                  WHERE project_id = :project_id AND skill_id = :skill_id';
                 $query = $this->db->prepare($sql);
-                $query->execute([
+                $r = $query->execute([
                     ':project_id' => $params['id'],
-                    ':technology_id' => $result['technology_id']
+                    ':skill_id' => $result['skill_id']
                 ]);
             }
 
             foreach ($params['technologies'] as $technology) {
-                $sql = 'INSERT INTO project_has_technology (project_id, technology_id)
+                $sql = 'INSERT INTO project_has_technology (project_id, skill_id)
                       VALUES (:project_id, :technology_id)';
                 $query = $this->db->prepare($sql);
                 $query->execute([
@@ -224,12 +224,12 @@ class Project extends Model
      * @return array
      */
     public function delete($id) {
-        $sql = 'DELETE FROM project WHERE id= :id';
+        $sql = 'DELETE FROM project_has_technology WHERE project_id= :id';
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'   => $id
         ]);
-        $sql = 'DELETE FROM project_has_technology WHERE project_id= :id';
+        $sql = 'DELETE FROM project WHERE id= :id';
         $query = $this->db->prepare($sql);
         return $query->execute([
             ':id'   => $id

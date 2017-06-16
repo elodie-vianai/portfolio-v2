@@ -5,7 +5,6 @@ $(document).ready(function () {
        e.preventDefault(); /*on enlève l'action d'aller sur une nouvelle page*/
 
         var idPlaylist = $(this).data('id'); // on récupère l'id de la playlist
-        console.log(idPlaylist);
         var session = document.location.href;   // on récupère l'url de la page courante
        $.get(session + '/playlist/' + idPlaylist, function (data) { // on renvoie tout vers la route
            $('#titrePlaylist').html(data.namePlaylist);

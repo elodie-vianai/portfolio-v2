@@ -54,16 +54,57 @@
 #header .row {
     border-bottom: 1px solid #dddddd;
 }
-
+#logo a {
+    text-decoration: none;
+}
 #WALogo {
-    height : 100px;
+    height : 80px;
+    margin-top: 10px;
+}
+#WALogo:hover {
+    -webkit-transform: rotate(360deg);
+    transition-duration: .2s;
+}
+#WAText {
+    height : 20px;
+    margin-left: 25%;
+    margin-top: 0;
 }
 
 .nav-link {
     padding : 2.5rem;
 }
 
-/*** User ***/
+#myusername {
+    color: #125688;
+}
+
+/********** Skills **********/
+.page-link {
+    background-color: #125688;
+    color: #dddddd;
+    margin-bottom: 10%;
+}
+.page-item #tout {
+    background-color: white;
+    color: #125688;
+    border: solid 1px #125688;
+}
+
+.image-container {
+    margin: 1%;
+}
+
+.image-skill {
+    height: 100px;
+    width: auto;
+}
+.image-skill:hover {
+    -webkit-transform: rotate(7deg);
+}
+
+
+/********** User **********/
 #myusername {
     padding-top: 5%;
     color: #000000;

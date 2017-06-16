@@ -3,14 +3,30 @@
 namespace Portfolio\Controller;
 
 use Portfolio\Portfolio\Controller;
-use Portfolio\Model\Technology as TechnologyModel;
+use Portfolio\Model\Skill as SkillModel;
 use Portfolio\Portfolio\Validator;
 use Portfolio\Portfolio\Flash;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class Technology extends Controller
+class Skill extends Controller
 {
+#region /******************************* METHOD : index *****************************************************************/
+    /**
+     * Public ans user's page skills.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function index (Request $request, Response $response) {
+        $skill_model    = new SkillModel($this->container);
+        $skills   = $skill_model->getAll();
+        return $this->render($response, 'UsersZone/skills.html.twig', ['skills'=>$skills]);
+    }
+#endregion
+
+
 #region /******************************* METHOD : crud *****************************************************************/
     /**
      * CRUD of all administrator's technologies.
@@ -20,17 +36,18 @@ class Technology extends Controller
      * @return Response
      */
     public function crud (Request $request, Response $response) {
-        $technology_model   = new TechnologyModel($this->container);
-        $technologies = $technology_model->getAll();
-        return $this->render($response, 'AdminZone/Technologies/CRUD_technologies.html.twig',
-            ['technologies'=>$technologies]);
+        $skill_model   = new SkillModel($this->container);
+        $skills = $skill_model->getAll();
+        //var_dump($skills);die;
+        return $this->render($response, 'AdminZone/Skills/CRUD_skills.html.twig',
+            ['skills'=>$skills]);
     }
 #endregion
 
 
-#region /******************************* METHOD : add a new technology **************************************************/
+#region /******************************* METHOD : add a new skill **************************************************/
     /**
-     * Add a new technology into the database
+     * Add a new skill into the database
      *
      * @param Request $request
      * @param Response $response
@@ -54,15 +71,18 @@ class Technology extends Controller
 
             $validator->addRules([
                 'name' => [
-                    'required' => 'Le nom de la technologie est obligatoire'
+                    'required' => 'Le nom de la compétence est obligatoire'
+                ],
+                'category' => [
+                    'required' => 'La catégorie de la compétence est obligatoire'
                 ]
             ]);
 
             // vérification de la validité du formulaire
             if ($validator->check()) {
-                $technology_model = new TechnologyModel($this->container);
-                $technology_model->add($params);
-                return $response->withRedirect($router->pathFor('CRUD_technologies'));
+                $skill_model = new SkillModel($this->container);
+                $skill_model->add($params);
+                return $response->withRedirect($router->pathFor('CRUD_skills'));
             } else {
                 $errors = $validator->getErrors();
             }
@@ -70,14 +90,14 @@ class Technology extends Controller
             Flash::set('params', $params);
             Flash::set('errors', $errors);
         }
-        return $this->render($response, 'AdminZone/Technologies/form.html.twig');
+        return $this->render($response, 'AdminZone/Skills/form.html.twig');
     }
 #endregion
 
 
-#region /******************************* METHOD : update data of a technology *******************************************/
+#region /******************************* METHOD : update data of a skill ************************************************/
     /**
-     * Update the name and the image_path of a registered technology.
+     * Update the name, the level, the category and the image_path of a registered skill.
      *
      * @param Request $request
      * @param Response $response
@@ -90,11 +110,11 @@ class Technology extends Controller
         // initialisation du POST + préparation pour récupérer les données
         $_POST = $request->getParsedBody();
 
-        $technology_model = new TechnologyModel($this->container);
+        $skill_model = new SkillModel($this->container);
        // récupération des informations liées au compte (dont le mot de passe, qui avait effacé de la session)
-           $technology = $technology_model->getOne($args['id']);
+           $skill = $skill_model->getOne($args['id']);
 
-           $technology['update'] = true;
+           $skill['update'] = true;
 
         if (isset($_POST)) {
             // doc Slim ==> $_POST
@@ -107,12 +127,15 @@ class Technology extends Controller
             $validator->addRules([
                 'name' => [
                     'required' => 'Le nom de la technologie est obligatoire'
-                ]
+                ],
+                'category' => [
+                'required' => 'La catégorie de la compétence est obligatoire'
+            ]
             ]);
             // vérification de la validité du formulaire
             if ($validator->check()) {
-                $technology_model->update($params);
-                return $response->withRedirect($router->pathFor('CRUD_technologies'));
+                $skill_model->update($params);
+                return $response->withRedirect($router->pathFor('CRUD_skills'));
             } else {
                 $errors = $validator->getErrors();
             }
@@ -121,14 +144,14 @@ class Technology extends Controller
             Flash::set('errors', $errors);
         }
 
-        return $this->render($response, 'AdminZone/Technologies/form.html.twig', ['technology'=>$technology]);
+        return $this->render($response, 'AdminZone/Skills/form.html.twig', ['skill'=>$skill]);
     }
 #endregion
 
 
-#region /******************************* METHOD : delete a technology ***************************************************/
+#region /******************************* METHOD : delete a skill ***************************************************/
     /**
-     * Delete a technology , based on his id.
+     * Delete a skill , based on his id.
      *
      * @param Request $request
      * @param Response $response
@@ -138,10 +161,10 @@ class Technology extends Controller
         // récupération du routeur pour pouvoir rediriger
         $router = $this->container->get('router');
 
-        $technology_model = new TechnologyModel($this->container);
-        $technology_model->delete($args['id']);
+        $skill_model = new SkillModel($this->container);
+        $skill_model->delete($args['id']);
 
-        return $response->withRedirect($router->pathFor('CRUD_technologies'));
+        return $response->withRedirect($router->pathFor('CRUD_skills'));
 
     }
 #endregion

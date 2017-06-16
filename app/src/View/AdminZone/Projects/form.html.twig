@@ -76,8 +76,8 @@
                 </div>
                 <div class="col-7">
                     <select multiple name="technologies[]" class="form-control" id="technologies" aria-describedby="aideAjout">
-                        {% for technology in technologies %}
-                            <option value="{{ technology.id }}" {% for techno in project.technologies %}{% if technology.id == techno.id %} selected {% endif %}{% endfor %}>{{ technology.name }}</option>
+                        {% for skill in skills %}
+                            {% if skill.category == 'Technologies' %}<option value="{{ skill.id }}" {% for techno in project.technologies %}{% if skill.id == techno.id %} selected {% endif %}{% endfor %}>{{ skill.name }}</option>{% endif %}
                         {% endfor %}
                     </select>
                     <p id="aideAjout" class="form-text text-muted">Pour sélectionner plusieurs technologies, maintenez la touche CTRL enfoncée</p>

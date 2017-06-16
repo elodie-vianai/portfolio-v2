@@ -1,0 +1,93 @@
+{% extends 'AdminZone/form.html.twig' %}
+
+{% block title %}
+    Admin Portfolio - {% if skill.update == true %}Modifier {% else %} Ajouter {% endif %} une compétence
+{% endblock %}
+
+{% block page_title %}
+    {% if skill.update == true %}
+        <h1 class="h1 text-center">Modifier une compétence</h1>
+    {% else %}
+        <h1 class="h1 text-center padding-bottom-3">Ajouter une nouvelle compétence</h1>
+    {% endif %}
+{% endblock %}
+
+{% block page_subtitle %}
+    {% if skill.update == true %}
+        <div class="row justify-content-center padding-bottom-3">
+            <h4 class="text-center subtitle">{{ skill.name }}</h4>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block formulaire %}
+    <form class="paddin-bottom-5" id="formulaire" method="post" action="{{ skill.update == true ? '/admin/gestiondescompetences/modifier/' ~ skill.id : '/admin/gestiondescompetences/ajouter' }}">
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="name" class="font-weight-bold">Nom de la compétence</label>
+            </div>
+            <div class="col">
+                <input type="text" name="name" class="col form-control" id="name" required {% if skill.update == true %}value="{{ skill.name }}"{% endif %}>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-3">
+                <label for="level" class="font-weight-bold">Niveau de maîtrise de la compétence</label>
+            </div>
+            <div class="col">
+                <select class="form-control" name="level" id="level">
+                    <option value="0"></option>
+                    <option value="1" {% if skill.level == '1' %} selected {% endif %}>Débutant</option>
+                    <option value="2" {% if skill.level == '2' %} selected {% endif %}>Intermédiaire</option>
+                    <option value="3" {% if skill.level == '3' %} selected {% endif %}>Confirmé</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label for="category" class="font-weight-bold">Catégorie de la compétence</label>
+            </div>
+            <div class="col">
+                <select class="form-control" name="category" id="category" required>
+                    <option value="\"></option>
+                    <option value="Database" {% if skill.category == 'Database' %} selected {% endif %}>Base de données</option>
+                    <option value="Bureautique" {% if skill.category == 'Bureautique' %} selected {% endif %}>Bureautique</option>
+                    <option value="Graphisme" {% if skill.category == 'Graphisme' %} selected {% endif %}>Graphisme</option>
+                    <option value="Humain" {% if skill.category == 'Humain' %} selected {% endif %}>Humain</option>
+                    <option value="Langues" {% if skill.category == 'Langue' %} selected {% endif %}>Langues</option>
+                    <option value="Logiciels" {% if skill.category == 'Logiciels' %} selected {% endif %}>Logiciels</option>
+                    <option value="Navigateurs" {% if skill.category == 'Navigateurs' %} selected {% endif %}>Navigateurs</option>
+                    <option value="Serveurs" {% if skill.category == 'Serveurs' %} selected {% endif %}>Serveurs</option>
+                    <option value="OS" {% if skill.category == 'OS' %} selected {% endif %}>Systèmes d'exploitation</option>
+                    <option value="Technologies" {% if skill.category == 'Technologies' %} selected {% endif %}>Technologies</option>
+                    <option value="Autres" {% if skill.category == 'Autres' %} selected {% endif %}>Autres</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-start form-group ">
+            <div class="col-3">
+                <label for="image_path" class="font-weight-bold">Logo de la compétence</label>
+            </div>
+            <div class="col">
+                <input type="file" name="image_path" class="form-control-file" id="image_path" aria-describedby="aideInsertImage">
+                <small id="aideInsertImage" class="form-text text-muted">Seuls les fichiers images sont admis (jpg, jpeg, png...)</small>
+            </div>
+            {% if skill.update == true %}
+                <div class="col invisible">
+                    <label for="id" class="font-weight-bold"></label>
+                    <input type="text" name="id" class="col form-control" id="id" value="{{ skill.id }}">
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="row justify-content-center form-group padding-top-3 padding-bottom-5">
+            <button type="submit" class="btn backgroundWA">
+                {% if skill.update == true %}
+                    Modifier
+                {% else %}
+                    Ajouter
+                {% endif %}
+            </button>
+        </div>
+    </form>
+{% endblock %}

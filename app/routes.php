@@ -7,6 +7,7 @@
 $app->get('/', 'Portfolio\Controller\Homepage:index')->setName('publicHomepage');
 $app->get('/experiences', 'Portfolio\Controller\Experience:index');
 $app->get('/formation', 'Portfolio\Controller\Formation:index');
+$app->get('/competences', 'Portfolio\Controller\Skill:index');
 $app->get('/projet/{id}', 'Portfolio\Controller\Project:projectDetail');
 $app->get('/contact', 'Portfolio\Controller\Contact:index');
 
@@ -26,6 +27,7 @@ $app->group('/user', function () {
 
     $this->get('/experiences', 'Portfolio\Controller\Experience:index');
     $this->get('/formation', 'Portfolio\Controller\Formation:index');
+    $this->get('/competences', 'Portfolio\Controller\Skill:index');
     $this->get('/projet/{id}', 'Portfolio\Controller\Project:projectDetail');
     $this->get('/contact', 'Portfolio\Controller\Contact:index');
 
@@ -83,13 +85,13 @@ $app->group('/admin', function () {
         $this->get('/supprimer/{id}', 'Portfolio\Controller\Project:delete');
     });
 
-    // Gestion des technologies
-    $this->group('/gestiondestechnologies', function() {
+    // Gestion des compétences
+    $this->group('/gestiondescompetences', function() {
         //CRUD
-        $this->get('', 'Portfolio\Controller\Technology:crud')->setName('CRUD_technologies');
-        $this->map(['get', 'post'], '/ajouter', 'Portfolio\Controller\Technology:add');
-        $this->map(['get', 'post'], '/modifier/{id}', 'Portfolio\Controller\Technology:update');
-        $this->get('/supprimer/{id}', 'Portfolio\Controller\Technology:delete');
+        $this->get('', 'Portfolio\Controller\Skill:crud')->setName('CRUD_skills');
+        $this->map(['get', 'post'], '/ajouter', 'Portfolio\Controller\Skill:add');
+        $this->map(['get', 'post'], '/modifier/{id}', 'Portfolio\Controller\Skill:update');
+        $this->get('/supprimer/{id}', 'Portfolio\Controller\Skill:delete');
     });
 
     //API Spotify

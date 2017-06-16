@@ -2,11 +2,10 @@
 
 namespace Portfolio\Controller;
 
-use Portfolio\Model\Technology;
 use Portfolio\Portfolio\Controller;
 use Portfolio\Portfolio\Flash;
 use Portfolio\Model\Project as ProjectModel;
-use Portfolio\Model\Technology as TechnologyModel;
+use Portfolio\Model\Skill as SkillModel;
 use Portfolio\Portfolio\Validator;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -24,15 +23,15 @@ class Project extends Controller
     public function projectDetail (Request $request, Response $response,$args) {
         $project_model = new ProjectModel($this->container);
         $project = $project_model->getOne($args['id']);
-        $technology_model = new TechnologyModel($this->container);
-        $technologies = $technology_model->getTechnoProject($args['id']);
+        $skill_model = new SkillModel($this->container);
+        $skills = $skill_model->getTechnoProject($args['id']);
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         } else {
             $user = '';
         }
         return $this->render($response, 'UsersZone/projectDetail.html.twig',
-            ['project' => $project, 'technologies' => $technologies, 'user'=>$user]);
+            ['project' => $project, 'skills' => $skills, 'user'=>$user]);
     }
     #endregion
 
@@ -48,13 +47,14 @@ class Project extends Controller
     public function crud (Request $request, Response $response) {
         $project_model   = new ProjectModel($this->container);
         $array_projects = $project_model->getAll();
-        $technology_model = new TechnologyModel($this->container);
+        $skill_model = new SkillModel($this->container);
         $projects = [];
         foreach ($array_projects as $project) {
-            $technologies = $technology_model->getTechnoProject($project['id']);
-            $project['technologies'] = $technologies;
+            $skills = $skill_model->getTechnoProject($project['id']);
+            $project['skills'] = $skills;
             $projects[] = $project;
         }
+        //var_dump($projects);die;
         return $this->render($response, 'AdminZone/Projects/CRUD_projects.html.twig',
             ['projets'=>$projects]);
     }
@@ -73,8 +73,8 @@ class Project extends Controller
        $project_model = new ProjectModel($this->container);
         $projects = $project_model->getAll();
 
-        $technology_model = new TechnologyModel($this->container);
-        $technologies = $technology_model->getAll();
+        $skill_model = new SkillModel($this->container);
+        $skills = $skill_model->getAll();
 
         // récupération du routeur pour pouvoir rediriger
         $router = $this->container->get('router');
@@ -113,7 +113,7 @@ class Project extends Controller
             Flash::set('errors', $errors);
         }
         return $this->render($response, 'AdminZone/Projects/form.html.twig',
-            ['technologies'=>$technologies]);
+            ['skills'=>$skills]);
     }
 #endregion
 
@@ -134,11 +134,11 @@ class Project extends Controller
         $_POST = $request->getParsedBody();
 
         $project_model      = new ProjectModel($this->container);
-        $technology_model   = new TechnologyModel($this->container);
+        $skill_model   = new SkillModel($this->container);
 
         $project                    = $project_model->getOne($args['id']);
-        $technologies               = $technology_model->getAll();
-        $project['technologies']    = $technology_model->getTechnoProject($project['id']);
+        $skills                     = $skill_model->getAll();
+        $project['technologies']    = $skill_model->getTechnoProject($project['id']);
 
 
         $project['update'] = true;
@@ -171,7 +171,7 @@ class Project extends Controller
             Flash::set('errors', $errors);
         }
         return $this->render($response, 'AdminZone/Projects/form.html.twig',
-            ['project'=>$project, 'technologies'=>$technologies]);
+            ['project'=>$project, 'skills'=>$skills]);
     }
 #endregion
 
