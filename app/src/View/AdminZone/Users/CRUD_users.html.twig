@@ -29,7 +29,7 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.roles }}</td>
                     <td class="text-center">
-                        <a class="btn btn-danger" href="/admin/gestiondesutilisateurs/supprimer/{{ user.id }}">Supprimer</a>
+                        <a id="deleteButton" class="btn btn-danger" href="/admin/gestiondesutilisateurs/supprimer/{{ user.id }}">Supprimer</a>
                         <a class="btn btn-success" href="/admin/gestiondesutilisateurs/modifier/{{ user.id }}">Modifier</a>
                     </td>
                 </tr>

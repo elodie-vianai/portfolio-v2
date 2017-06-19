@@ -13,6 +13,8 @@
 {% block header %}
     {% if 'user' in user.roles %}
         {% include ('UsersZone/Headers/userHeader.html.twig') %}
+    {% elseif 'admin' in user.roles %}
+        {% include ('AdminZone/adminHeader.html.twig') %}
     {% else %}
         {% include ('UsersZone/Headers/publicHeader.html.twig') %}
     {% endif %}

@@ -39,7 +39,7 @@
     <div class="row justify-content-center padding-bottom-3">
         {% for skill in skills %}
             <div class="image-container">
-                <img src="img{{ skill.image_path }}" id="{{ skill.name }}" class="image-skill {{ skill.category|lower }}"
+                <img src="/img{{ skill.image_path }}" id="{{ skill.name }}" class="image-skill {{ skill.category|lower }}"
                     data-toggle="tooltip" data-placement="top" title="{{ skill.name }}" template="">
             </div>
         {% endfor %}
