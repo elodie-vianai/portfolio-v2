@@ -75,9 +75,9 @@
                     <h4 class="card-title">{{ project.name }}</h4>
                     <p class="card-text text-justify">{{ project.description }}</p>
                     {% if 'user' in user.roles %}
-                        <a href="/user/projet/{{ project.id }}" class="btn btn-primary">Plus de détails</a>
+                        <a href="{{ path_for('userProjectDetail', {'id' : project.id }) }}" class="btn btn-primary">Plus de détails</a>
                     {% else %}
-                        <a href="/projet/{{ project.id }}" class="btn btn-primary">Plus de détails</a>
+                        <a href="{{ path_for('publicProjectDetail', {'id' : project.id }) }}" class="btn btn-primary">Plus de détails</a>
                     {% endif %}
                 </div>
             </div>

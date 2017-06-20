@@ -16,7 +16,7 @@ class User extends Model
      */
     public function getAll()
     {
-        $sql = 'SELECT user.* FROM user ORDER BY user.username DESC';
+        $sql = "SELECT $this->table.* FROM $this->table ORDER BY username DESC";
         $query = $this->db->prepare($sql);
         $query->execute();
         return $query->fetchAll();
@@ -34,7 +34,8 @@ class User extends Model
      */
     public function getUser($param1, $password = 'null')
     {
-        $sql = 'SELECT user.* FROM user WHERE id= :id OR username= :username AND password= :password';
+        $sql = "SELECT $this->table.* FROM $this->table 
+          WHERE id= :id OR username= :username AND password= :password";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'       => $param1,
@@ -49,7 +50,8 @@ class User extends Model
 #region /******************************* METHOD : add a user ************************************************************/
     public function add($params) {
         // Vérification pour éviter un doublon dans la base de données
-        $sql = 'SELECT user.email, user.username FROM user WHERE email = :email';
+        $sql = "SELECT $this->table.email, $this->table.username FROM $this->table 
+          WHERE email = :email";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':email'    => $params['email']
@@ -66,7 +68,8 @@ class User extends Model
         }
         else {
         // S'il n'y a pas une même adresse mail et un même nom d'utilisateur déjà existant, alors l'ajout peut se faire
-            $sql = 'INSERT INTO user(username, email, password, roles) VALUES(:username, :email, :mdp, "user")';
+            $sql = "INSERT INTO $this->table(username, email, password, roles) 
+              VALUES(:username, :email, :mdp, 'user')";
             $query = $this->db->prepare($sql);
             $results = $query->execute([
                 ':username' => $params['username'],
@@ -89,7 +92,9 @@ class User extends Model
      */
     public function update($params)
     {
-        $sql = 'UPDATE user SET username = :username, email = :email, password = :password, roles = :roles WHERE id= :id';
+        $sql = "UPDATE $this->table 
+          SET username = :username, email = :email, password = :password, roles = :roles 
+          WHERE id= :id";
         $query = $this->db->prepare($sql);
         return $query->execute([
             'username'  => $params['username'],
@@ -111,7 +116,7 @@ class User extends Model
      */
     public function delete($id)
     {
-        $sql = 'DELETE FROM user WHERE user.id = :id';
+        $sql = "DELETE FROM $this->table WHERE $this->table.id = :id";
         $query = $this->db->prepare($sql);
         return $query->execute([
             ':id'   => $id

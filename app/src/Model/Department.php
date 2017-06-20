@@ -16,7 +16,8 @@ class Department extends Model
      * @return array
      */
     public function getAll() {
-        $sql = 'SELECT departement.* FROM departement ORDER BY departement.code ASC';
+        $table = $this->table;
+        $sql = "SELECT $table.* FROM $table ORDER BY departement.code ASC";
         $query = $this->db->prepare($sql);
         $query->execute();
         return $query->fetchAll();

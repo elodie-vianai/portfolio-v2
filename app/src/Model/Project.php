@@ -7,6 +7,8 @@ use Portfolio\Portfolio\Model;
 class Project extends Model
 {
     protected $table = 'project';
+    protected $experience_has_project = 'experience_has_project';
+    protected $project_has_technology = 'project_has_technology';
 
 
 #region /******************************* METHODS : get many projects *****************************************************/
@@ -17,7 +19,7 @@ class Project extends Model
      * @return array
      */
     public function getAll() {
-        $sql = 'SELECT project.* FROM project ORDER BY project.year DESC';
+        $sql = "SELECT $this->table.* FROM $this->table ORDER BY year DESC";
         $query = $this->db->prepare($sql);
         $query->execute();
         $resutls = $query->fetchAll();
@@ -32,7 +34,7 @@ class Project extends Model
      * @return array
      */
     public function get4LastProjects() {
-        $sql = 'SELECT project.* FROM project ORDER BY project.year DESC LIMIT 4';
+        $sql = "SELECT $this->table.* FROM $this->table ORDER BY $this->table.year DESC LIMIT 4";
         $query = $this->db->prepare($sql);
         $query->execute();
         $results = $query->fetchAll();
@@ -48,9 +50,9 @@ class Project extends Model
      * @return array
      */
     public function getprojectExperience($id_experience) {
-        $sql = 'SELECT * FROM project 
-          JOIN experience_has_project ON experience_has_project.project_id = project.id
-          WHERE experience_has_project.experience_id = :id_experience';
+        $sql = "SELECT * FROM $this->table
+          JOIN $this->experience_has_project ON $this->experience_has_project.project_id = project.id
+          WHERE $this->experience_has_project.experience_id = :id_experience";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id_experience'   => $id_experience
@@ -70,8 +72,8 @@ class Project extends Model
      * @return array
      */
     public function getOne($param) {
-        $sql = 'SELECT project.* FROM project 
-          WHERE project.id= :id OR project.name= :name ORDER BY project.year DESC';
+        $sql = "SELECT $this->table.* FROM $this->table
+          WHERE $this->table.id= :id OR $this->table.name= :name ORDER BY $this->table.year DESC";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'   => $param,
@@ -90,7 +92,7 @@ class Project extends Model
      * @return array
      */
     public function getLastProject() {
-        $sql = 'SELECT project.* FROM project ORDER BY project.id DESC LIMIT 1';
+        $sql = "SELECT $this->table.* FROM $this->table ORDER BY $this->table.id DESC LIMIT 1";
         $query = $this->db->prepare($sql);
         $query->execute();
         return $query->fetch(\PDO::FETCH_ASSOC);
@@ -107,7 +109,8 @@ class Project extends Model
      * @return array
      */
     public function add($params) {
-        $sql = 'SELECT project.name, project.year FROM project WHERE name= :name AND year= :year';
+        $sql = "SELECT $this->table.name, $this->table.year FROM $this->table 
+          WHERE name= :name AND year= :year";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name'   => $params['name'],
@@ -119,8 +122,8 @@ class Project extends Model
             $tabError['error'] = 'Erreur : ce projet existe déjà dans la base de données';
             return $tabError;
         } else {
-            $sql = 'INSERT INTO project(name, description, image_path, year)
-                VALUES (:name, :description, :image_path, :year)';
+            $sql = "INSERT INTO $this->table(name, description, image_path, year)
+                VALUES (:name, :description, :image_path, :year)";
             $query = $this->db->prepare($sql);
             $query->execute([
                 ':name'             => $params['name'],
@@ -131,8 +134,8 @@ class Project extends Model
             if((isset($params['technologies'])) AND (!empty($params['technologies']))) {
                $project =$this->getLastProject();
                foreach ($params['technologies'] as $item) {
-                   $sql = 'INSERT INTO project_has_technology (project_id, skill_id)
-                      VALUES (:project_id, :skill_id)';
+                   $sql = "INSERT INTO $this->project_has_technology (project_id, skill_id)
+                      VALUES (:project_id, :skill_id)";
                    $query = $this->db->prepare($sql);
                    $query->execute([
                        ':project_id' => $project['id'],
@@ -154,8 +157,9 @@ class Project extends Model
      */
     public function update($params) {
         // Update data of the project (into the 'project' table).
-        $sql = 'UPDATE project SET name = :name, description = :description, image_path = :image_path, year = :year
-            WHERE id = :id';
+        $sql = "UPDATE $this->table 
+          SET name = :name, description = :description, image_path = :image_path, year = :year
+            WHERE id = :id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name'         => $params['name'],
@@ -166,14 +170,16 @@ class Project extends Model
         ]);
 
         // Update data of technologies related to the project (into the 'project_has_technology' table).
-        $sql = 'SELECT project.name, project.year FROM project WHERE name= :name AND year= :year';
+        $sql = "SELECT $this->table.name, project.year FROM $this->table 
+          WHERE name= :name AND year= :year";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name'   => $params['name'],
             ':year'   => $params['year']
         ]);
 
-        $sql = 'SELECT * FROM project_has_technology WHERE project_id= :project_id';
+        $sql = "SELECT $this->project_has_technology.* FROM $this->project_has_technology 
+          WHERE project_id= :project_id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':project_id'   => $params['id']
@@ -182,8 +188,8 @@ class Project extends Model
 
         if (empty($results)) {
             foreach ($params['technologies'] as $technology) {
-                $sql = 'INSERT INTO project_has_technology (project_id, skill_id)
-                  VALUES (:project_id, :technology_id)';
+                $sql = "INSERT INTO $this->project_has_technology (project_id, skill_id)
+                  VALUES (:project_id, :technology_id)";
                 $query = $this->db->prepare($sql);
                 $query->execute([
                     ':project_id' => $params['id'],
@@ -193,8 +199,8 @@ class Project extends Model
         }
         else {
             foreach ($results as $result) {
-                $sql = 'DELETE FROM project_has_technology
-                  WHERE project_id = :project_id AND skill_id = :skill_id';
+                $sql = "DELETE FROM $this->project_has_technology
+                  WHERE project_id = :project_id AND skill_id = :skill_id";
                 $query = $this->db->prepare($sql);
                 $r = $query->execute([
                     ':project_id' => $params['id'],
@@ -203,8 +209,8 @@ class Project extends Model
             }
 
             foreach ($params['technologies'] as $technology) {
-                $sql = 'INSERT INTO project_has_technology (project_id, skill_id)
-                      VALUES (:project_id, :technology_id)';
+                $sql = "INSERT INTO $this->project_has_technology (project_id, skill_id)
+                      VALUES (:project_id, :technology_id)";
                 $query = $this->db->prepare($sql);
                 $query->execute([
                     ':project_id' => $params['id'],

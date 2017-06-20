@@ -6,7 +6,9 @@ use Portfolio\Portfolio\Model;
 
 class Experience extends Model
 {
-    protected $table = 'experience';
+    protected $table            = 'experience';
+    protected $departmentsTable = 'departement';
+    protected $linkTable        = 'experience_has_project';
 
 
 #region /******************************* METHOD : get all experiences ***************************************************************/
@@ -16,9 +18,9 @@ class Experience extends Model
      * @return mixed
      */
     public function getAll() {
-        $sql = 'SELECT experience.*, departement.code FROM experience 
-          JOIN departement ON experience.dep_id = departement.id_dep
-          ORDER BY experience.end_at DESC';
+        $sql = "SELECT $this->table.*, $this->departmentsTable.code FROM $this->table
+          JOIN $this->departmentsTable ON $this->table.dep_id = $this->departmentsTable.id_dep
+          ORDER BY $this->table.end_at DESC";
         $query = $this->db->prepare($sql);
         $query->execute();
         $results = $query->fetchAll();
@@ -37,8 +39,9 @@ class Experience extends Model
      * @return array
      */
     public function getOne($id) {
-        $sql = 'SELECT experience.* FROM experience 
-            INNER JOIN departement ON experience.dep_id = departement.id_dep WHERE experience.id= :id';
+        $sql = "SELECT $this->table.* FROM $this->table
+            INNER JOIN $this->departmentsTable ON $this->table.dep_id = $this->departmentsTable.id_dep 
+            WHERE $this->table.id= :id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'   => $id
@@ -54,7 +57,8 @@ class Experience extends Model
      * @return array
      */
     public function getLastExperience() {
-        $sql = 'SELECT experience.* FROM experience ORDER BY experience.id DESC LIMIT 1';
+        $table           = $this->table;
+        $sql = "SELECT $table.* FROM $table ORDER BY $table.id DESC LIMIT 1";
         $query = $this->db->prepare($sql);
         $query->execute();
         return $query->fetch(\PDO::FETCH_ASSOC);
@@ -78,7 +82,8 @@ class Experience extends Model
             $params['end_at'] = $datetime->format('Y-m-d');
         }
 
-        $sql = 'SELECT experience.name, experience.begin_at FROM experience WHERE name= :name AND begin_at= :begin_at';
+        $sql = "SELECT $this->table.name, $this->table.begin_at FROM $this->table 
+          WHERE name= :name AND begin_at= :begin_at";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name'         => $params['name'],
@@ -90,8 +95,8 @@ class Experience extends Model
             $tabError['error'] = 'Erreur : cette expérience existe déjà dans la base de données';
             return $tabError;
         } else {
-            $sql = 'INSERT INTO experience(name, contrat, entreprise, ville, begin_at, end_at, image_path, dep_id)
-                VALUES (:name, :contrat, :entreprise, :ville, :begin_at, :end_at, :image_path, :dep_id)';
+            $sql = "INSERT INTO $this->table(name, contrat, entreprise, ville, begin_at, end_at, image_path, dep_id)
+                VALUES (:name, :contrat, :entreprise, :ville, :begin_at, :end_at, :image_path, :dep_id)";
             $query = $this->db->prepare($sql);
             $query->execute([
                 ':name'             => $params['name'],
@@ -106,8 +111,8 @@ class Experience extends Model
             if((isset($params['projects'])) AND (!empty($params['projects']))) {
                 $experience =$this->getLastExperience();
                 foreach ($params['projects'] as $item) {
-                    $sql = 'INSERT INTO experience_has_project (experience_id, project_id)
-                      VALUES (:experience_id, :project_id)';
+                    $sql = "INSERT INTO $this->linkTable (experience_id, project_id)
+                      VALUES (:experience_id, :project_id)";
                     $query = $this->db->prepare($sql);
                     $query->execute([
                         ':experience_id'    => $experience['id'],
@@ -129,8 +134,10 @@ class Experience extends Model
      */
     public function update($params) {
         // Update data of the experience (into the 'experience' table).
-        $sql = 'UPDATE experience SET name = :name, contrat = :contrat, entreprise = :entreprise, ville = :ville, begin_at = :begin_at, end_at = :end_at, image_path = :image_path, dep_id = :dep_id
-            WHERE id = :id';
+        $sql = "UPDATE $this->table 
+          SET name = :name, contrat = :contrat, entreprise = :entreprise, ville = :ville, 
+          begin_at = :begin_at, end_at = :end_at, image_path = :image_path, dep_id = :dep_id
+            WHERE id = :id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name'         => $params['name'],
@@ -145,14 +152,15 @@ class Experience extends Model
         ]);
 
         // Update data of projects related to the project (into the 'experience_has_project' table).
-        $sql = 'SELECT experience.name, experience.begin_at FROM experience WHERE name = :name AND begin_at = :begin_at';
+        $sql = "SELECT $this->table.name, $this->table.begin_at FROM $this->table 
+          WHERE name = :name AND begin_at = :begin_at";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name'         => $params['name'],
             ':begin_at'     => $params['begin_at']
         ]);
 
-        $sql = 'SELECT * FROM experience_has_project WHERE experience_id = :experience_id';
+        $sql = "SELECT * FROM $this->linkTable WHERE experience_id = :experience_id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':experience_id'   => $params['id']
@@ -161,8 +169,8 @@ class Experience extends Model
 
         if (empty($results)) {
             foreach ($params['projects'] as $project) {
-                $sql = 'INSERT INTO experience_has_project (experience_id, project_id)
-                  VALUES (:experience_id, :project_id)';
+                $sql = "INSERT INTO $this->linkTable (experience_id, project_id)
+                  VALUES (:experience_id, :project_id)";
                 $query = $this->db->prepare($sql);
                 $query->execute([
                     ':experience_id'    => $params['id'],
@@ -172,8 +180,8 @@ class Experience extends Model
         }
         else {
             foreach ($results as $result) {
-                $sql = 'DELETE FROM experience_has_project
-                  WHERE experience_id = :experience_id AND project_id = :project_id';
+                $sql = "DELETE FROM $this->linkTable
+                  WHERE experience_id = :experience_id AND project_id = :project_id";
                 $query = $this->db->prepare($sql);
                 $query->execute([
                     ':experience_id'    => $params['id'],
@@ -182,8 +190,8 @@ class Experience extends Model
             }
 
             foreach ($params['projects'] as $project) {
-                $sql = 'INSERT INTO experience_has_project (experience_id, project_id)
-                      VALUES (:experience_id, :project_id)';
+                $sql = "INSERT INTO $this->linkTable (experience_id, project_id)
+                      VALUES (:experience_id, :project_id)";
                 $query = $this->db->prepare($sql);
                 $query->execute([
                     ':experience_id'    => $params['id'],
@@ -203,12 +211,12 @@ class Experience extends Model
      * @return array
      */
     public function delete($id) {
-        $sql = 'DELETE FROM experience WHERE id= :id';
+        $sql = "DELETE FROM $this->table WHERE id= :id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'   => $id
         ]);
-        $sql = 'DELETE FROM experience_has_project WHERE experience_id = :id';
+        $sql = "DELETE FROM $this->linkTable WHERE experience_id = :id";
         $query = $this->db->prepare($sql);
         return $query->execute([
             ':id'   => $id

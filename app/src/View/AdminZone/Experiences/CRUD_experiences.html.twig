@@ -8,7 +8,7 @@
     {% block titrePage %}<h1 class="h1 text-center">Gestion des expériences</h1>{% endblock %}
 
     {% block boutonAjouter %}
-        <a href="/admin/gestiondesexperiences/ajouter" class="btn btn-success margin-bottom-3" id="add-button">
+        <a href="{{ path_for('addExperience') }}" class="btn btn-success margin-bottom-3" id="add-button">
             Ajouter une nouvelle expérience
         </a>
     {% endblock %}
@@ -51,10 +51,10 @@
                         </ul>
                     </td>
                     <td class="align-middle" id="td-edition">
-                        <a class="btn btn-success" href="/admin/gestiondesexperiences/modifier/{{ experience.id }}">Modifier</a>
+                        <a class="btn btn-success" href="{{ path_for('updateExperience', {'id' : experience.id }) }}">Modifier</a>
                     </td>
                     <td class="align-middle" id="td-edition">
-                        <a class="btn btn-danger" href="/admin/gestiondesexperiences/supprimer/{{ experience.id }}">Supprimer</a>
+                        <a class="btn btn-danger" href="{{ path_for('deleteExperience', {'id' : experience.id }) }}">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

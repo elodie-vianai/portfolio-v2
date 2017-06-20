@@ -6,7 +6,8 @@ use Portfolio\Portfolio\Model;
 
 class Formation extends Model
 {
-    protected $table = 'formation';
+    protected $table            = 'formation';
+    protected $departmentTable  = 'departement';
 
 
 #region /******************************* METHOD : get all educations  ***************************************************************/
@@ -17,9 +18,9 @@ class Formation extends Model
      */
     public function getAll()
     {
-        $sql = 'SELECT formation.*, departement.code FROM formation 
-          JOIN departement ON formation.dep_id = departement.id_dep
-          ORDER BY formation.end_at DESC';
+        $sql = "SELECT $this->table.*, $this->departmentTable.code FROM $this->table
+          JOIN $this->departmentTable ON $this->table.dep_id = $this->departmentTable.id_dep
+          ORDER BY $this->table.end_at DESC";
         $query = $this->db->prepare($sql);
         $query->execute();
         $temp = $query->fetchAll();
@@ -44,8 +45,10 @@ class Formation extends Model
      * @return array
      */
     public function getOne($id) {
-        $sql = 'SELECT formation.* FROM formation
-            INNER JOIN departement ON formation.dep_id = departement.id_dep WHERE formation.id= :id';
+        $sql = "SELECT $this->table.* FROM $this->table
+            INNER JOIN $this->departmentTable 
+            ON $this->table.dep_id = $this->departmentTable.id_dep 
+            WHERE $this->table.id= :id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'   => $id
@@ -65,7 +68,8 @@ class Formation extends Model
      * @return array
      */
     public function add($params) {
-        $sql = 'SELECT formation.name, formation.begin_at FROM formation WHERE name= :name';
+        $sql = "SELECT $this->table.name, $this->table.begin_at FROM $this->table 
+        WHERE name= :name";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name'   => $params['name']
@@ -79,8 +83,8 @@ class Formation extends Model
             if (empty($params['end_at'])) {
                 $params['end_at'] = '9999-01-01';
             }
-            $sql = 'INSERT INTO formation(name, type, etablissement, ville, begin_at, end_at, image_path, mention, dep_id)
-                VALUES (:name, :type, :etablissement, :ville, :begin_at, :end_at, :image_path, :mention, :dep_id)';
+            $sql = "INSERT INTO $this->table(name, type, etablissement, ville, begin_at, end_at, image_path, mention, dep_id)
+                VALUES (:name, :type, :etablissement, :ville, :begin_at, :end_at, :image_path, :mention, :dep_id)";
             $query = $this->db->prepare($sql);
             return $query->execute([
                 ':name'             => $params['name'],
@@ -98,6 +102,7 @@ class Formation extends Model
 #endregion
 
 
+
 #region /******************************* METHOD : update an education in the database ***********************************/
     /**
      * Update an education which is in the database.
@@ -109,9 +114,9 @@ class Formation extends Model
         if (empty($params['end_at'])) {
             $params['end_at'] = '9999-01-01';
         }
-        $sql = 'UPDATE formation SET name = :name, type = :type, etablissement = :etablissement, ville = :ville,
+        $sql = "UPDATE $this->table SET name = :name, type = :type, etablissement = :etablissement, ville = :ville,
             begin_at = :begin_at, end_at = :end_at, image_path = :image_path, mention = :mention, dep_id = :dep_id
-            WHERE id= :id';
+            WHERE id= :id";
         $query = $this->db->prepare($sql);
         return $query->execute([
             ':name'             => $params['name'],
@@ -137,7 +142,7 @@ class Formation extends Model
      * @return array
      */
     public function delete($id) {
-        $sql = 'DELETE FROM formation WHERE id= :id';
+        $sql = "DELETE FROM $this->table WHERE id= :id";
         $query = $this->db->prepare($sql);
         return $query->execute([
             ':id'   => $id

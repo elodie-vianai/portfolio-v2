@@ -29,8 +29,8 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.roles }}</td>
                     <td class="text-center">
-                        <a id="deleteButton" class="btn btn-danger" href="/admin/gestiondesutilisateurs/supprimer/{{ user.id }}">Supprimer</a>
-                        <a class="btn btn-success" href="/admin/gestiondesutilisateurs/modifier/{{ user.id }}">Modifier</a>
+                        <a id="deleteButton" class="btn btn-danger" href="{{ path_for('updateUser', {'id' : user.id }) }}">Supprimer</a>
+                        <a class="btn btn-success" href="{{ path_for('deleteUser', {'id' : user.id }) }}">Modifier</a>
                     </td>
                 </tr>
             {% endfor %}

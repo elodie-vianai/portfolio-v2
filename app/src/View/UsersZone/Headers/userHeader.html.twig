@@ -2,7 +2,7 @@
     <header  id="header">
         <div class="row">
             <div class="col-3" id="logo">
-                <a href="/user">
+                <a href="{{ path_for('userHomepage') }}">
                     <img src="/img/logos/WA.png" alt="logo-WA" id="WALogo"/>
                     <br/>
                     <img src="/img/logos/WA-text.png" alt="Web-atrio" id="WAText">
@@ -13,16 +13,16 @@
                     <div class="navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a href="/user" class="nav-link">Accueil<span class="sr-only">(current)</span></a>
+                                <a href="{{ path_for('userHomepage') }}" class="nav-link">Accueil<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/user/experiences" class="nav-link">Expériences</a>
+                                <a href="{{ path_for('userExperiences') }}" class="nav-link">Expériences</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/user/formation" class="nav-link">Formation</a>
+                                <a href="{{ path_for('userFormations') }}" class="nav-link">Formation</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/user/competences" class="nav-link">Compétences</a>
+                                <a href="{{ path_for('userSkills') }}" class="nav-link">Compétences</a>
                             </li>
                         </ul>
                         <div class="navbar-nav">
@@ -30,11 +30,11 @@
                                 <strong>
                                     Bonjour,
                                     <em>
-                                        <a href="/user/moncompte" id="myusername">{{ user.username }}</a>
+                                        <a href="{{ path_for('my_account') }}" id="myusername">{{ user.username }}</a>
                                     </em>
                                 </strong>
                                 <br>
-                                <a href="/disconnect">Déconnexion</a>
+                                <a href="{{ path_for('logout') }}">Déconnexion</a>
                             </p>
                         </div>
                     </div>

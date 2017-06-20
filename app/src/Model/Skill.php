@@ -7,6 +7,7 @@ use Portfolio\Portfolio\Model;
 class Skill extends Model
 {
     protected $table = 'skill';
+    protected $linkTable = 'project_has_technology';
 
 
 #region /******************************* METHOD : get many skills **************************************************/
@@ -17,7 +18,7 @@ class Skill extends Model
      * @return array
      */
     public function getAll() {
-        $sql = 'SELECT skill.* FROM skill ORDER BY skill.name ASC';
+        $sql = "SELECT $this->table.* FROM $this->table ORDER BY name ASC";
         $query = $this->db->prepare($sql);
         $query->execute();
         $results = $query->fetchAll();
@@ -33,8 +34,8 @@ class Skill extends Model
      * @return array
      */
     public function getTechnoProject($id_project) {
-        $sql = 'SELECT * FROM project_has_technology RIGHT JOIN skill ON skill_id = skill.id 
-          WHERE project_id= :id';
+        $sql = "SELECT * FROM $this->linkTable RIGHT JOIN $this->table ON skill_id = skill.id 
+          WHERE project_id= :id";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'   => $id_project
@@ -54,7 +55,7 @@ class Skill extends Model
      * @return array
      */
     public function getOne($param) {
-        $sql = 'SELECT * FROM skill WHERE id= :id OR name= :name';
+        $sql = "SELECT $this->table.* FROM $this->table WHERE id= :id OR name= :name";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':id'   => $param,
@@ -74,7 +75,7 @@ class Skill extends Model
      * @return array
      */
     public function add($params) {
-        $sql = 'SELECT skill.* FROM skill WHERE skill.name= :name';
+        $sql = "SELECT $this->table.* FROM $this->table WHERE $this->table.name= :name";
         $query = $this->db->prepare($sql);
         $query->execute([
             ':name' => $params['name']
@@ -86,7 +87,8 @@ class Skill extends Model
             $tabError['error'] = 'Erreur : cette technologie existe déjà dans la base de données';
             return $tabError;
         } else {
-            $sql = 'INSERT INTO skill(name, level, category, image_path) VALUES (:name, :level, :category, :image_path)';
+            $sql = "INSERT INTO $this->table(name, level, category, image_path) 
+              VALUES (:name, :level, :category, :image_path)";
             $query = $this->db->prepare($sql);
             return $query->execute([
                 ':name'         => $params['name'],
@@ -107,7 +109,9 @@ class Skill extends Model
      * @return array
      */
     public function update($params) {
-        $sql = 'UPDATE skill SET name = :name, level = :level, category = :category, image_path = :image_path WHERE id= :id';
+        $sql = "UPDATE $this->table 
+          SET name = :name, level = :level, category = :category, image_path = :image_path 
+          WHERE id= :id";
         $query = $this->db->prepare($sql);
         return $query->execute([
             ':name'         => $params['name'],
@@ -128,7 +132,7 @@ class Skill extends Model
      * @return array
      */
     public function delete($id) {
-        $sql = 'DELETE FROM skill WHERE id= :id';
+        $sql = "DELETE FROM $this->table WHERE id= :id";
         $query = $this->db->prepare($sql);
         return $query->execute([
             ':id'   => $id
