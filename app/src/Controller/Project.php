@@ -6,6 +6,7 @@ use Portfolio\Portfolio\Controller;
 use Portfolio\Portfolio\Flash;
 use Portfolio\Model\Project as ProjectModel;
 use Portfolio\Model\Skill as SkillModel;
+use Portfolio\Model\Experience as ExperienceModel;
 use Portfolio\Portfolio\Validator;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -20,18 +21,28 @@ class Project extends Controller
      * @param Response $response
      * @return Response
      */
-    public function projectDetail (Request $request, Response $response,$args) {
+    public function projectDetail(Request $request, Response $response, $args)
+    {
         $project_model = new ProjectModel($this->container);
         $project = $project_model->getOne($args['id']);
         $skill_model = new SkillModel($this->container);
         $skills = $skill_model->getTechnoProject($args['id']);
+        $experience_model = new ExperienceModel($this->container);
+        $experience = $experience_model->getExperienceProject($project['id']);
+        if (!empty($experience)){
+            $experience['realisation'] = 'Réalisation professionnelle';
+        }
+        else {
+            $experience['realisation'] = 'Réalisation personnelle';
+        }
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         } else {
             $user = '';
         }
+//        var_dump($experience);die;
         return $this->render($response, 'UsersZone/projectDetail.html.twig',
-            ['project' => $project, 'skills' => $skills, 'user'=>$user]);
+            ['project' => $project, 'skills' => $skills, 'experience'=>$experience, 'user' => $user]);
     }
     #endregion
 
@@ -44,8 +55,9 @@ class Project extends Controller
      * @param Response $response
      * @return Response
      */
-    public function crud (Request $request, Response $response) {
-        $project_model   = new ProjectModel($this->container);
+    public function crud(Request $request, Response $response)
+    {
+        $project_model = new ProjectModel($this->container);
         $array_projects = $project_model->getAll();
         $skill_model = new SkillModel($this->container);
         $projects = [];
@@ -56,7 +68,7 @@ class Project extends Controller
         }
         //var_dump($projects);die;
         return $this->render($response, 'AdminZone/Projects/CRUD_projects.html.twig',
-            ['projets'=>$projects]);
+            ['projets' => $projects]);
     }
 #endregion
 
@@ -69,8 +81,9 @@ class Project extends Controller
      * @param Response $response
      * @return Response
      */
-    public function add (Request $request, Response $response) {
-       $project_model = new ProjectModel($this->container);
+    public function add(Request $request, Response $response)
+    {
+        $project_model = new ProjectModel($this->container);
         $projects = $project_model->getAll();
 
         $skill_model = new SkillModel($this->container);
@@ -113,7 +126,7 @@ class Project extends Controller
             Flash::set('errors', $errors);
         }
         return $this->render($response, 'AdminZone/Projects/form.html.twig',
-            ['skills'=>$skills]);
+            ['skills' => $skills]);
     }
 #endregion
 
@@ -126,19 +139,20 @@ class Project extends Controller
      * @param Response $response
      * @return Response
      */
-    public function update(Request $request, Response $response, $args) {
+    public function update(Request $request, Response $response, $args)
+    {
         // récupération du routeur pour pouvoir rediriger
         $router = $this->container->get('router');
 
         // initialisation du POST + préparation pour récupérer les données
         $_POST = $request->getParsedBody();
 
-        $project_model      = new ProjectModel($this->container);
-        $skill_model   = new SkillModel($this->container);
+        $project_model = new ProjectModel($this->container);
+        $skill_model = new SkillModel($this->container);
 
-        $project                    = $project_model->getOne($args['id']);
-        $skills                     = $skill_model->getAll();
-        $project['technologies']    = $skill_model->getTechnoProject($project['id']);
+        $project = $project_model->getOne($args['id']);
+        $skills = $skill_model->getAll();
+        $project['technologies'] = $skill_model->getTechnoProject($project['id']);
 
 
         $project['update'] = true;
@@ -171,7 +185,7 @@ class Project extends Controller
             Flash::set('errors', $errors);
         }
         return $this->render($response, 'AdminZone/Projects/form.html.twig',
-            ['project'=>$project, 'skills'=>$skills]);
+            ['project' => $project, 'skills' => $skills]);
     }
 #endregion
 
@@ -184,7 +198,8 @@ class Project extends Controller
      * @param Response $response
      * @return Response
      */
-    public function delete(Request $request, Response $response, $args) {
+    public function delete(Request $request, Response $response, $args)
+    {
         // récupération du routeur pour pouvoir rediriger
         $router = $this->container->get('router');
 

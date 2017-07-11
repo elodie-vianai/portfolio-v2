@@ -60,6 +60,25 @@ class Experience extends Model
         return $query->fetch(\PDO::FETCH_ASSOC);
     }
     #endregion
+
+    #region --> get an experience based on a project
+    /**
+     * Get an experience based on the id of a project.
+     *
+     * @param $id_project
+     * @return mixed
+     */
+    public function getExperienceProject($id_project) {
+        $sql = 'SELECT * FROM experience 
+          JOIN experience_has_project ON experience_has_project.experience_id = experience.id
+          WHERE experience_has_project.project_id = :id_project';
+        $query = $this->db->prepare($sql);
+        $query->execute([
+            ':id_project'   => $id_project
+        ]);
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    #endregion
 #endregion
 
 
