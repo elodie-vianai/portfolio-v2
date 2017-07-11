@@ -48,6 +48,18 @@
 
     <div class="row">
         <div class="col-12">
+            <p>
+                <span class="font-weight-bold">Cadre de réalisation :</span>
+                {{ experience.realisation }}
+                {% if experience.realisation == 'Réalisation professionnelle' %}
+                     dans le cadre de mon {{ experience.0.contrat | lower }} avec {{ experience.0.entreprise }}.
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
             <p><span class="font-weight-bold">Description du projet :</span> {{ project.description }}</p>
             <br>
         </div>
