@@ -63,7 +63,7 @@ class FormationsController
             $dateF = date_parse($formation['end_at']);
             $dateF = $dateF['year'];
             $mention = $formation['type'];
-            if ($mention == 'Formation') {
+            if ($mention == 'Training') {
                 $formation['date'] = $dateD . ' - ' . $dateF;
             }
             else {

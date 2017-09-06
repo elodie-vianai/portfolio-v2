@@ -9,7 +9,7 @@
 namespace Portfolio\Models\Entities;
 
 
-class Technology
+class Skill
 {
 #region /************************************************** ATTRIBUTES **************************************************/
     protected $id;
@@ -21,7 +21,7 @@ class Technology
 
 #region /************************************************ CONSTRUCTORS **************************************************/
     /**
-     * Technology constructor.
+     * Skill constructor.
      * @param array $data
      */
     public function __construct(array $data)

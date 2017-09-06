@@ -85,52 +85,52 @@ $app->group('/admin', function () {
     $this->get('/playlist/{idPlaylist}/{idTrack}', 'Portfolio\Controller\PagesController:TrackAction');
 
     #region --> Gestion des expériences
-        //CRUD
+    //CRUD
     $this->get('/gestiondesexperiences', 'Portfolio\Controller\PagesController:CRUDExperiences');
-        // Ajouter une nouvelle expérience
+    // Ajouter une nouvelle expérience
     $this->get('/gestiondesexperiences/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutExperience');
     $this->post('/gestiondesexperiences', 'Portfolio\Controller\PagesController:ajouterExperienceAction');
-        // Modifier une expérience
+    // Modifier une expérience
     $this->map(['get', 'post'], '/gestiondesexperiences/modifier', 'Portfolio\Controller\PagesController:modifierExperienceAction');
-        // Supprimer une expérience
+    // Supprimer une expérience
     $this->get('/gestiondesexperiences/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerExperienceAction');
     #endregion
 
     #region --> Gestion des formations
-        //CRUD
+    //CRUD
     $this->get('/gestiondesformations', 'Portfolio\Controller\PagesController:CRUDFormations');
-        // Ajouter une nouvelle formation
+    // Ajouter une nouvelle formation
     $this->get('/gestiondesformations/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutFormation');
     $this->post('/gestiondesformations', 'Portfolio\Controller\PagesController:ajouterFormationAction');
-        // Modifier une formation
+    // Modifier une formation
     $this->map(['get', 'post'], '/gestiondesformations/modifier', 'Portfolio\Controller\PagesController:modifierFormationAction');
-        // Supprimer une formation
+    // Supprimer une formation
     $this->get('/gestiondesformations/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerFormationAction');
     #endregion
 
     #region --> Gestion des projets
-        //CRUD
+    //CRUD
     $this->get('/gestiondesprojets', 'Portfolio\Controller\PagesController:CRUDProjets');
-        // Détail projet
+    // Détail projet
     $this->get('/gestiondesprojets/detail_projet', 'Portfolio\Controller\PagesController:AdmindetailProjet');
-        // Ajouter un nouveau projet
+    // Ajouter un nouveau projet
     $this->get('/gestiondesprojets/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutProjet');
     $this->post('/gestiondesprojets', 'Portfolio\Controller\PagesController:ajouterProjetAction');
-        // Modifier un projet
+    // Modifier un projet
     $this->map(['get', 'post'], '/gestiondesprojets/modifier', 'Portfolio\Controller\PagesController:modifierProjetAction');
-        // Supprimer un projet
+    // Supprimer un projet
     $this->get('/gestiondesprojets/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerProjetAction');
 #endregion
 
     #region --> Gestion des technologies
-        //CRUD
+    //CRUD
     $this->get('/gestiondestechnologies', 'Portfolio\Controller\PagesController:CRUDTechnologies');
-        // Ajouter une nouvelle technologie
+    // Ajouter une nouvelle technologie
     $this->get('/gestiondestechnologies/ajouter', 'Portfolio\Controller\PagesController:formulaireAjoutTechnologie');
     $this->post('/gestiondestechnologies', 'Portfolio\Controller\PagesController:ajouterTechnologieAction');
-        // Modifier une technologie
+    // Modifier une technologie
     $this->map(['get', 'post'], '/gestiondestechnologies/modifier', 'Portfolio\Controller\PagesController:modifierTechnologieAction');
-        // Supprimer une technologie
+    // Supprimer une technologie
     $this->get('/gestiondestechnologies/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerTechnologieAction');
     #endregion
 
@@ -142,7 +142,13 @@ $app->group('/admin', function () {
     // Supprimer un utilisateur
     $this->get('/gestiondesutilisateurs/supprimer/{id}', 'Portfolio\Controller\PagesController:supprimerUtilisateurAdminAction');
     #endregion
-});
+})
+    /*->add(function ($request, Response $respones, $next) {
+        if(!empty($_SESSION['user'])) {
+            return $next; // faire la redirection
+        }
+    return $response-> //redirect ou redirect vers page 403
+    })*/;
 #endregion
 
 $app->get('/disconnect', 'Portfolio\Controller\PagesController:deconnexionAction');

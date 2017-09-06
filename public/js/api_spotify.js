@@ -77,7 +77,7 @@ $(document).ready(function () {
     };
 
     /******************************* DISPLAY OR HIDE PLAY/PAUSE BUTTON **************************************************/
-    $('.control').on('click');
+    /*$('.control').on('click');*/
 
     var play = function (e) {
         e.preventDefault();

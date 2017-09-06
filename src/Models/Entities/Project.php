@@ -23,7 +23,7 @@ class Project
 
 #region /************************************************ CONSTRUCTORS **************************************************/
     /**
-     * Formation constructor.
+     * Training constructor.
      * @param array $data
      */
     public function __construct(array $data)

@@ -9,7 +9,7 @@
 namespace Portfolio\Models;
 
 use function FastRoute\TestFixtures\empty_options_cached;
-use Portfolio\Models\Entities\Formation;
+use Portfolio\Models\Entities\Training;
 
 require_once 'Database.php';
 

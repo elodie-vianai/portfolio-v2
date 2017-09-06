@@ -9,7 +9,7 @@
 namespace Portfolio\Models;
 
 
-use Portfolio\Models\Entities\Technology;
+use Portfolio\Models\Entities\Skill;
 
 class TechnologiesModel extends Database
 {

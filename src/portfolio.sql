@@ -212,11 +212,11 @@ CREATE TABLE `formation` (
 
 INSERT INTO `formation` (`id`, `name`, `type`, `etablissement`, `ville`, `begin_at`, `end_at`, `logo`, `mention`, `dep_id`) VALUES
 (1, 'Baccalauréat général, série Littéraire', 'Diplôme', 'Lycée Jean-Pierre Vernant', 'Pins-Justaret', '2009-09-02', '2010-07-02', '', 'P', 32),
-(2, 'Licence Langues, Littérature et Civilisation Étrangères et Régionales (LLCER) anglais-occitan', 'Formation', 'Université Toulouse 2 Le Mirail', 'Toulouse', '2010-10-17', '2011-05-27', 'logoMirail.png', 'P', 32),
+(2, 'Licence Langues, Littérature et Civilisation Étrangères et Régionales (LLCER) anglais-occitan', 'Training', 'Université Toulouse 2 Le Mirail', 'Toulouse', '2010-10-17', '2011-05-27', 'logoMirail.png', 'P', 32),
 (7, 'Licence d\'Histoire', 'Diplôme', 'Université Toulouse Le Mirail', 'Toulouse', '2011-09-26', '2014-05-30', 'logoMirail.png', 'P', 32),
 (9, 'Licence professionnelle Image et Histoire', 'Diplôme', 'Université Toulouse  Jean Jaurès', 'Toulouse', '2014-09-15', '2015-05-29', 'logoUT2J.png', 'AB', 32),
 (10, 'Maîtrise d\'Information-Documentation', 'Diplôme', 'Université Toulouse 2 Jean Jaurès', 'Toulouse', '2015-09-07', '2016-06-10', 'logoUT2J.png', 'AB', 32),
-(12, 'Master 2 Ingénierie de l\'Information Numérique, M2 I2N', 'Formation', 'Université Toulouse 2 Jean Jaurès', 'Toulouse', '2016-09-05', '2017-04-28', 'logoUT2J.png', 'P', 32);
+(12, 'Master 2 Ingénierie de l\'Information Numérique, M2 I2N', 'Training', 'Université Toulouse 2 Jean Jaurès', 'Toulouse', '2016-09-05', '2017-04-28', 'logoUT2J.png', 'P', 32);
 
 -- --------------------------------------------------------
 

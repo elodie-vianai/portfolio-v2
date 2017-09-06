@@ -9,7 +9,7 @@
 namespace Portfolio\Models\Entities;
 
 
-class Formation
+class Training
 {
 #region /************************************************** ATTRIBUTES **************************************************/
     protected $id;
@@ -28,7 +28,7 @@ class Formation
 
 #region /************************************************ CONSTRUCTORS **************************************************/
     /**
-     * Formation constructor.
+     * Training constructor.
      * @param array $data
      */
     public function __construct(array $data)
